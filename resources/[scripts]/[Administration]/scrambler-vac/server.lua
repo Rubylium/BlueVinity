@@ -253,7 +253,7 @@ RegisterServerEvent('scrambler:GodModDetected')
 	
 	end)
 
-	RegisterServerEvent('scrambler:injectionDetected')
+RegisterServerEvent('scrambler:injectionDetected')
 AddEventHandler('scrambler:injectionDetected', function(name, source, isServerEvent)
 
 	local eventType = 'client'
@@ -324,8 +324,77 @@ AddEventHandler('scrambler:injectionDetected', function(name, source, isServerEv
 	end
 
 	DropPlayer(source, BanMessageLuaInjection)
-
 end)
+
+
+RegisterServerEvent('scrambler:ArmeDetect')
+AddEventHandler('scrambler:ArmeDetect', function(source)
+
+	local eventType = 'client'
+	local s = source
+	nom = GetPlayerName(source)
+
+	if isServerEvent then
+		eventType = 'server'
+	end
+
+	print('===========================================')
+	print(' ')
+	print(' ')
+	print(' ')
+	print(' ')
+	print('^1Player id ^0[' .. source .. '] ^1à essayer d\'utiliser un event de type: ^0' .. eventType .. ' ^1 | nom de l\'event : ^0[' .. name .. ']')
+	print(' ')
+	print(' ')
+	print(' ')
+	print(' ')
+	print('===========================================')
+	SendWebhookMessageStaff(webhook,"**Arme black list** \n```diff\nJoueurs: "..nom.."\nID du joueurs: "..source.."\n\n+ Anticheat Flags: ( Le joueur à été définitivement banni du serveur. [Ban ID: #".. platenum .."]. )```")
+	local _source = source
+	local xPlayer  = ESX.GetPlayerFromId(_source)  
+	local identifier
+	local license
+	local liveid    = ""
+	local xblid     = ""
+	local discord   = ""
+	local playerip
+	local duree = 0
+	local reason = BanMessageLuaInjection
+	local targetplayername = xPlayer.name
+	local sourceplayername = 'Ruby Anti Cheat Ban'
+		
+	if reason == "" then
+		reason = ('no_reason')
+	end
+	
+	for k,v in ipairs(GetPlayerIdentifiers(_source))do
+		if string.sub(v, 1, string.len("steam:")) == "steam:" then
+			identifier = v
+		elseif string.sub(v, 1, string.len("license:")) == "license:" then
+			license = v
+		elseif string.sub(v, 1, string.len("live:")) == "live:" then
+			liveid = v
+		elseif string.sub(v, 1, string.len("xbl:")) == "xbl:" then
+			xblid  = v
+		elseif string.sub(v, 1, string.len("discord:")) == "discord:" then
+			discord = v
+		elseif string.sub(v, 1, string.len("ip:")) == "ip:" then
+			playerip = v
+		end
+	end
+	if duree > 0 then
+		local permanent = 0
+		ban(_source,identifier,license,liveid,xblid,discord,playerip,targetplayername,sourceplayername,duree,reason,permanent)
+		DropPlayer(_source, reason)
+	else
+		local permanent = 1
+		ban(_source,identifier,license,liveid,xblid,discord,playerip,targetplayername,sourceplayername,duree,reason,permanent)
+		DropPlayer(_source, reason)
+	end
+
+	DropPlayer(source, BanMessageLuaInjection)
+end)
+
 RegisterServerEvent('scrambler:CheatDetected')
 AddEventHandler('scrambler:CheatDetected', function(source, avert)
 
