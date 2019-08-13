@@ -24,3 +24,20 @@ AddEventHandler("GoFast:VenteDuVehicule", function(bonus)
      xPlayer.addMoney(PrixVente)
      TriggerClientEvent('esx:showAdvancedNotification', source, 'GoFast', '~b~Récompense GoFast', '✅~w~Vous avez gagné ~g~'..PrixVente..'$', 'CHAR_LESTER_DEATHWISH', 3)
 end)
+
+RegisterServerEvent("GoFast:MessagePolice")
+AddEventHandler("GoFast:MessagePolice", function()
+
+	local xPlayers	= ESX.GetPlayers()
+
+	for i=1, #xPlayers, 1 do
+		local xPlayer = ESX.GetPlayerFromId(xPlayers[i])
+          if xPlayer.job.name == 'police' then
+               Citizen.Wait(10*1000)
+               TriggerClientEvent('esx:showAdvancedNotification', xPlayers[i], "Indic LSPD", "~b~Message de l'indic", "D'après mes infos, un GoFast à commencé, rester attentif!", "CHAR_JOSEF", 3)
+               print('Message GoFast envoyé à la police')
+		end
+	end
+	
+
+end)
