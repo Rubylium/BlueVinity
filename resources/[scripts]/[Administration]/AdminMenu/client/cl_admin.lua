@@ -1010,6 +1010,10 @@ Citizen.CreateThread(function()
 									SetBlipSprite(blip, 225)
 									SetBlipColour(blip, 52)
 									ShowHeadingIndicatorOnBlip(blip, false)
+								elseif plate == 'GOFAST' then
+									SetBlipSprite(blip, 225)
+									SetBlipColour(blip, 49)
+									ShowHeadingIndicatorOnBlip(blip, false)
 								else
 									if blipSprite ~= 225 then
 										SetBlipSprite(blip, 225)
