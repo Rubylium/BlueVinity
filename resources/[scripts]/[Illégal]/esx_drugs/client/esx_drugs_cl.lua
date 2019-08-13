@@ -469,10 +469,10 @@ Citizen.CreateThread(function()
 							TriggerEvent('skinchanger:getSkin', function(skin)
 								local clothesSkin = {
 									['bags_1'] = 41, ['bags_2'] = 0,
-									['tshirt_1'] = 62, ['tshirt_2'] = 0,
-									['torso_1'] = 67, ['torso_2'] = 0,
+									['tshirt_1'] = 62, ['tshirt_2'] = 2,
+									['torso_1'] = 67, ['torso_2'] = 2,
 									['arms'] = 88,
-									['pants_1'] = 40, ['pants_2'] = 0,
+									['pants_1'] = 40, ['pants_2'] = 2,
 									['shoes_1'] = 24, ['shoes_2'] = 0,
 									['mask_1'] = 46, ['mask_2'] = 0,
 									['bproof_1'] = 0,
