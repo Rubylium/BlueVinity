@@ -1,0 +1,46 @@
+
+
+<link rel="stylesheet" type="text/css" href="1.css">
+<link href="https://fonts.googleapis.com/css?family=Montserrat|Open+Sans" rel="stylesheet">
+</head>
+<body>
+<div class="Shape"> 
+	<div style="height: 80%;width: 60%;margin-left: 10%;margin-top: 10%;">
+        <img src="logo.png" height="20%">
+        <div class="ShapeStyle"></div>
+        <div style="margin-top:10%"><a style="font-size:30px;font-family: 'Montserrat', sans-serif;">Bienvenue sur le serveur rework</a><br><br><a class="Button">BETA OUVERTE</a><a" class="Button">discord.gg/MKZHvf2</a></div>
+    </div>	
+</div>
+<div class="video-background">
+      <iframe class="videoContainer__video" height="100%" width="130%" src="https://www.youtube.com/embed/SefG0gfxK6s?controls=0&amp;showinfo=0&amp;rel=0&amp;autoplay=1&amp;loop=1&amp;mute=0" frameborder="0"></iframe>
+ </div>
+ </body>
+    <script>window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments); } gtag('js', new Date()); gtag('config', 'UA-73378277-10'); </script>
+    <audio id="leson" src="music1/music.ogg" autoplay="true" hidden="true" loop="true"/>
+		<script>
+	
+
+    var play = false;
+    var myAudio = document.getElementById("leson");
+    
+    myAudio.volume = 0.3;
+	
+	
+    function onKeyDown(event) {
+            switch (event.keyCode) {
+                case 32: //SpaceBar                    
+                    if (play) {
+                        myAudio.pause();
+                        play = false;
+                    } else {
+                        myAudio.play();
+                        play = true;
+                    }
+                    break;
+            }
+      return false;
+    }
+    window.addEventListener("keydown", onKeyDown, false);
+    </script>
+</body>
+</html>

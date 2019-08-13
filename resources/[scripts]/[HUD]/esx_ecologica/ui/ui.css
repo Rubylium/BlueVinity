@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway|Roboto');
+
+
+body {
+  overflow: hidden;
+}
+
+.container{
+  position: relative;
+  float: left;
+  margin-top: 3%;
+  color: #fff;
+  width: 200px;
+  margin-top: 115px;
+  margin-left: 1750px;
+}
+#emprego{
+  position: fixed;
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.8px;
+  margin-top: 10px;
+  text-align: center;
+  text-transform: uppercase;
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+.status{
+  position: absolute;
+  bottom: 5px;
+  left: 5px;
+  font-size: 12px;
+  font-family: "Purista", sans-serif;
+}
+.hunger{
+  position: absolute;
+  bottom: 1px;
+  left: 20px;
+}
+.thirst{
+  position: absolute;
+  bottom: 1px;
+  left: 17px;
+}
+#top{
+  position: absolute;
+  margin-left: 45px;
+  bottom: -.3px;
+}
+#flat{
+  height: 15px;
+  width: 15px;
+  margin-bottom:-2px;
+}
+#hora{
+  font-family: "Purista", sans-serif;
+  font-size:2rem;
+  float: right;
+  margin-top: 25px;
+  margin-left: 40px;
+}
