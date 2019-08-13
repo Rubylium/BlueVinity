@@ -259,6 +259,7 @@ function FinDeGoFast()
 		TriggerServerEvent("GoFast:VenteDuVehicule", bonus)
 		ESX.Game.DeleteVehicle(vehicle)
 		PlaySoundFrontend(-1, "MP_WAVE_COMPLETE", "HUD_FRONTEND_DEFAULT_SOUNDSET", 1)
+		GoFastEnCours = false
 	--else
 	--	ESX.ShowAdvancedNotification("GoFast", "~b~Livraison GoFast", "Hein ? C'est quoi ça ? C'est pas la voiture du GoFast !", "CHAR_LESTER_DEATHWISH", 8)
 	--	PlaySoundFrontend(-1, "CHECKPOINT_MISSED", "HUD_MINI_GAME_SOUNDSET", 1)
