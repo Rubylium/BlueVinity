@@ -88,17 +88,19 @@ function DebutMissionMenu()
 	local elements = {}
 
 	table.insert(elements, { ["label"] = "Commencer un GoFast", ["value"] = "start" })
-
-	ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'sell_veh',
+	
+	ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'GoFast',
 		{
 			title    = "Menu GoFast",
 			align    = 'top-right',
 			elements = elements
 		},
+		
 	function(data, menu)
 		local action = data.current.value
 
 		if action == "start" then
+			ESX.UI.Menu.CloseAll()
 			AnimDebutMission()
 		end
 	end, function(data, menu)
@@ -171,7 +173,7 @@ function AnimDebutMission()
 	
 	ClearScreen()
 	Citizen.Wait(0)
-	DoScreenFadeOut(0)
+	--DoScreenFadeOut(0)
 	ESX.Game.Teleport(ped, SpawnVehiculeJoueur.coords, cb)
 	-- Shut down the NUI loading screen.
 	ShutdownLoadingScreenNui()
@@ -179,7 +181,7 @@ function AnimDebutMission()
 	ClearScreen()
 	Citizen.Wait(0)
 	ClearScreen()
-	DoScreenFadeIn(500)
+	--DoScreenFadeIn(500)
 	while not IsScreenFadedIn() do
 		Citizen.Wait(0)
 		ClearScreen()
@@ -221,8 +223,10 @@ function AnimDebutMission()
 	
 	-- Reset the draw origin, just in case (allowing HUD elements to re-appear correctly)
 	ClearDrawOrigin()
+	TriggerServerEvent("GoFast:MessagePolice")
 	GoFastBlips()
 	PlaySoundFrontend(-1, "BASE_JUMP_PASSED", "HUD_AWARDS", 1)
+	
 end
 
 
