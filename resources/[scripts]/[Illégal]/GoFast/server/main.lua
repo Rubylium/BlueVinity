@@ -3,41 +3,14 @@ ESX = nil
 
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
--- Policier en ville
-
-function CountCops()
-	local xPlayers = ESX.GetPlayers()
-	CopsConnected = 0
-	for i=1, #xPlayers, 1 do
-		local xPlayer = ESX.GetPlayerFromId(xPlayers[i])
-		if xPlayer.job.name == 'police' then
-			CopsConnected = CopsConnected + 1
-		end
-	end
-	SetTimeout(120 * 1000, CountCops)
-end
-
-CountCops()
-
-Citizen.CreateThread(function()
-	while true do
-		Citizen.Wait(5000)
-		PrixVente = CopsConnected * 35
-		local r = math.random(100, 300) + PrixVente
-		PrixVente = r
-	end
-end)
-
 
 RegisterServerEvent("GoFast:VenteDuVehicule")
 AddEventHandler("GoFast:VenteDuVehicule", function(bonus)
-   --  local PrixVente = math.random(500, 1000)
+     local PrixVente = math.random(500, 1000)
      local _source = source
      local xPlayer = ESX.GetPlayerFromId(_source)
      if not xPlayer then return; end
-     local bonusFinal = tonumber(bonus)
-     
-     
+     local bonusFinal = bonus
      if bonus > 900 then
           TriggerClientEvent('esx:showAdvancedNotification', source, 'GoFast', '~b~Récompense GoFast', '🔧~w~Véhicule en parfait état ! Bonus de ~g~'..bonusFinal..'$', 'CHAR_LESTER_DEATHWISH', 3)
      elseif bonus > 600 then
@@ -47,7 +20,7 @@ AddEventHandler("GoFast:VenteDuVehicule", function(bonus)
      elseif bonus > 100 then
           TriggerClientEvent('esx:showAdvancedNotification', source, 'GoFast', '~b~Récompense GoFast', '🔧~w~Véhicule complétement abimé ! Bonus de ~g~'..bonusFinal..'$', 'CHAR_LESTER_DEATHWISH', 3)
      end
-     PrixVente = tonumber(PrixVente + bonusFinal)
+     PrixVente = PrixVente + bonusFinal
      xPlayer.addMoney(PrixVente)
      TriggerClientEvent('esx:showAdvancedNotification', source, 'GoFast', '~b~Récompense GoFast', '✅~w~Vous avez gagné ~g~'..PrixVente..'$', 'CHAR_LESTER_DEATHWISH', 3)
 end)
