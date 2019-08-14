@@ -186,9 +186,16 @@ function AnimDebutMission()
 			while not HasModelLoaded(917809321) do
 				Citizen.Wait(0)
 			end
+			
+			while spawn == false do
+				local spawn = ESX.Game.IsSpawnPointClear(SpawnVehicule.coords, 7)
+				Citizen.Wait(0)
+			end
+
 			local veh = CreateVehicle(917809321, SpawnVehicule.coords, 199.47, true, true)
 			SetVehicleNumberPlateText(veh, 'GOFAST')
 			SetVehicleEnginePowerMultiplier(veh, 2.0 * 20.0)
+			TaskEnterVehicle(ped, veh, 1000, -1, 1.0, 1, 0)
 			-- Création du blips pour livrer le véhicule
 			GoFastEnCours = true
 			-- Wait for the player switch to be completed (state 12).
@@ -205,7 +212,7 @@ function AnimDebutMission()
 	ClearDrawOrigin()
 	TriggerServerEvent("GoFast:MessagePolice")
 	GoFastBlips()
-	PlaySoundFrontend(-1, "BASE_JUMP_PASSED", "HUD_AWARDS", 1)
+	PlaySoundFrontend(-1, "Event_Start_Text", "GTAO_FM_Events_Soundset", 1)
 end
 
 
