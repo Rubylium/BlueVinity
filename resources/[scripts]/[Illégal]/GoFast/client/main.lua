@@ -17,7 +17,7 @@ local GoFastVente = {coords = vector3(-229.74, 6261.69, 31.489)}
 local GoFastEnCours = false
 local BlipsGoFast = nil
 
-local GoFastDejaFait = false
+
 
 
 
@@ -70,7 +70,6 @@ end)
 
 function DebutMissionMenu()
 	local elements = {}
-
 	table.insert(elements, { ["label"] = "Commencer un GoFast", ["value"] = "start" })
 	
 	ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'GoFast',
@@ -210,7 +209,6 @@ function AnimDebutMission()
 	TriggerServerEvent("GoFast:MessagePolice")
 	GoFastBlips()
 	PlaySoundFrontend(-1, "BASE_JUMP_PASSED", "HUD_AWARDS", 1)
-	
 end
 
 
@@ -249,3 +247,5 @@ function FinDeGoFast()
 		PlaySoundFrontend(-1, "CHECKPOINT_MISSED", "HUD_MINI_GAME_SOUNDSET", 1)
 	end
 end
+
+
