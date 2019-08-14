@@ -17,6 +17,8 @@ local GoFastVente = {coords = vector3(-229.74, 6261.69, 31.489)}
 local GoFastEnCours = false
 local BlipsGoFast = nil
 
+local GoFastDejaFait = false
+
 
 Citizen.CreateThread(function()
      while ESX == nil do
@@ -72,7 +74,12 @@ Citizen.CreateThread(function()
 				if dstCheck <= 50.0 then
 					ESX.Game.Utils.DrawText3D(GoFastVente.coords, "[E] Livrer le véhicule\n~r~Activitée illégal", 1.0)
 					if IsControlJustPressed(0, 38) then
-						FinDeGoFast()
+						if GoFastDejaFait then
+							ESX.ShowAdvancedNotification("GoFast", "~b~Livraison GoFast", "Aucun GoFast disponible pour le moment, revient plus tard.", "CHAR_LESTER_DEATHWISH", 8)
+							PlaySoundFrontend(-1, "CHECKPOINT_MISSED", "HUD_MINI_GAME_SOUNDSET", 1)
+						else
+							FinDeGoFast()
+						end
 					end
 				end
 			end
@@ -251,7 +258,7 @@ function FinDeGoFast()
 	local vehicle = GetVehiclePedIsIn( ped, false )
 	local plate = GetVehicleNumberPlateText(vehicle)
 	print(plate)
-	--if plate == 'GOFAST' then
+	if plate == ' GOFAST ' then
 		RemoveBlip(BlipsGoFast)
 		local playerPed = PlayerPedId()
 		local vehicle = GetVehiclePedIsIn(playerPed, false)
@@ -259,8 +266,14 @@ function FinDeGoFast()
 		TriggerServerEvent("GoFast:VenteDuVehicule", bonus)
 		ESX.Game.DeleteVehicle(vehicle)
 		PlaySoundFrontend(-1, "MP_WAVE_COMPLETE", "HUD_FRONTEND_DEFAULT_SOUNDSET", 1)
-	--else
-	--	ESX.ShowAdvancedNotification("GoFast", "~b~Livraison GoFast", "Hein ? C'est quoi ça ? C'est pas la voiture du GoFast !", "CHAR_LESTER_DEATHWISH", 8)
-	--	PlaySoundFrontend(-1, "CHECKPOINT_MISSED", "HUD_MINI_GAME_SOUNDSET", 1)
-	--end
+		GoFastDejaFait = true
+	else
+		ESX.ShowAdvancedNotification("GoFast", "~b~Livraison GoFast", "Hein ? C'est quoi ça ? C'est pas la voiture du GoFast !", "CHAR_LESTER_DEATHWISH", 8)
+		PlaySoundFrontend(-1, "CHECKPOINT_MISSED", "HUD_MINI_GAME_SOUNDSET", 1)
+	end
+end
+
+function GoFastDejaFait()
+	Wait(30*60000)
+	GoFastDejaFait = false
 end
