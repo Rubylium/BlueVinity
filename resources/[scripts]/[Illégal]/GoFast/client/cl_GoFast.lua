@@ -6,12 +6,9 @@ PlayerData = {}
 
 -- Coordonée pour le point de début de mission
 
-local PosX = 471.153
-local PosY = -3084.63
-local PosZ = 6.07
-local DebutMission = {coords = vector3(471.153, -3084.63, 6.07)}
-local SpawnVehicule = {coords = vector3(454.90, -3052.006, 6.06)}
-local SpawnVehiculeJoueur = {coords = vector3(452.64, -3050.59, 6.06)}
+local DebutMission = {coords = vector3(-60.254, -2518.02, 7.40)}
+local SpawnVehicule = {coords = vector3(-233.27, -2405.201, 6.001)}
+local SpawnVehiculeJoueur = {coords = vector3(-231.54, -2401.35, 6.001)}
 local GoFastVente = {coords = vector3(-229.74, 6261.69, 31.489)}
 
 local GoFastEnCours = false
@@ -30,8 +27,8 @@ Citizen.CreateThread(function()
 		local sleepThread = 500
 		local ped = PlayerPedId()
 		local pedCoords = GetEntityCoords(ped)
-		local dstCheck = GetDistanceBetweenCoords(pedCoords, PosX, PosY, PosZ, true)
-		if dstCheck <= 20.0 then
+		local dstCheck = GetDistanceBetweenCoords(pedCoords, DebutMission.coords, true)
+		if dstCheck <= 4.2 then
 			sleepThread = 5
 			if dstCheck <= 4.2 then
 				ESX.Game.Utils.DrawText3D(DebutMission.coords, "[E] Ouvrir le menu de ~g~GoFast\n~r~Activitée illégal", 1.0)
@@ -189,7 +186,7 @@ function AnimDebutMission()
 			while not HasModelLoaded(917809321) do
 				Citizen.Wait(0)
 			end
-			local veh = CreateVehicle(917809321, SpawnVehicule.coords, 335.26, true, true)
+			local veh = CreateVehicle(917809321, SpawnVehicule.coords, 199.47, true, true)
 			SetVehicleNumberPlateText(veh, 'GOFAST')
 			SetVehicleEnginePowerMultiplier(veh, 2.0 * 20.0)
 			-- Création du blips pour livrer le véhicule
