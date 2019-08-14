@@ -1,4 +1,5 @@
 ESX = nil
+local GoFastDejaFait = 0
 
 
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
