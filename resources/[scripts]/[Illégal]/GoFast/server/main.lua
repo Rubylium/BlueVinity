@@ -1,16 +1,40 @@
 ESX = nil
+local GoFastDejaFait = 0
 
 
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
+function CountCops()
+	local xPlayers = ESX.GetPlayers()
+	CopsConnected = 0
+	for i=1, #xPlayers, 1 do
+		local xPlayer = ESX.GetPlayerFromId(xPlayers[i])
+		if xPlayer.job.name == 'police' then
+			CopsConnected = CopsConnected + 1
+		end
+	end
+	SetTimeout(120 * 1000, CountCops)
+end
 
+CountCops()
+
+Citizen.CreateThread(function()
+	while true do
+		Citizen.Wait(5000)
+		PrixPolicierVente = CopsConnected * 50
+		local r = math.random(100, 300) + PrixPolicierVente
+		PrixVente = r
+	end
+end)
 RegisterServerEvent("GoFast:VenteDuVehicule")
 AddEventHandler("GoFast:VenteDuVehicule", function(bonus)
-     local PrixVente = math.random(500, 1000)
      local _source = source
      local xPlayer = ESX.GetPlayerFromId(_source)
      if not xPlayer then return; end
      local bonusFinal = bonus
+     if CopsConnected < 2 then
+          bonusFinal = bonusFinal / 2
+     end
      if bonus > 900 then
           TriggerClientEvent('esx:showAdvancedNotification', source, 'GoFast', '~b~Récompense GoFast', '🔧~w~Véhicule en parfait état ! Bonus de ~g~'..bonusFinal..'$', 'CHAR_LESTER_DEATHWISH', 3)
      elseif bonus > 600 then

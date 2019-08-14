@@ -567,7 +567,7 @@ end)
 Citizen.CreateThread(function()
 	while true do
 		Citizen.Wait(2000)
-		PrixPolicierWeed = CopsConnected * 15
+		PrixPolicierWeed = CopsConnected * 16
 		local r = math.random(49, 59) + PrixPolicierWeed
 		PrixWeed = r
 	end
