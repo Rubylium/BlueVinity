@@ -186,7 +186,7 @@ function AnimDebutMission()
 			while not HasModelLoaded(917809321) do
 				Citizen.Wait(0)
 			end
-			
+
 			while spawn == false do
 				local spawn = ESX.Game.IsSpawnPointClear(SpawnVehicule.coords, 7)
 				Citizen.Wait(0)
