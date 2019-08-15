@@ -239,7 +239,7 @@ function FinDeGoFast()
 	print(plate)
 	if plate == ' GOFAST ' then
 		ESX.ShowAdvancedNotification("GoFast", "~b~Livraison GoFast", "laisse le véhicule se garrer tout seul.", "CHAR_LESTER_DEATHWISH", 8)
-		TaskVehiclePark(ped, vehicle, -221.337, 6268.60, 31.68, 330.33, 1, 20.0, false)
+		TaskVehiclePark(ped, vehicle, -221.337, 6268.60, 31.68, 330.33, 0, 20.0, false)
 		Wait(6000)
 		SetVehicleEngineOn(vehicle, false, false, true)
 		TaskLeaveAnyVehicle(ped, 1, 1)
