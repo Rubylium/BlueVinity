@@ -6,13 +6,10 @@ PlayerData = {}
 
 -- Coordonée pour le point de début de mission
 
-local PosX = 471.153
-local PosY = -3084.63
-local PosZ = 6.07
-local DebutMission = {coords = vector3(471.153, -3084.63, 6.07)}
-local SpawnVehicule = {coords = vector3(454.90, -3052.006, 6.06)}
-local SpawnVehiculeJoueur = {coords = vector3(452.64, -3050.59, 6.06)}
-local GoFastVente = {coords = vector3(-229.74, 6261.69, 31.489)}
+local DebutMission = {coords = vector3(-60.254, -2518.02, 7.40)}
+local SpawnVehicule = {coords = vector3(-233.27, -2405.201, 6.001)}
+local SpawnVehiculeJoueur = {coords = vector3(-231.54, -2401.35, 6.001)}
+local GoFastVente = {coords = vector3(114.87, 6611.87, 31.86)}
 
 local GoFastEnCours = false
 local BlipsGoFast = nil
@@ -30,8 +27,8 @@ Citizen.CreateThread(function()
 		local sleepThread = 500
 		local ped = PlayerPedId()
 		local pedCoords = GetEntityCoords(ped)
-		local dstCheck = GetDistanceBetweenCoords(pedCoords, PosX, PosY, PosZ, true)
-		if dstCheck <= 20.0 then
+		local dstCheck = GetDistanceBetweenCoords(pedCoords, DebutMission.coords, true)
+		if dstCheck <= 4.2 then
 			sleepThread = 5
 			if dstCheck <= 4.2 then
 				ESX.Game.Utils.DrawText3D(DebutMission.coords, "[E] Ouvrir le menu de ~g~GoFast\n~r~Activitée illégal", 1.0)
@@ -70,6 +67,16 @@ end)
 
 function DebutMissionMenu()
 	local elements = {}
+	local camera = CreateCam("DEFAULT_SCRIPTED_CAMERA", 1)
+	--CreateCam(camera, true)
+	local ped = PlayerPedId()
+	SetCamCoord(camera, -55.31, -2519.99, 8.19)
+	--AttachCamToEntity(camera, ped, -10.31, -2519.99, 8.19, 1)
+	PointCamAtEntity(camera, ped, 0, 0, 0, 1)
+	RenderScriptCams(1, 1, 1000, 1, 1)
+	SetCamShakeAmplitude(camera, 3.0)
+
+	
 	table.insert(elements, { ["label"] = "Commencer un GoFast", ["value"] = "start" })
 	
 	ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'GoFast',
@@ -84,10 +91,14 @@ function DebutMissionMenu()
 
 		if action == "start" then
 			ESX.UI.Menu.CloseAll()
+			RenderScriptCams(0, 1, 1000, 1, 1)
+			DestroyCam(camera, true)
 			AnimDebutMission()
 		end
 	end, function(data, menu)
 		menu.close()
+		RenderScriptCams(0, 1, 1000, 1, 1)
+		DestroyCam(camera, true)
 	end)
 end
 
@@ -189,9 +200,17 @@ function AnimDebutMission()
 			while not HasModelLoaded(917809321) do
 				Citizen.Wait(0)
 			end
-			local veh = CreateVehicle(917809321, SpawnVehicule.coords, 335.26, true, true)
+
+			while spawn == false do
+				local spawn = ESX.Game.IsSpawnPointClear(SpawnVehicule.coords, 7)
+				Citizen.Wait(0)
+			end
+
+			local veh = CreateVehicle(917809321, SpawnVehicule.coords, 199.47, true, true)
 			SetVehicleNumberPlateText(veh, 'GOFAST')
 			SetVehicleEnginePowerMultiplier(veh, 2.0 * 20.0)
+			TaskEnterVehicle(ped, veh, 1000, -1, 1.0, 1, 0)
+			TaskVehiclePark(ped, veh, -174.61, -2438.12, 5.49, 231.01, 0, 20.0, true)
 			-- Création du blips pour livrer le véhicule
 			GoFastEnCours = true
 			-- Wait for the player switch to be completed (state 12).
@@ -208,7 +227,7 @@ function AnimDebutMission()
 	ClearDrawOrigin()
 	TriggerServerEvent("GoFast:MessagePolice")
 	GoFastBlips()
-	PlaySoundFrontend(-1, "BASE_JUMP_PASSED", "HUD_AWARDS", 1)
+	PlaySoundFrontend(-1, "Event_Start_Text", "GTAO_FM_Events_Soundset", 1)
 end
 
 
@@ -235,8 +254,19 @@ function FinDeGoFast()
 	print(plate)
 	if plate == ' GOFAST ' then
 		ESX.ShowAdvancedNotification("GoFast", "~b~Livraison GoFast", "laisse le véhicule se garrer tout seul.", "CHAR_LESTER_DEATHWISH", 8)
-		TaskVehiclePark(ped, vehicle, -221.337, 6268.60, 31.68, 330.33, 1, 20.0, false)
-		Wait(6000)
+		TaskVehiclePark(ped, vehicle, 101.661, 6624.771, 31.82, 44.52, 0, 20.0, false)
+-- Cam
+		local camera = CreateCam("DEFAULT_SCRIPTED_CAMERA", 1)
+		--CreateCam(camera, true)
+		SetCamCoord(camera, 118.09, 6600.47, 34.04)
+		PointCamAtEntity(camera, ped, 0, 0, 0, 1)
+		RenderScriptCams(1, 1, 1000, 1, 1)
+		SetCamShakeAmplitude(camera, 3.0)
+		Wait(8000)
+		RenderScriptCams(0, 1, 1000, 1, 1)
+		DestroyCam(camera, true)
+		
+-- Fin cam
 		SetVehicleEngineOn(vehicle, false, false, true)
 		TaskLeaveAnyVehicle(ped, 1, 1)
 		SetVehicleDoorsLocked(vehicle, 2)
@@ -257,7 +287,8 @@ function FinDeGoFast()
 		local bonus = GetVehicleEngineHealth(vehicle)
 		TriggerServerEvent("GoFast:VenteDuVehicule", bonus)
 		ESX.Game.DeleteVehicle(vehicle)
-		PlaySoundFrontend(-1, "MP_WAVE_COMPLETE", "HUD_FRONTEND_DEFAULT_SOUNDSET", 1)
+		--PlaySoundFrontend(-1, "MP_WAVE_COMPLETE", "HUD_FRONTEND_DEFAULT_SOUNDSET", 1)
+		PlaySoundFrontend(-1, "Event_Start_Text", "GTAO_FM_Events_Soundset", 1)
 		GoFastEnCours = false
 	else
 		ESX.ShowAdvancedNotification("GoFast", "~b~Livraison GoFast", "Hein ? C'est quoi ça ? C'est pas la voiture du GoFast !", "CHAR_LESTER_DEATHWISH", 8)

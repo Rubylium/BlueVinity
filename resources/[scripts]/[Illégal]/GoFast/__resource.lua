@@ -5,9 +5,9 @@ description 'Système de go fast'
 version '0.1'
 
 server_scripts {
-	'server/main.lua'
+	'server/srv_GoFast.lua'
 }
 
 client_scripts {
-	'client/main.lua'
+	'client/cl_GoFast.lua'
 }

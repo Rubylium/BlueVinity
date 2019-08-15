@@ -7,8 +7,20 @@ end)
 
 Citizen.CreateThread(function()
 	while true do
-		Citizen.Wait(600*1000)
+		Citizen.Wait(3*60000)
 		TriggerClientEvent("ActualisationVeh", -1)
+		print('Reset de la vente')
+		print('Reset de la vente')
+		print('Reset de la vente')
+		print('Reset de la vente')
+		print('Reset de la vente')
+		print('Reset de la vente')
+		print('Reset de la vente')
+		print('Reset de la vente')
+		print('Reset de la vente')
+		print('Reset de la vente')
+		print('Reset de la vente')
+		print('Reset de la vente')
 	end
 end)
 
@@ -24,14 +36,14 @@ ESX.RegisterServerCallback("esx-qalle-sellvehicles:retrieveVehicles", function(s
 	local src = source
 	local identifier = ESX.GetPlayerFromId(src)["identifier"]
 
-    MySQL.Async.fetchAll("SELECT seller, vehicleProps, price FROM vehicles_for_sale", {}, function(result)
-        local vehicleTable = {}
+	MySQL.Async.fetchAll("SELECT seller, vehicleProps, price FROM vehicles_for_sale", {}, function(result)
+		local vehicleTable = {}
 
-        VehiclesForSale = 0
+		 VehiclesForSale = 0
 
-        if result[1] ~= nil then
-            for i = 1, #result, 1 do
-                VehiclesForSale = VehiclesForSale + 1
+		if result[1] ~= nil then
+			for i = 1, #result, 1 do
+				VehiclesForSale = VehiclesForSale + 1
 
 				local seller = false
 
@@ -39,12 +51,12 @@ ESX.RegisterServerCallback("esx-qalle-sellvehicles:retrieveVehicles", function(s
 					seller = true
 				end
 
-                table.insert(vehicleTable, { ["price"] = result[i]["price"], ["vehProps"] = json.decode(result[i]["vehicleProps"]), ["owner"] = seller })
-            end
-        end
+				table.insert(vehicleTable, { ["price"] = result[i]["price"], ["vehProps"] = json.decode(result[i]["vehicleProps"]), ["owner"] = seller })
+			end
+		end
 
-        cb(vehicleTable)
-    end)
+		cb(vehicleTable)
+	end)
 end)
 
 ESX.RegisterServerCallback("esx-qalle-sellvehicles:isVehicleValid", function(source, cb, vehicleProps, price)
@@ -147,7 +159,7 @@ ESX.RegisterServerCallback("esx-qalle-sellvehicles:buyVehicleStaff", function(so
 					["@State"] = 1
 				}
 			)
-			print('Véhicule retiré de la vente et remis au vendeur\nVendeur :'..result[1]["seller"]..'\nSource: '..identifant..'')
+			print('^3Véhicule retiré de la vente et remis au vendeur\nVendeur :'..result[1]["seller"]..'\nSource: '..identifant..'')
 			else
 				print("Something went wrong, there was no car.")
 			end

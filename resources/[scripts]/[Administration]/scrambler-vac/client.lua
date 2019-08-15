@@ -18,7 +18,6 @@ local events = {
 	'vrp_slotmachine:server:2',
 	'dmv:success',
 }
-}
 
 local eventsAdmin = {
 	'Admin2Menu:giveCash',
