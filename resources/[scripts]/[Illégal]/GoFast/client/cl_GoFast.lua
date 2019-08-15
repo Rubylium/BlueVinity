@@ -9,7 +9,7 @@ PlayerData = {}
 local DebutMission = {coords = vector3(-60.254, -2518.02, 7.40)}
 local SpawnVehicule = {coords = vector3(-233.27, -2405.201, 6.001)}
 local SpawnVehiculeJoueur = {coords = vector3(-231.54, -2401.35, 6.001)}
-local GoFastVente = {coords = vector3(-229.74, 6261.69, 31.489)}
+local GoFastVente = {coords = vector3(114.87, 6611.87, 31.86)}
 
 local GoFastEnCours = false
 local BlipsGoFast = nil
@@ -239,8 +239,18 @@ function FinDeGoFast()
 	print(plate)
 	if plate == ' GOFAST ' then
 		ESX.ShowAdvancedNotification("GoFast", "~b~Livraison GoFast", "laisse le véhicule se garrer tout seul.", "CHAR_LESTER_DEATHWISH", 8)
-		TaskVehiclePark(ped, vehicle, -221.337, 6268.60, 31.68, 330.33, 0, 20.0, false)
+		TaskVehiclePark(ped, vehicle, 101.661, 6624.771, 31.82, 44.52, 0, 20.0, false)
+-- Cam
+		local camera = CreateCam("DEFAULT_SCRIPTED_CAMERA", 1)
+		--CreateCam(camera, true)
+		SetCamCoord(camera, 118.09, 6600.47, 34.04)
+		RenderScriptCams(1, 1, 1000, 1, 1)
+		SetCamShakeAmplitude(camera, 3.0)
 		Wait(6000)
+		RenderScriptCams(0, 1, 1000, 1, 1)
+		DestroyCam(camera, true)
+		
+-- Fin cam
 		SetVehicleEngineOn(vehicle, false, false, true)
 		TaskLeaveAnyVehicle(ped, 1, 1)
 		SetVehicleDoorsLocked(vehicle, 2)
@@ -261,7 +271,8 @@ function FinDeGoFast()
 		local bonus = GetVehicleEngineHealth(vehicle)
 		TriggerServerEvent("GoFast:VenteDuVehicule", bonus)
 		ESX.Game.DeleteVehicle(vehicle)
-		PlaySoundFrontend(-1, "MP_WAVE_COMPLETE", "HUD_FRONTEND_DEFAULT_SOUNDSET", 1)
+		--PlaySoundFrontend(-1, "MP_WAVE_COMPLETE", "HUD_FRONTEND_DEFAULT_SOUNDSET", 1)
+		PlaySoundFrontend(-1, "Event_Start_Text", "GTAO_FM_Events_Soundset", 1)
 		GoFastEnCours = false
 	else
 		ESX.ShowAdvancedNotification("GoFast", "~b~Livraison GoFast", "Hein ? C'est quoi ça ? C'est pas la voiture du GoFast !", "CHAR_LESTER_DEATHWISH", 8)
