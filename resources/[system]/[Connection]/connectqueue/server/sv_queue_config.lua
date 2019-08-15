@@ -40,10 +40,13 @@ Config.Priority = {
     ["steam:11000010919daf1"] = 5000, -- Theo Anderson
     ["steam:1100001367bc337"] = 5000, -- Tonny Labouffe
     ["steam:110000111ac735f"] = 5000, -- Joe Marking
+    ["steam:11000010a7723a6"] = 5000, -- Tasty Flavien
 }
 
 -- require people to run steam
 Config.RequireSteam = true
+
+Config.JoinDelay = 30000
 
 -- "whitelist" only server
 Config.PriorityOnly = false
