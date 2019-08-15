@@ -67,6 +67,16 @@ end)
 
 function DebutMissionMenu()
 	local elements = {}
+	local camera = CreateCam("DEFAULT_SCRIPTED_CAMERA", 1)
+	--CreateCam(camera, true)
+	local ped = PlayerPedId()
+	SetCamCoord(camera, -55.31, -2519.99, 8.19)
+	--AttachCamToEntity(camera, ped, -10.31, -2519.99, 8.19, 1)
+	PointCamAtEntity(camera, ped, 0, 0, 0, 1)
+	RenderScriptCams(1, 1, 1000, 1, 1)
+	SetCamShakeAmplitude(camera, 3.0)
+
+	
 	table.insert(elements, { ["label"] = "Commencer un GoFast", ["value"] = "start" })
 	
 	ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'GoFast',
@@ -81,10 +91,14 @@ function DebutMissionMenu()
 
 		if action == "start" then
 			ESX.UI.Menu.CloseAll()
+			RenderScriptCams(0, 1, 1000, 1, 1)
+			DestroyCam(camera, true)
 			AnimDebutMission()
 		end
 	end, function(data, menu)
 		menu.close()
+		RenderScriptCams(0, 1, 1000, 1, 1)
+		DestroyCam(camera, true)
 	end)
 end
 
@@ -196,6 +210,7 @@ function AnimDebutMission()
 			SetVehicleNumberPlateText(veh, 'GOFAST')
 			SetVehicleEnginePowerMultiplier(veh, 2.0 * 20.0)
 			TaskEnterVehicle(ped, veh, 1000, -1, 1.0, 1, 0)
+			TaskVehiclePark(ped, veh, -174.61, -2438.12, 5.49, 231.01, 0, 20.0, true)
 			-- Création du blips pour livrer le véhicule
 			GoFastEnCours = true
 			-- Wait for the player switch to be completed (state 12).
@@ -244,9 +259,10 @@ function FinDeGoFast()
 		local camera = CreateCam("DEFAULT_SCRIPTED_CAMERA", 1)
 		--CreateCam(camera, true)
 		SetCamCoord(camera, 118.09, 6600.47, 34.04)
+		PointCamAtEntity(camera, ped, 0, 0, 0, 1)
 		RenderScriptCams(1, 1, 1000, 1, 1)
 		SetCamShakeAmplitude(camera, 3.0)
-		Wait(6000)
+		Wait(8000)
 		RenderScriptCams(0, 1, 1000, 1, 1)
 		DestroyCam(camera, true)
 		
