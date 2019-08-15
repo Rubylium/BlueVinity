@@ -1,5 +1,5 @@
 _menuPool = NativeUI.CreatePool()
-mainMenu = NativeUI.CreateMenu("Native UI", "~b~NATIVEUI SHOWCASE")
+mainMenu = NativeUI.CreateMenu("", "~b~MENU ORGANISATION", 5, 100)
 _menuPool:Add(mainMenu)
 
 function ShowNotification(text)
@@ -84,13 +84,14 @@ AddMenuFoods(mainMenu)
 AddMenuFoodCount(mainMenu)
 AddMenuCook(mainMenu)
 AddMenuAnotherMenu(mainMenu)
+_menuPool:MouseEdgeEnabled (false);
 _menuPool:RefreshIndex()
 
 Citizen.CreateThread(function()
     while true do
         Citizen.Wait(0)
         _menuPool:ProcessMenus()
-        if IsControlJustPressed(1, 51) then
+        if IsControlJustPressed(1, 344) then
             mainMenu:Visible(not mainMenu:Visible())
         end
     end
