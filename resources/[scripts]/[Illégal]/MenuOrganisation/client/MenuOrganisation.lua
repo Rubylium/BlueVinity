@@ -1,23 +1,62 @@
+ESX = nil
+Citizen.CreateThread(function()
+	while ESX == nil do
+		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
+		Citizen.Wait(0) 
+	end
+end)
+
+-- Menu principal
 _menuPool = NativeUI.CreatePool()
 mainMenu = NativeUI.CreateMenu("", "~b~MENU ORGANISATION", 5, 100)
 _menuPool:Add(mainMenu)
+-- Menu joueurs
+JoueurMenu = NativeUI.CreateMenu("", "~b~INTERACTION JOUEURS", 5, 100)
+_menuPool:Add(JoueurMenu)
 
+-- Notification sans ESX pour plus d'opti
 function ShowNotification(text)
     SetNotificationTextEntry("STRING")
+    SetNotificationBackgroundColor(6)
     AddTextComponentString(text)
     DrawNotification(false, false)
 end
 
+-- Intéraction joueurs
 function AddMenuKetchup(menu)
-    local newitem = NativeUI.CreateCheckboxItem("Add ketchup?", ketchup, "Do you wish to add ketchup?")
-    menu:AddItem(newitem)
-    menu.OnCheckboxChange = function(sender, item, checked_)
-        if item == newitem then
-            ketchup = checked_
-            ShowNotification("~r~Ketchup status: ~b~"..tostring(ketchup))
+    local Description = "Ouvrir le menu d'intéraction joueur"
+    local Item = NativeUI.CreateItem("intéraction joueur", Description)
+    menu:AddItem(Item)
+    menu.OnItemSelect = function(menu, item)
+        if item == Item then
+            local closestPlayer, closestDistance = ESX.Game.GetClosestPlayer()
+            if closestPlayer ~= -1 and closestDistance <= 3.0 then
+                mainMenu:Visible(not mainMenu:Visible())
+                JoueurMenu:Visible(not JoueurMenu:Visible())
+            else
+				ShowNotification('Aucun joueurs proche . . .')
+			end
         end
     end
 end
+
+-- Menu intéraction joueur ouvert
+function AddJoueurMenu(menu)
+    local Description = "Ouvrir le menu d'intéraction joueur"
+    local Item = NativeUI.CreateItem("intéraction joueur", Description)
+    menu:AddItem(Item)
+    menu.OnItemSelect = function(menu, item)
+        if item == Item then
+            local closestPlayer, closestDistance = ESX.Game.GetClosestPlayer()
+                if closestPlayer ~= -1 and closestDistance <= 3.0 then
+
+                else
+					ShowNotification('Aucun joueurs proche . . .')
+				end
+        end
+    end
+end
+
 
 function AddMenuFoods(menu)
     local foods = {
@@ -84,7 +123,10 @@ AddMenuFoods(mainMenu)
 AddMenuFoodCount(mainMenu)
 AddMenuCook(mainMenu)
 AddMenuAnotherMenu(mainMenu)
+AddJoueurMenu(JoueurMenu)
 _menuPool:MouseEdgeEnabled (false);
+_menuPool:MouseControlsEnabled (false);
+_menuPool:ControlDisablingEnabled (false);
 _menuPool:RefreshIndex()
 
 Citizen.CreateThread(function()
