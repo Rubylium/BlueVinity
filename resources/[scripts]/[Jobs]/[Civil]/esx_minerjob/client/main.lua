@@ -731,6 +731,10 @@ Citizen.CreateThread(function()
 					while RecolteEnCours do
 						TaskPlayAnim(playerPed, 'amb@world_human_hammering@male@base', 'base', 8.0, -8.0, -1, 0, 0, false, false, false)
 						Wait(3133)
+						RemoveAnimDict("amb")
+						RemoveAnimDict("amb@world_human_hammering")
+						RemoveAnimDict("amb@world_human_hammering@male")
+						RemoveAnimDict("amb@world_human_hammering@male@base")
 					end
 				end
 				if CurrentAction == 'jus_traitement' then
