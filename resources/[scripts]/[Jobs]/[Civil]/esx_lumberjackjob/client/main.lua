@@ -704,8 +704,9 @@ Citizen.CreateThread(function()
 					Citizen.Wait(1000)
 					isInZone = true
 					while isInZone do
-						Wait(30000)
 						TaskPlayAnim(playerPed, 'missarmenian3_gardener', 'idle_a', 8.0, -8.0, -1, 0, 0, false, false, false)
+						Wait(30000)
+						RemoveAnimDict("missarmenian3_gardener")
 					end
 				end
 				if CurrentAction == 'jus_traitement' then
