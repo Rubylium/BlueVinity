@@ -1,1 +1,0 @@
-TriggerEvent('esx_phone:registerNumber', 'laywerjob', 'Called a laywer', true, true)
