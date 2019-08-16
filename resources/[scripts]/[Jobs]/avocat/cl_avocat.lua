@@ -2,7 +2,7 @@ local takeJob = {x=-1905.18,y=-570.54,z=19.09}
 local bossUI = {x=-1912.0642,y=-569.76,z=19.09}
 
 ESX                             = nil
-local PlayerData 				= nil
+local PlayerData = {}
 
 Citizen.CreateThread(function()
   while ESX == nil do
@@ -26,37 +26,43 @@ end)
 
 RegisterNetEvent('esx:playerLoaded')
 AddEventHandler('esx:playerLoaded', function(xPlayer)
-  PlayerData = xPlayer
-
-  
-  Citizen.CreateThread(function()
-  	while true do
-  		Citizen.Wait(0)
-
-  		if(PlayerData.job ~= nil and PlayerData.job.name == "avocat") then
-  			DrawMarker(1,takeJob.x,takeJob.y,takeJob.z-1,0,0,0,0,0,0,2.001,2.0001,0.5001,0,155,255,200,0,0,0,0)
-
-  			if(GetDistanceBetweenCoords(takeJob.x,takeJob.y,takeJob.z,  GetEntityCoords(GetPlayerPed(-1)), true) < 3) then 
-  				Info("Press ~g~E~w~ to open your locker.")
-  				if(IsControlJustPressed(1, 38)) then
-  					openTakeService()
-  				end
-  			end
-  		end
-  	end
-  end)
-
-  if(PlayerData.job.grade_name == "boss" and PlayerData.job.name == "avocat") then
-  	createSocietyMenu(bossUI.x,bossUI.y,bossUI.z,"avocat", "avocat")
-  end
+	PlayerData = xPlayer
 end)
+
+
 
 RegisterNetEvent('esx:setJob')
 AddEventHandler('esx:setJob', function(job)
-  PlayerData.job = job
+	PlayerData.job = job
 end)
 
 
+Citizen.CreateThread(function()
+	while true do
+		Citizen.Wait(0)
+		if(PlayerData.job ~= nil and PlayerData.job.name == "avocat") then
+			if(GetDistanceBetweenCoords(takeJob.x,takeJob.y,takeJob.z,  GetEntityCoords(GetPlayerPed(-1)), true) < 3) then 
+				Info("Appuyer sur ~g~E~w~ pour vous changer.")
+				DrawMarker(1,takeJob.x,takeJob.y,takeJob.z-1,0,0,0,0,0,0,2.001,2.0001,0.5001,0,155,255,200,0,0,0,0)
+				if(IsControlJustPressed(1, 38)) then
+					openTakeService()
+				end
+			end
+		end
+
+		if(PlayerData.job ~= nil and PlayerData.job.name == "avocat" and PlayerData.job.grade_name == "boss") then
+			if(GetDistanceBetweenCoords(bossUI.x,bossUI.y,bossUI.z,  GetEntityCoords(GetPlayerPed(-1)), true) < 3) then 
+				Info("Appuyer sur ~g~E~w~ pour ouvrir le menu patron.")
+				DrawMarker(1,bossUI.x,bossUI.y,bossUI.z-1,0,0,0,0,0,0,2.001,2.0001,0.5001,0,155,255,200,0,0,0,0)
+				if(IsControlJustPressed(1, 38)) then
+					TriggerEvent('esx_society:openBossMenu', 'avocat', function(data, menu)
+						menu.close()
+					end)
+				end
+			end
+		end
+	end
+end)
 
 
 function Info(text, loop)
@@ -64,157 +70,6 @@ function Info(text, loop)
 	AddTextComponentString(text)
 	DisplayHelpTextFromStringLabel(0, loop, 1, 0)
 end
-
-
-
-
-
-
-function createSocietyMenu(x,y,z,name, menuName)
-Citizen.CreateThread(function()
-	local menuShowed = false
-	while true do
-		Citizen.Wait(10)
-		local distance = GetDistanceBetweenCoords(GetEntityCoords(GetPlayerPed(-1)),x,y,z, true)
-		DrawMarker(1,x,y,z-1,0,0,0,0,0,0,2.001,2.0001,0.5001,0,155,255,200,0,0,0,0)
-		if(distance > 3 and menuShowed) then
-			ESX.UI.Menu.CloseAll()
-		end
-
-		if(distance<3) then
-			if(menuShowed) then
-				Info("Press ~g~E~w~ to ~r~to close~w~.")
-			else
-				Info("Press ~g~E~w~ to ~g~to access~w~ the funds of the company.")
-			end
-
-			if(IsControlJustPressed(1, 38)) then
-				menuShowed = not menuShowed
-
-				if(menuShowed) then
-					--print(name)
-					renderMenu(name, menuName)
-				else
-					ESX.UI.Menu.CloseAll()
-				end
-			end
-		end
-	end
-end)
-end
-
-
-function renderMenu(name, menuName)
-	local _name = name
-	local elements = {}
-	
-
-  	table.insert(elements, {label = 'withdraw society company', value = 'withdraw_society_money'})
-  	table.insert(elements, {label = 'deposit money',        value = 'deposit_money'})
-  	table.insert(elements, {label = 'wash money',        value = 'wash_money'})
-
-	ESX.UI.Menu.CloseAll()
-
-	ESX.UI.Menu.Open(
-		'default', GetCurrentResourceName(), 'realestateagent',
-		{
-			title    = menuName,
-			align    = 'bottom-right',
-			elements = elements
-		},
-		function(data, menu)
-
-			if data.current.value == 'withdraw_society_money' then
-
-				ESX.UI.Menu.Open(
-					'dialog', GetCurrentResourceName(), 'withdraw_society_money_amount',
-					{
-						title = 'amount of withdrawal',
-						align = 'bottom-right'
-					},
-					function(data, menu)
-
-						local amount = tonumber(data.value)
-
-						if amount == nil or amount < 0 then
-							ESX.ShowNotification('invalid amount')
-						else
-							menu.close()
-							--print(_name)
-							TriggerServerEvent('esx_society:withdrawMoney', _name, amount)
-						end
-
-					end,
-					function(data, menu)
-						menu.close()
-					end
-				)
-
-			end
-
-			if data.current.value == 'deposit_money' then
-
-				ESX.UI.Menu.Open(
-					'dialog', GetCurrentResourceName(), 'deposit_money_amount',
-					{
-						title = 'deposit amount',
-						align = 'bottom-right'
-					},
-					function(data, menu)
-
-						local amount = tonumber(data.value)
-
-						if amount == nil or amount < 0 then
-							ESX.ShowNotification('invalid amount')
-						else
-							menu.close()
-							TriggerServerEvent('esx_society:depositMoney', _name, amount)
-						end
-
-					end,
-					function(data, menu)
-						menu.close()
-					end
-				)
-
-			end
-
-			if data.current.value == 'wash_money' then
-
-				ESX.UI.Menu.Open(
-					'dialog', GetCurrentResourceName(), 'wash_money_amount',
-					{
-						title = 'Wash money',
-						align = 'bottom-right'
-					},
-					function(data, menu)
-
-						local amount = tonumber(data.value)
-
-						if amount == nil or amount < 0 then
-							ESX.ShowNotification('invalid amount')
-						else
-							menu.close()
-							TriggerServerEvent('esx_society:washMoney', _name, amount)
-						end
-
-					end,
-					function(data, menu)
-						menu.close()
-					end
-				)
-
-			end
-
-		end,
-		function(data, menu)
-
-			menu.close()
-		end
-	)
-end
-
-
 
 
 
@@ -265,17 +120,21 @@ function openTakeService()
       end
 
       if data.current.value == 'avocat_wear' then
-
-        ESX.TriggerServerCallback('esx_skin:getPlayerSkin', function(skin, jobSkin)
-
-          
-          if skin.sex == 0 then
-            TriggerEvent('skinchanger:loadClothes', skin, jobSkin.skin_male)
-          else
-            TriggerEvent('skinchanger:loadClothes', skin, jobSkin.skin_female)
-          end
-           setComponentByGrade(skin.sex)
-        end)
+		TriggerEvent('skinchanger:getSkin', function(skin)
+			local clothesSkin = {
+				['bags_1'] = 0, ['bags_2'] = 0,
+				['tshirt_1'] = 13, ['tshirt_2'] = 0,
+				['torso_1'] = 4, ['torso_2'] = 0,
+				['arms'] = 1,
+				['pants_1'] = 28, ['pants_2'] = 0,
+				['shoes_1'] = 20, ['shoes_2'] = 1,
+				['mask_1'] = 0, ['mask_2'] = 0,
+				['bproof_1'] = 0,
+				['chain_1'] = 10, ['chain_2'] = 0,
+				['helmet_1'] = -1, ['helmet_2'] = 0
+			}
+			TriggerEvent('skinchanger:loadClothes', skin, clothesSkin)
+		end)
 
       end
 
