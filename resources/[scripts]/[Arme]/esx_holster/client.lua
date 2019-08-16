@@ -107,6 +107,9 @@ RegisterNetEvent('esx:setJob')
 				holstered = true
 			end
 		end
+		RemoveAnimDict("rcmjosh4")
+		RemoveAnimDict("reaction@intimidation@cop@unarmed")
+		RemoveAnimDict("reaction@intimidation@1h")
 	end
 end)
 
