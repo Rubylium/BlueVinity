@@ -17,6 +17,10 @@ local events = {
 	'lscustoms:payGarage',
 	'vrp_slotmachine:server:2',
 	'dmv:success',
+	'esx_drugs:startHarvestCoke',
+	'esx_drugs:startHarvestMeth',
+	'esx_drugs:startHarvestWeed',
+	'esx_drugs:startHarvestOpium',
 }
 
 local eventsAdmin = {
