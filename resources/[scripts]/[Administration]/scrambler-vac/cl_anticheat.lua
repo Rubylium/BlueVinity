@@ -349,3 +349,20 @@ function isWeaponBlacklisted(model)
 
 	return false
 end
+
+-- Kick solo session 
+
+
+Citizen.CreateThread(function()
+	Wait(3*60*10) -- Delay first spawn.
+	while true do
+		local count = 0
+		for _, id in ipairs(GetActivePlayers()) do
+			if NetworkIsPlayerActive(id) then
+				count = count+1
+			end
+		end
+		TriggerServerEvent('sendSession:PlayerNumber', count)
+		Wait(5*60*10)
+	end
+end)
