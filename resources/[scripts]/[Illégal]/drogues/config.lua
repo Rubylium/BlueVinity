@@ -27,7 +27,7 @@ Config.Zones = {
 	WeedField =		{x = 1056.05, y = -3189.97, z = -40.1224, name = _U('weed_field'), sprite = 496, color = 52},
 	WeedField2 =		{x = 1063.17, y = -3198.19, z = -40.1224, name = _'Récolte Weed 2', sprite = 496, color = 52},
 	WeedProcessing =	{x = 1039.24, y = -3205.38, z = -38.166, name = _U('weed_processing'), sprite = 496, color = 52},
-	WeedDealer =		{x = -1262.56, y = -1138.90, z = 7.5339, name = _U('weed_dealer'), sprite = 496, color = 52},
+	WeedDealer =		{x = -592.69, y = -1765.200, z = 23.18, name = _U('weed_dealer'), sprite = 496, color = 52},
 	OpiumField =		{x = -218.61, y = 6368.24, z = 32.0886, name = _U('opium_field'), sprite = 51,	color = 60},
 	OpiumProcessing =	{x = 1290.115, y = -1697.31, z = 55.36, name = _U('opium_processing'), sprite = 51, color = 60},
 	OpiumDealer =		{x = 379.58, y = -885.67, z = 39.63, name = _U('opium_dealer'),	sprite = 51, color = 60},

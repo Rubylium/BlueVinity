@@ -52,9 +52,9 @@ Config.Teleporters = {
 	['Labo Weed'] = {
 		['Job'] = 'none',
 		['Enter'] = { 
-			['x'] = 1207.29, 
-			['y'] = -3122.57, 
-			['z'] = 5.54,
+			['x'] = -287.638, 
+			['y'] = 2535.75, 
+			['z'] = 75.69,
 			['Information'] = '[E] Entrer (Une odeur de weed ici ...)',
 		},
 		['Exit'] = {
