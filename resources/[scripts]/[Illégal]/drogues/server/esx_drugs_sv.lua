@@ -68,8 +68,8 @@ local function HarvestCoke(source)
 	end)
 end
 
-RegisterServerEvent('esx_drugs:startHarvestCoke')
-AddEventHandler('esx_drugs:startHarvestCoke', function()
+RegisterServerEvent('drogues:RecolteCoke')
+AddEventHandler('drogues:RecolteCoke', function()
 
 	local _source = source
 
@@ -268,8 +268,8 @@ local function HarvestMeth(source)
 	end)
 end
 
-RegisterServerEvent('esx_drugs:startHarvestMeth')
-AddEventHandler('esx_drugs:startHarvestMeth', function()
+RegisterServerEvent('drogues:RecolteMeth')
+AddEventHandler('drogues:RecolteMeth', function()
 
 	local _source = source
 
@@ -679,8 +679,8 @@ local function HarvestOpium(source)
 	end)
 end
 
-RegisterServerEvent('esx_drugs:startHarvestOpium')
-AddEventHandler('esx_drugs:startHarvestOpium', function()
+RegisterServerEvent('drogues:RecolteOpium')
+AddEventHandler('drogues:RecolteOpium', function()
 
 	local _source = source
 

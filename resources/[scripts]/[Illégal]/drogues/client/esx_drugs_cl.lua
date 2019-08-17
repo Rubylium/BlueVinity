@@ -412,7 +412,7 @@ Citizen.CreateThread(function()
 						ClearPedTasks(playerPed)
 						Citizen.Wait(5000)
 					elseif CurrentAction == 'CokeField' then
-						TriggerServerEvent('esx_drugs:startHarvestCoke')
+						TriggerServerEvent('drogues:RecolteCoke')
 						TaskStartScenarioInPlace(playerPed, 'CODE_HUMAN_MEDIC_KNEEL', 0, true)
 						ESX.ShowNotification("~s~Vous ramassez de la ~g~Coke~n~.")
 					elseif CurrentAction == 'CokeProcessing' then
@@ -424,7 +424,7 @@ Citizen.CreateThread(function()
 						TaskStartScenarioInPlace(playerPed, 'CODE_HUMAN_MEDIC_TIME_OF_DEATH', 0, true)
 						ESX.ShowNotification("~s~Vous Vendez de la ~g~Coke~n~.")
 					elseif CurrentAction == 'MethField' then
-						TriggerServerEvent('esx_drugs:startHarvestMeth')
+						TriggerServerEvent('drogues:RecolteMeth')
 						TaskStartScenarioInPlace(playerPed, 'CODE_HUMAN_MEDIC_KNEEL', 0, true)
 						ESX.ShowNotification("~s~Vous ramassez de la ~g~Meth~n~.")
 					elseif CurrentAction == 'MethProcessing' then
@@ -508,7 +508,7 @@ Citizen.CreateThread(function()
 						TaskStartScenarioInPlace(playerPed, 'CODE_HUMAN_MEDIC_TIME_OF_DEATH', 0, true)
 						ESX.ShowNotification("~s~Vous vendez de la ~g~Weed~n~ ~s~Attention vous êtes dans ~r~l'illégalité.")
 					elseif CurrentAction == 'OpiumField' then
-						TriggerServerEvent('esx_drugs:startHarvestOpium')
+						TriggerServerEvent('drogues:RecolteOpium')
 						TaskStartScenarioInPlace(playerPed, 'CODE_HUMAN_MEDIC_KNEEL', 0, true)
 						ESX.ShowNotification("~s~Vous ramassez de la ~g~L'opium~n~.")
 					elseif CurrentAction == 'OpiumProcessing' then
