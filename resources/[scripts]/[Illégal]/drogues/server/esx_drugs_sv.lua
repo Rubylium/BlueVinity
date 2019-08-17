@@ -1245,6 +1245,28 @@ AddEventHandler('esx_drugs:AmeWeed7', function()
 	end
 end)
 
+-- Achats du permis weed
+
+RegisterServerEvent('esx_drugs:PermisWeed')
+AddEventHandler('esx_drugs:PermisWeed', function()
+	local _source = source
+	local xPlayer = ESX.GetPlayerFromId(_source)
+
+	local argentJoueur = xPlayer.get("money")
+
+	if argentJoueur < 25000 then
+		TriggerClientEvent('esx:showNotification', _source, "❌ Pas assez d'argent pour acheter le permis ( 25 000$ )")
+	else
+		xPlayer.removeMoney(10000)
+		TriggerClientEvent('esx:showNotification', _source, '✅ Permis Weed acheter, vous récoltez maintenant récolter.')
+		TriggerEvent('esx_license:addLicense', _source, 'PermisWeed', function()
+			TriggerEvent('esx_license:getLicenses', _source, function(licenses)
+				TriggerClientEvent('esx_drugs:loadLicenses', _source, licenses)
+			end)
+		end)
+	end
+end)
+
 
 
 
