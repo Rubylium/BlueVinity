@@ -49,21 +49,21 @@ Config.Teleporters = {
 		}
 	},
 
-	['Labo Weed'] = {
-		['Job'] = 'none',
-		['Enter'] = { 
-			['x'] = -287.638, 
-			['y'] = 2535.75, 
-			['z'] = 75.69,
-			['Information'] = '[E] Entrer (Une odeur de weed ici ...)',
-		},
-		['Exit'] = {
-			['x'] = 1066.300, 
-			['y'] = -3183.11, 
-			['z'] = -39.16, 
-			['Information'] = '[E] Sortir' 
-		}
-	},
+--	['Labo Weed'] = {
+--		['Job'] = 'none',
+--		['Enter'] = { 
+--			['x'] = -287.638, 
+--			['y'] = 2535.75, 
+--			['z'] = 75.69,
+--			['Information'] = '[E] Entrer (Une odeur de weed ici ...)',
+--		},
+--		['Exit'] = {
+--			['x'] = 1066.300, 
+--			['y'] = -3183.11, 
+--			['z'] = -39.16, 
+--			['Information'] = '[E] Sortir' 
+--		}
+--	},
 
 	['Labo Coke'] = {
 		['Job'] = 'none',
