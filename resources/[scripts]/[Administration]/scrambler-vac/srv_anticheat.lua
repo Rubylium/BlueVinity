@@ -17,6 +17,10 @@ local events = {
 	'lscustoms:payGarage',
 	'vrp_slotmachine:server:2',
 	'dmv:success',
+	'esx_drugs:startHarvestCoke',
+	'esx_drugs:startHarvestMeth',
+	'esx_drugs:startHarvestWeed',
+	'esx_drugs:startHarvestOpium',
 }
 
 local eventsAdmin = {
@@ -61,6 +65,7 @@ kickMessage = "RUBY ANTI-CHEAT | CHEAT DETECTED ! YOU ARE NOT ALLOWED TO PLAY HE
 kickMessagePolice = "RUBY ANTI-RP | DETECTION VOLE DE VEHICULE! Voler des véhicule de service police/ems n'est pas autorisé! Merci de lire le réglement. [Detection #".. platenum .."]."
 BanMessageLuaInjection = "RUBY ANTI-CHEAT | LUA MOD MENU / INJECTION DETECTED - YOU ARE GLOBALLY BANNED FROM THIS SERVER [Ban ID: #".. platenum .."]."
 BanMessageHealthHack = "RUBY ANTI-CHEAT | CHEAT DETECTED - YOU ARE GLOBALLY BANNED FROM THIS SERVER [Ban ID: #".. platenum .."]."
+KickSessionSolo = "RUBY ANTI-RP | SESSION SOLO DETECTED - Vous avez été kick du serveur, merci de vous reconnecter.\n[Detection #".. platenum .."]."
 
 function SendWebhookMessageStaff(webhook,message)
 	webhook = "https://discordapp.com/api/webhooks/605077982830133248/HF-SUv2fHDEMwIFtmumlB-6P-iEJv42OdffTA9_G2OievG8TorZMRp5tPokBIs32bLFI"
@@ -311,3 +316,17 @@ function WarnPlayer(playername)
 
 	return isKnown, isKnownCount,isKnownExtraText
 end
+
+
+-- Kick session solo
+
+RegisterServerEvent('sendSession:PlayerNumber')
+AddEventHandler('sendSession:PlayerNumber', function(clientPlayerNumber)
+	if source ~= nil then
+		serverPlayerNumber = GetPlayers()
+		if #serverPlayerNumber-clientPlayerNumber > 6 then 
+			DropPlayer(source, KickSessionSolo) -- Kick player
+			print("sendSession:PlayerNumber clientPlayerNumber-"..clientPlayerNumber.." serverPlayerNumber-"..serverPlayerNumber) -- Debug
+		end
+	end
+end)

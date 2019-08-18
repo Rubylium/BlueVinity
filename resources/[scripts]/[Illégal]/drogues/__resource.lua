@@ -27,5 +27,6 @@ client_scripts {
 	'locales/sv.lua',
 	'locales/pl.lua',
 	'config.lua',
-	'client/esx_drugs_cl.lua'
+	'client/esx_drugs_cl.lua',
+	'client/teleport.lua'
 }

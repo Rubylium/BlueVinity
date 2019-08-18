@@ -56,6 +56,7 @@ function newPhoneProp()
 	phoneProp = CreateObject(phoneModel, 1.0, 1.0, 1.0, 1, 1, 0)
 	local bone = GetPedBoneIndex(myPedId, 28422)
 	AttachEntityToEntity(phoneProp, myPedId, bone, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1, 1, 0, 0, 2, 1)
+	SetModelAsNoLongerNeeded(phoneModel)
 end
 
 function deletePhone ()
@@ -105,6 +106,9 @@ function PhonePlayAnim (status, freeze)
 		Citizen.Wait(180)
 		deletePhone()
 		StopAnimTask(myPedId, lastDict, lastAnim, 1.0)
+		RemoveAnimDict(dict)
+		RemoveAnimDict("cellphone@")
+		RemoveAnimDict("anim@cellphone@in_car@ps")
 	end
 
 end
