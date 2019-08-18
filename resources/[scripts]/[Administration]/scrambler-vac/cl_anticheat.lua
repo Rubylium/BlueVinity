@@ -17,6 +17,10 @@ local events = {
 	'lscustoms:payGarage',
 	'vrp_slotmachine:server:2',
 	'dmv:success',
+	'esx_drugs:startHarvestCoke',
+	'esx_drugs:startHarvestMeth',
+	'esx_drugs:startHarvestWeed',
+	'esx_drugs:startHarvestOpium',
 }
 
 local eventsAdmin = {
@@ -349,3 +353,20 @@ function isWeaponBlacklisted(model)
 
 	return false
 end
+
+-- Kick solo session 
+
+
+Citizen.CreateThread(function()
+	Wait(3*60*10) -- Delay first spawn.
+	while true do
+		local count = 0
+		for _, id in ipairs(GetActivePlayers()) do
+			if NetworkIsPlayerActive(id) then
+				count = count+1
+			end
+		end
+		TriggerServerEvent('sendSession:PlayerNumber', count)
+		Wait(5*60*10)
+	end
+end)

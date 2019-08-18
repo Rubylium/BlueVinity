@@ -68,8 +68,8 @@ local function HarvestCoke(source)
 	end)
 end
 
-RegisterServerEvent('esx_drugs:startHarvestCoke')
-AddEventHandler('esx_drugs:startHarvestCoke', function()
+RegisterServerEvent('drogues:RecolteCoke')
+AddEventHandler('drogues:RecolteCoke', function()
 
 	local _source = source
 
@@ -268,8 +268,8 @@ local function HarvestMeth(source)
 	end)
 end
 
-RegisterServerEvent('esx_drugs:startHarvestMeth')
-AddEventHandler('esx_drugs:startHarvestMeth', function()
+RegisterServerEvent('drogues:RecolteMeth')
+AddEventHandler('drogues:RecolteMeth', function()
 
 	local _source = source
 
@@ -679,8 +679,8 @@ local function HarvestOpium(source)
 	end)
 end
 
-RegisterServerEvent('esx_drugs:startHarvestOpium')
-AddEventHandler('esx_drugs:startHarvestOpium', function()
+RegisterServerEvent('drogues:RecolteOpium')
+AddEventHandler('drogues:RecolteOpium', function()
 
 	local _source = source
 
@@ -1238,6 +1238,28 @@ AddEventHandler('esx_drugs:AmeWeed7', function()
 		xPlayer.removeMoney(100000)
 		TriggerClientEvent('esx:showNotification', _source, '✅ Amélioration éffectué, vous récoltez maintenant plus rapidement.')
 		TriggerEvent('esx_license:addLicense', _source, 'AmeliorationWeed7', function()
+			TriggerEvent('esx_license:getLicenses', _source, function(licenses)
+				TriggerClientEvent('esx_drugs:loadLicenses', _source, licenses)
+			end)
+		end)
+	end
+end)
+
+-- Achats du permis weed
+
+RegisterServerEvent('esx_drugs:PermisWeed')
+AddEventHandler('esx_drugs:PermisWeed', function()
+	local _source = source
+	local xPlayer = ESX.GetPlayerFromId(_source)
+
+	local argentJoueur = xPlayer.get("money")
+
+	if argentJoueur < 25000 then
+		TriggerClientEvent('esx:showNotification', _source, "❌ Pas assez d'argent pour acheter le permis ( 25 000$ )")
+	else
+		xPlayer.removeMoney(10000)
+		TriggerClientEvent('esx:showNotification', _source, '✅ Permis Weed acheter, vous récoltez maintenant récolter.')
+		TriggerEvent('esx_license:addLicense', _source, 'PermisWeed', function()
 			TriggerEvent('esx_license:getLicenses', _source, function(licenses)
 				TriggerClientEvent('esx_drugs:loadLicenses', _source, licenses)
 			end)

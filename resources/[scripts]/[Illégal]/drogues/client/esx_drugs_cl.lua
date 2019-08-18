@@ -39,6 +39,69 @@ Citizen.CreateThread(function()
 	end
 end)
 
+
+-- Achats de la liscence weed
+
+local AchatWeed = {coords = vector3(1065.3614, -3188.54, -39.161)}
+
+
+Citizen.CreateThread(function()
+	while true do
+		local sleepThread = 500
+		local ped = PlayerPedId()
+		local pedCoords = GetEntityCoords(ped)
+		local dstCheck = GetDistanceBetweenCoords(pedCoords, AchatWeed.coords, true)
+		if dstCheck <= 4.2 then
+			sleepThread = 5
+			if dstCheck <= 4.2 then
+				ESX.Game.Utils.DrawText3D(AchatWeed.coords, "[E] Acheter son permis ~g~Weed\n~w~Prix: ~g~25k\n~r~Activitée illégal", 1.0)
+				if IsControlJustPressed(0, 38) then
+					AchatPermisWeed()
+				end
+			end
+		end
+		Citizen.Wait(sleepThread)
+	end
+end)
+
+function AchatPermisWeed()
+	local elements = {}
+	local camera = CreateCam("DEFAULT_SCRIPTED_CAMERA", 1)
+	--CreateCam(camera, true)
+	local ped = PlayerPedId()
+	SetCamCoord(camera, 1053.32, -3197.47, -37.84)
+	--AttachCamToEntity(camera, ped, -10.31, -2519.99, 8.19, 1)
+	PointCamAtEntity(camera, ped, 0, 0, 0, 1)
+	RenderScriptCams(1, 1, 1000, 1, 1)
+	SetCamShakeAmplitude(camera, 3.0)
+
+	
+	table.insert(elements, { ["label"] = "Acheter le permis Weed", ["value"] = "start" })
+	
+	ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'Weed',
+		{
+			title    = "Menu Weed",
+			align    = 'top-right',
+			elements = elements
+		},
+		
+	function(data, menu)
+		local action = data.current.value
+
+		if action == "start" then
+			ESX.UI.Menu.CloseAll()
+			RenderScriptCams(0, 1, 1000, 1, 1)
+			DestroyCam(camera, true)
+			TriggerServerEvent("esx_drugs:PermisWeed")
+		end
+	end, function(data, menu)
+		menu.close()
+		RenderScriptCams(0, 1, 1000, 1, 1)
+		DestroyCam(camera, true)
+	end)
+end
+
+
 AddEventHandler('esx_drugs:hasEnteredMarker', function(zone)
 	if myJob == 'police' then
 		CurrentActionMsg  = _U('police_message')
@@ -301,7 +364,7 @@ Citizen.CreateThread(function()
 		local currentZone = nil
 
 		for k,v in pairs(Config.Zones) do
-			if(GetDistanceBetweenCoords(coords, v.x, v.y, v.z, true) < Config.ZoneSize.x) then
+			if(GetDistanceBetweenCoords(coords, v.x, v.y, v.z, true) < 2.5) then
 				isInMarker  = true
 				currentZone = k
 			end
@@ -349,7 +412,7 @@ Citizen.CreateThread(function()
 						ClearPedTasks(playerPed)
 						Citizen.Wait(5000)
 					elseif CurrentAction == 'CokeField' then
-						TriggerServerEvent('esx_drugs:startHarvestCoke')
+						TriggerServerEvent('drogues:RecolteCoke')
 						TaskStartScenarioInPlace(playerPed, 'CODE_HUMAN_MEDIC_KNEEL', 0, true)
 						ESX.ShowNotification("~s~Vous ramassez de la ~g~Coke~n~.")
 					elseif CurrentAction == 'CokeProcessing' then
@@ -361,7 +424,7 @@ Citizen.CreateThread(function()
 						TaskStartScenarioInPlace(playerPed, 'CODE_HUMAN_MEDIC_TIME_OF_DEATH', 0, true)
 						ESX.ShowNotification("~s~Vous Vendez de la ~g~Coke~n~.")
 					elseif CurrentAction == 'MethField' then
-						TriggerServerEvent('esx_drugs:startHarvestMeth')
+						TriggerServerEvent('drogues:RecolteMeth')
 						TaskStartScenarioInPlace(playerPed, 'CODE_HUMAN_MEDIC_KNEEL', 0, true)
 						ESX.ShowNotification("~s~Vous ramassez de la ~g~Meth~n~.")
 					elseif CurrentAction == 'MethProcessing' then
@@ -445,7 +508,7 @@ Citizen.CreateThread(function()
 						TaskStartScenarioInPlace(playerPed, 'CODE_HUMAN_MEDIC_TIME_OF_DEATH', 0, true)
 						ESX.ShowNotification("~s~Vous vendez de la ~g~Weed~n~ ~s~Attention vous êtes dans ~r~l'illégalité.")
 					elseif CurrentAction == 'OpiumField' then
-						TriggerServerEvent('esx_drugs:startHarvestOpium')
+						TriggerServerEvent('drogues:RecolteOpium')
 						TaskStartScenarioInPlace(playerPed, 'CODE_HUMAN_MEDIC_KNEEL', 0, true)
 						ESX.ShowNotification("~s~Vous ramassez de la ~g~L'opium~n~.")
 					elseif CurrentAction == 'OpiumProcessing' then
@@ -463,38 +526,45 @@ Citizen.CreateThread(function()
 					elseif CurrentAction == 'LsdDealer' then
 						TriggerServerEvent('esx_drugs:startSellLsd')
 					elseif CurrentAction == 'TenuWeed' then
-						if tenueWeed == false then
-							isInZone = false
-							ESX.ShowNotification('Vous avez mis votre tenu')
-							TriggerEvent('skinchanger:getSkin', function(skin)
-								local clothesSkin = {
-									['bags_1'] = 41, ['bags_2'] = 0,
-									['tshirt_1'] = 62, ['tshirt_2'] = 2,
-									['torso_1'] = 67, ['torso_2'] = 2,
-									['arms'] = 88,
-									['pants_1'] = 40, ['pants_2'] = 2,
-									['shoes_1'] = 24, ['shoes_2'] = 0,
-									['mask_1'] = 46, ['mask_2'] = 0,
-									['bproof_1'] = 0,
-									['helmet_1'] = -1, ['helmet_2'] = 0
-								}
-								TriggerEvent('skinchanger:loadClothes', skin, clothesSkin)
-								tenueWeed = true
-							end)
-						elseif tenueWeed == true then
-							isInZone = false
-							tenueWeed = false
-							ESX.ShowNotification('Vous avez mis votre tenu Civil')
-							ESX.TriggerServerCallback('esx_skin:getPlayerSkin', function(skin, jobSkin)
-								local isMale = skin.sex == 0
-								TriggerEvent('skinchanger:loadDefaultModel', isMale, function()
-									ESX.TriggerServerCallback('esx_skin:getPlayerSkin', function(skin)
-										TriggerEvent('skinchanger:loadSkin', skin)
-										TriggerEvent('esx:restoreLoadout')
+						isInZone = false
+						for i=1, #Licenses, 1 do
+							ownedLicenses[Licenses[i].type] = true
+						end
+						if ownedLicenses['PermisWeed'] then
+							if tenueWeed == false then
+								ESX.ShowNotification('Vous avez mis votre tenu')
+								TriggerEvent('skinchanger:getSkin', function(skin)
+									local clothesSkin = {
+										['bags_1'] = 41, ['bags_2'] = 0,
+										['tshirt_1'] = 62, ['tshirt_2'] = 2,
+										['torso_1'] = 67, ['torso_2'] = 2,
+										['arms'] = 88,
+										['pants_1'] = 40, ['pants_2'] = 2,
+										['shoes_1'] = 24, ['shoes_2'] = 0,
+										['mask_1'] = 46, ['mask_2'] = 0,
+										['bproof_1'] = 0,
+										['helmet_1'] = -1, ['helmet_2'] = 0
+									}
+									TriggerEvent('skinchanger:loadClothes', skin, clothesSkin)
+									tenueWeed = true
+								end)
+							elseif tenueWeed == true then
+								isInZone = false
+								tenueWeed = false
+								ESX.ShowNotification('Vous avez mis votre tenu Civil')
+								ESX.TriggerServerCallback('esx_skin:getPlayerSkin', function(skin, jobSkin)
+									local isMale = skin.sex == 0
+									TriggerEvent('skinchanger:loadDefaultModel', isMale, function()
+										ESX.TriggerServerCallback('esx_skin:getPlayerSkin', function(skin)
+											TriggerEvent('skinchanger:loadSkin', skin)
+											TriggerEvent('esx:restoreLoadout')
+										end)
 									end)
 								end)
-							end)
-							
+								
+							end
+						else
+							ESX.ShowNotification('Vous devez avoir un permis ~g~Weed~w~ Pour vous changer!')
 						end
 					elseif CurrentAction == 'AmeWeed' then
 						isInZone = false
