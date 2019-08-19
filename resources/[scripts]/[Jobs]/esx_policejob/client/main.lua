@@ -2387,8 +2387,6 @@ AddEventHandler('esx_policejob:getarrested', function(playerheading, playercoord
 	cuffed = true
 	loadanimdict('mp_arresting')
 	TaskPlayAnim(GetPlayerPed(-1), 'mp_arresting', 'idle', 8.0, -8, -1, 49, 0.0, false, false, false)
-	Citizen.Wait(5000)
-	RemoveAnimDict('mp_arrest_paired')
 end)
 
 RegisterNetEvent('esx_policejob:doarrested')
@@ -2397,8 +2395,7 @@ AddEventHandler('esx_policejob:doarrested', function()
 	loadanimdict('mp_arrest_paired')
 	TaskPlayAnim(GetPlayerPed(-1), 'mp_arrest_paired', 'cop_p2_back_right', 8.0, -8,3750, 2, 0, 0, 0, 0)
 	Citizen.Wait(3000)
-	Citizen.Wait(5000)
-	RemoveAnimDict('mp_arrest_paired')
+
 end) 
 
 RegisterNetEvent('esx_policejob:douncuffing')
@@ -2408,8 +2405,6 @@ AddEventHandler('esx_policejob:douncuffing', function()
 	TaskPlayAnim(GetPlayerPed(-1), 'mp_arresting', 'a_uncuff', 8.0, -8,-1, 2, 0, 0, 0, 0)
 	Citizen.Wait(5500)
 	ClearPedTasks(GetPlayerPed(-1))
-	Citizen.Wait(5000)
-	RemoveAnimDict('mp_arresting')
 end)
 
 RegisterNetEvent('esx_policejob:getuncuffed')
@@ -2424,6 +2419,4 @@ AddEventHandler('esx_policejob:getuncuffed', function(playerheading, playercoord
 	Citizen.Wait(5500)
 	cuffed = false
 	ClearPedTasks(GetPlayerPed(-1))
-	Citizen.Wait(5000)
-	RemoveAnimDict('mp_arresting')
 end)
