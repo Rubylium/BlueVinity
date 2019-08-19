@@ -7,7 +7,6 @@ local events = {
 	'esx_truckerjob:pay',
 	'AdminMenu:giveCash',
 	'AdminMenu:giveBank',
-	--'esx:giveInventoryItem',
 	'AdminMenu:giveDirtyMoney',
 	'esx-qalle-jail:jailPlayer',
 	'kickAllPlayer',
