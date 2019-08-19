@@ -194,7 +194,7 @@ AddEventHandler('scrambler:injectionDetected', function(name, source, isServerEv
 	SendWebhookMessageStaff(webhook,"**Mod Menu detected!** \n```diff\nJoueurs: "..nom.."\nID du joueurs: "..source.."\n\n- Type d'event utilisé : " .. eventType .. "\n- Nom de l'event utilisé : " .. name .. "\n+ Anticheat Flags: ( Le joueur à été définitivement banni du serveur. [Ban ID: #".. platenum .."]. )```")
 	
 	TriggerEvent("RubyAntiCheat:Ban", 'Ruby_Anti_Cheat', source, 0, BanMessageLuaInjection)
-	TriggerClientEvent('chatMessage', -1, "ANTI CHEAT", {255, 0, 0}, "Le joueur" .. name .. "à été banni: "..BanMessageLuaInjection.."")
+	TriggerClientEvent('chatMessage', -1, "ANTI CHEAT", {255, 0, 0}, "Le joueur" .. nom .. "à été banni: "..BanMessageLuaInjection.."")
 	--DropPlayer(source, BanMessageLuaInjection)
 end)
 
@@ -223,7 +223,7 @@ AddEventHandler('scrambler:ArmeDetect', function(source)
 	print('===========================================')
 	SendWebhookMessageStaff(webhook,"**Arme black list** \n```diff\nJoueurs: "..nom.."\nID du joueurs: "..source.."\n\n+ Anticheat Flags: ( Le joueur à été définitivement banni du serveur. [Ban ID: #".. platenum .."]. )```")
 	TriggerEvent("RubyAntiCheat:Ban", 'Ruby_Anti_Cheat', source, 0, BanMessageHealthHack)
-	TriggerClientEvent('chatMessage', -1, "ANTI CHEAT", {255, 0, 0}, "Le joueur" .. name .. "à été banni: "..BanMessageHealthHack.."")
+	TriggerClientEvent('chatMessage', -1, "ANTI CHEAT", {255, 0, 0}, "Le joueur" .. nom .. "à été banni: "..BanMessageHealthHack.."")
 
 	--DropPlayer(source, BanMessageLuaInjection)
 end)
