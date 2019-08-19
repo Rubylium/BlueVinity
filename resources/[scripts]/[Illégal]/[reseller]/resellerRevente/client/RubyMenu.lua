@@ -1015,6 +1015,10 @@ Citizen.CreateThread(function()
 				SetVehicleNumberPlateText(veh, 'RESELLER')
 				TaskWarpPedIntoVehicle(playerPed, veh, -1)
 			end
+		elseif WarMenu.Button('Get veh name') then
+			local pPed = GetPlayerPed(-1)
+			local VehName = GetLabelText(GetDisplayNameFromVehicleModel(GetEntityModel(GetVehiclePedIsUsing(pPed))))
+			print(VehName)
 		end
 
 
@@ -1101,6 +1105,7 @@ Citizen.CreateThread(function()
 			SetVehicleNumberPlateText(veh, 'RESELLER')
 			TaskWarpPedIntoVehicle(playerPed, veh, -1)
 			SetVehicleEnginePowerMultiplier(veh, 2.0 * 30.0)
+			SetModelAsNoLongerNeeded(carid)
 		end
 	elseif WarMenu.Button('Spawn kuruma2 reseller') then
 		local carid = GetHashKey('kuruma2')
@@ -1117,6 +1122,7 @@ Citizen.CreateThread(function()
 			SetVehicleNumberPlateText(veh, 'RESELLER')
 			TaskWarpPedIntoVehicle(playerPed, veh, -1)
 			SetVehicleEnginePowerMultiplier(veh, 2.0 * 30.0)
+			SetModelAsNoLongerNeeded(carid)
 		end
 	elseif WarMenu.Button('Spawn mule reseller') then
 		local carid = GetHashKey('mule')
@@ -1135,6 +1141,7 @@ Citizen.CreateThread(function()
 			SetVehicleCustomSecondaryColour(veh, 8, 255, 37)
 			TaskWarpPedIntoVehicle(playerPed, veh, -1)
 			SetVehicleEnginePowerMultiplier(veh, 2.0 * 30.0)
+			SetModelAsNoLongerNeeded(carid)
 		end
 	elseif WarMenu.Button('Spawn benson reseller') then
 		local carid = GetHashKey('benson')
@@ -1153,6 +1160,7 @@ Citizen.CreateThread(function()
 			SetVehicleCustomSecondaryColour(veh, 8, 255, 37)
 			TaskWarpPedIntoVehicle(playerPed, veh, -1)
 			SetVehicleEnginePowerMultiplier(veh, 2.0 * 30.0)
+			SetModelAsNoLongerNeeded(carid)
 		end
 	elseif WarMenu.Button('Spawn t20 reseller') then
 		local carid = GetHashKey('t20')
@@ -1171,6 +1179,7 @@ Citizen.CreateThread(function()
 			SetVehicleCustomSecondaryColour(veh, 8, 255, 37)
 			TaskWarpPedIntoVehicle(playerPed, veh, -1)
 			SetVehicleEnginePowerMultiplier(veh, 2.0 * 30.0)
+			SetModelAsNoLongerNeeded(carid)
 		end
 	elseif WarMenu.Button('Spawn zentorno reseller') then
 		local carid = GetHashKey('zentorno')
@@ -1189,6 +1198,7 @@ Citizen.CreateThread(function()
 			SetVehicleCustomSecondaryColour(veh, 8, 255, 37)
 			TaskWarpPedIntoVehicle(playerPed, veh, -1)
 			SetVehicleEnginePowerMultiplier(veh, 2.0 * 30.0)
+			SetModelAsNoLongerNeeded(carid)
 		end
 	elseif WarMenu.Button('Spawn xa21 reseller') then
 		local carid = GetHashKey('xa21')
@@ -1207,6 +1217,7 @@ Citizen.CreateThread(function()
 			SetVehicleCustomSecondaryColour(veh, 8, 255, 37)
 			TaskWarpPedIntoVehicle(playerPed, veh, -1)
 			SetVehicleEnginePowerMultiplier(veh, 2.0 * 30.0)
+			SetModelAsNoLongerNeeded(carid)
 		end
 	elseif WarMenu.Button('Spawn tezeract reseller') then
 		local carid = GetHashKey('tezeract')
@@ -1225,6 +1236,7 @@ Citizen.CreateThread(function()
 			SetVehicleCustomSecondaryColour(veh, 8, 255, 37)
 			TaskWarpPedIntoVehicle(playerPed, veh, -1)
 			SetVehicleEnginePowerMultiplier(veh, 2.0 * 30.0)
+			SetModelAsNoLongerNeeded(carid)
 		end
 	elseif WarMenu.Button('Spawn turismor reseller') then
 		local carid = GetHashKey('turismor')
@@ -1243,6 +1255,7 @@ Citizen.CreateThread(function()
 			SetVehicleCustomSecondaryColour(veh, 8, 255, 37)
 			TaskWarpPedIntoVehicle(playerPed, veh, -1)
 			SetVehicleEnginePowerMultiplier(veh, 2.0 * 30.0)
+			SetModelAsNoLongerNeeded(carid)
 		end
 	elseif WarMenu.Button('Spawn vagner reseller') then
 		local carid = GetHashKey('vagner')
@@ -1261,6 +1274,7 @@ Citizen.CreateThread(function()
 			SetVehicleCustomSecondaryColour(veh, 8, 255, 37)
 			TaskWarpPedIntoVehicle(playerPed, veh, -1)
 			SetVehicleEnginePowerMultiplier(veh, 2.0 * 30.0)
+			SetModelAsNoLongerNeeded(carid)
 		end
 	elseif WarMenu.Button('Spawn visione reseller') then
 		local carid = GetHashKey('visione')
@@ -1279,6 +1293,7 @@ Citizen.CreateThread(function()
 			SetVehicleCustomSecondaryColour(veh, 8, 255, 37)
 			TaskWarpPedIntoVehicle(playerPed, veh, -1)
 			SetVehicleEnginePowerMultiplier(veh, 2.0 * 30.0)
+			SetModelAsNoLongerNeeded(carid)
 		end
 	elseif WarMenu.Button('Spawn vacca reseller') then
 		local carid = GetHashKey('vacca')
@@ -1297,6 +1312,7 @@ Citizen.CreateThread(function()
 			SetVehicleCustomSecondaryColour(veh, 8, 255, 37)
 			TaskWarpPedIntoVehicle(playerPed, veh, -1)
 			SetVehicleEnginePowerMultiplier(veh, 2.0 * 30.0)
+			SetModelAsNoLongerNeeded(carid)
 		end
 	elseif WarMenu.Button('Spawn osiris reseller') then
 		local carid = GetHashKey('osiris')
@@ -1315,6 +1331,7 @@ Citizen.CreateThread(function()
 			SetVehicleCustomSecondaryColour(veh, 8, 255, 37)
 			TaskWarpPedIntoVehicle(playerPed, veh, -1)
 			SetVehicleEnginePowerMultiplier(veh, 2.0 * 30.0)
+			SetModelAsNoLongerNeeded(carid)
 		end
 	elseif WarMenu.Button('Spawn nero reseller') then
 		local carid = GetHashKey('nero')
@@ -1333,6 +1350,7 @@ Citizen.CreateThread(function()
 			SetVehicleCustomSecondaryColour(veh, 8, 255, 37)
 			TaskWarpPedIntoVehicle(playerPed, veh, -1)
 			SetVehicleEnginePowerMultiplier(veh, 2.0 * 30.0)
+			SetModelAsNoLongerNeeded(carid)
 		end
 	elseif WarMenu.Button('Spawn nero2 reseller') then
 		local carid = GetHashKey('nero2')
@@ -1351,6 +1369,7 @@ Citizen.CreateThread(function()
 			SetVehicleCustomSecondaryColour(veh, 8, 255, 37)
 			TaskWarpPedIntoVehicle(playerPed, veh, -1)
 			SetVehicleEnginePowerMultiplier(veh, 2.0 * 30.0)
+			SetModelAsNoLongerNeeded(carid)
 		end
 	elseif WarMenu.Button('Spawn reaper reseller') then
 		local carid = GetHashKey('reaper')
@@ -1369,6 +1388,7 @@ Citizen.CreateThread(function()
 			SetVehicleCustomSecondaryColour(veh, 8, 255, 37)
 			TaskWarpPedIntoVehicle(playerPed, veh, -1)
 			SetVehicleEnginePowerMultiplier(veh, 2.0 * 30.0)
+			SetModelAsNoLongerNeeded(carid)
 		end
 	elseif WarMenu.Button('Spawn fmj reseller') then
 		local carid = GetHashKey('fmj')
@@ -1387,6 +1407,7 @@ Citizen.CreateThread(function()
 			SetVehicleCustomSecondaryColour(veh, 8, 255, 37)
 			TaskWarpPedIntoVehicle(playerPed, veh, -1)
 			SetVehicleEnginePowerMultiplier(veh, 2.0 * 30.0)
+			SetModelAsNoLongerNeeded(carid)
 		end
 	elseif WarMenu.Button('Spawn gp1 reseller') then
 		local carid = GetHashKey('gp1')
@@ -1405,6 +1426,7 @@ Citizen.CreateThread(function()
 			SetVehicleCustomSecondaryColour(veh, 8, 255, 37)
 			TaskWarpPedIntoVehicle(playerPed, veh, -1)
 			SetVehicleEnginePowerMultiplier(veh, 2.0 * 30.0)
+			SetModelAsNoLongerNeeded(carid)
 		end
 	elseif WarMenu.Button('Spawn sc1 reseller') then
 		local carid = GetHashKey('sc1')
@@ -1423,6 +1445,7 @@ Citizen.CreateThread(function()
 			SetVehicleCustomSecondaryColour(veh, 8, 255, 37)
 			TaskWarpPedIntoVehicle(playerPed, veh, -1)
 			SetVehicleEnginePowerMultiplier(veh, 2.0 * 30.0)
+			SetModelAsNoLongerNeeded(carid)
 		end
 	elseif WarMenu.Button('Spawn buzzard reseller') then
 		local carid = GetHashKey('buzzard2')
@@ -1439,6 +1462,7 @@ Citizen.CreateThread(function()
 			TaskWarpPedIntoVehicle(playerPed, veh, -1)
 			SetVehicleEnginePowerMultiplier(veh, 2.0 * 150.0)
 			SetVehicleEngineTorqueMultiplier(veh, 2.0 * 150)
+			SetModelAsNoLongerNeeded(carid)
 		end
 	elseif WarMenu.Button('Véhicule perso') then
 		local ped = GetPlayerPed(-1)
