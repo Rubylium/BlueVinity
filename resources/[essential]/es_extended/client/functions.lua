@@ -45,19 +45,17 @@ ESX.SetPlayerData = function(key, val)
 end
 
 ESX.ShowNotification = function(msg)
-	SetNotificationBackgroundColor(11)
 	SetNotificationTextEntry('STRING')
-	AddTextComponentSubstringPlayerName(msg)
+	AddTextComponentSubstringWebsite(msg)
 	DrawNotification(false, true)
- end
- 
- ESX.ShowAdvancedNotification = function(title, subject, msg, icon, iconType)
-	SetNotificationBackgroundColor(11)
+end
+
+ESX.ShowAdvancedNotification = function(title, subject, msg, icon, iconType)
 	SetNotificationTextEntry('STRING')
-	AddTextComponentSubstringPlayerName(msg)
+	AddTextComponentSubstringWebsite(msg)
 	SetNotificationMessage(icon, icon, false, iconType, title, subject)
 	DrawNotification(false, false)
- end
+end
 
 ESX.ShowHelpNotification = function(msg)
 	if not IsHelpMessageOnScreen() then
@@ -299,11 +297,7 @@ ESX.Game.SpawnLocalObject = function(model, coords, cb)
 	local model = (type(model) == 'number' and model or GetHashKey(model))
 
 	Citizen.CreateThread(function()
-		RequestModel(model)
-
-		while not HasModelLoaded(model) do
-			Citizen.Wait(0)
-		end
+		ESX.Streaming.RequestModel(model)
 
 		local obj = CreateObject(model, coords.x, coords.y, coords.z, false, false, true)
 
@@ -327,11 +321,7 @@ ESX.Game.SpawnVehicle = function(modelName, coords, heading, cb)
 	local model = (type(modelName) == 'number' and modelName or GetHashKey(modelName))
 
 	Citizen.CreateThread(function()
-		RequestModel(model)
-
-		while not HasModelLoaded(model) do
-			Citizen.Wait(0)
-		end
+		ESX.Streaming.RequestModel(model)
 
 		local vehicle = CreateVehicle(model, coords.x, coords.y, coords.z, heading, true, false)
 		local id      = NetworkGetNetworkIdFromEntity(vehicle)
@@ -361,11 +351,7 @@ ESX.Game.SpawnLocalVehicle = function(modelName, coords, heading, cb)
 	local model = (type(modelName) == 'number' and modelName or GetHashKey(modelName))
 
 	Citizen.CreateThread(function()
-		RequestModel(model)
-
-		while not HasModelLoaded(model) do
-			Citizen.Wait(0)
-		end
+		ESX.Streaming.RequestModel(model)
 
 		local vehicle = CreateVehicle(model, coords.x, coords.y, coords.z, heading, false, false)
 
@@ -451,16 +437,13 @@ ESX.Game.GetClosestObject = function(filter, coords)
 end
 
 ESX.Game.GetPlayers = function()
-	local maxPlayers = Config.MaxPlayers
-	local players    = {}
+	local players = {}
 
-	--for i=0, maxPlayers, 1 do
-	for _, i in ipairs(GetActivePlayers()) do
-
-		local ped = GetPlayerPed(i)
+	for _,player in ipairs(GetActivePlayers()) do
+		local ped = GetPlayerPed(player)
 
 		if DoesEntityExist(ped) then
-			table.insert(players, i)
+			table.insert(players, player)
 		end
 	end
 
@@ -630,16 +613,15 @@ ESX.Game.GetVehicleProperties = function(vehicle)
 	local pearlescentColor, wheelColor = GetVehicleExtraColours(vehicle)
 
 	return {
+
 		model             = GetEntityModel(vehicle),
 
 		plate             = ESX.Math.Trim(GetVehicleNumberPlateText(vehicle)),
 		plateIndex        = GetVehicleNumberPlateTextIndex(vehicle),
 
-		--bodyHealth        = ESX.Math.Round(GetVehicleBodyHealth(vehicle), 1),
-		--engineHealth      = ESX.Math.Round(GetVehicleEngineHealth(vehicle), 1),
---
-		--fuelLevel         = ESX.Math.Round(GetVehicleFuelLevel(vehicle), 1),
-		--dirtLevel         = ESX.Math.Round(GetVehicleDirtLevel(vehicle), 1),
+		health            = GetEntityHealth(vehicle),
+		dirtLevel         = GetVehicleDirtLevel(vehicle),
+
 		color1            = color1,
 		color2            = color2,
 
@@ -722,21 +704,13 @@ ESX.Game.SetVehicleProperties = function(vehicle, props)
 		SetVehicleNumberPlateTextIndex(vehicle, props.plateIndex)
 	end
 
-	--if props.bodyHealth ~= nil then
-	--	SetVehicleBodyHealth(vehicle, props.bodyHealth + 0.0)
-	--end
---
-	--if props.engineHealth ~= nil then
-	--	SetVehicleEngineHealth(vehicle, props.engineHealth + 0.0)
-	--end
---
-	--if props.fuelLevel ~= nil then
-	--	SetVehicleFuelLevel(vehicle, props.fuelLevel + 0.0)
-	--end
---
-	--if props.dirtLevel ~= nil then
-	--	SetVehicleDirtLevel(vehicle, props.dirtLevel + 0.0)
-	--end
+	if props.health ~= nil then
+		SetEntityHealth(vehicle, props.health)
+	end
+
+	if props.dirtLevel ~= nil then
+		SetVehicleDirtLevel(vehicle, props.dirtLevel)
+	end
 
 	if props.color1 ~= nil then
 		local color1, color2 = GetVehicleColours(vehicle)
@@ -982,7 +956,6 @@ ESX.Game.Utils.DrawText3D = function(coords, text, size)
 		SetTextProportional(1)
 		SetTextColour(255, 255, 255, 255)
 		SetTextDropshadow(0, 0, 0, 0, 255)
-		SetTextEdge(2, 0, 0, 0, 150)
 		SetTextDropShadow()
 		SetTextOutline()
 		SetTextEntry('STRING')
@@ -1317,7 +1290,7 @@ end)
 Citizen.CreateThread(function()
 	while true do
 
-		Citizen.Wait(1)
+		Citizen.Wait(0)
 		local currTime = GetGameTimer()
 
 		for i=1, #ESX.TimeoutCallbacks, 1 do

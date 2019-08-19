@@ -99,7 +99,7 @@ ESX.SavePlayer = function(xPlayer, cb)
 	end)
 
 	Async.parallel(asyncTasks, function(results)
-		--RconPrint("^3TOUT LES JOUEUR ON ETE SAVE\n")
+		--RconPrint('[SAVED] ' .. xPlayer.name .. "\n")
 
 		if cb ~= nil then
 			cb()
@@ -120,7 +120,7 @@ ESX.SavePlayers = function(cb)
 	end
 
 	Async.parallelLimit(asyncTasks, 8, function(results)
-		--RconPrint('^3TOUT LES JOUEUR ON ETE SAVE' .. "\n")
+		--RconPrint('[SAVED] All players' .. "\n")
 
 		if cb ~= nil then
 			cb()
@@ -187,7 +187,10 @@ ESX.CreatePickup = function(type, name, count, label, player)
 	ESX.PickupId = pickupId
 end
 
+
 ESX.DoesJobExist = function(job, grade)
+	grade = tostring(grade)
+	
 	if job and grade then
 		if ESX.Jobs[job] and ESX.Jobs[job].grades[grade] then
 			return true

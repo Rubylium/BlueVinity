@@ -28,6 +28,10 @@ server_scripts {
 	'server/main.lua',
 	'server/commands.lua',
 
+	'common/modules/math.lua',
+	'common/modules/table.lua',
+	'common/functions.lua',
+
 	'shared/modules/math.lua',
 	'shared/functions.lua'
 }
@@ -57,7 +61,11 @@ client_scripts {
 	'client/modules/streaming.lua',
 
 	'shared/modules/math.lua',
-	'shared/functions.lua'
+	'shared/functions.lua',
+
+	'common/modules/math.lua',
+	'common/modules/table.lua',
+	'common/functions.lua'
 }
 
 ui_page {

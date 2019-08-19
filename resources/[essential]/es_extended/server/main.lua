@@ -37,6 +37,7 @@ AddEventHandler('es:playerLoaded', function(source, _player)
 								money = accounts[j].money,
 								label = Config.AccountLabels[accounts[j].name]
 							})
+							break
 						end
 					end
 				end
@@ -54,22 +55,28 @@ AddEventHandler('es:playerLoaded', function(source, _player)
 
 				local tasks2 = {}
 
-				for i=1, #inventory, 1 do
-					table.insert(userData.inventory, {
-						name      = inventory[i].item,
-						count     = inventory[i].count,
-						label     = ESX.Items[inventory[i].item].label,
-						limit     = ESX.Items[inventory[i].item].limit,
-						usable    = ESX.UsableItemsCallbacks[inventory[i].item] ~= nil,
-						rare      = ESX.Items[inventory[i].item].rare,
-						canRemove = ESX.Items[inventory[i].item].canRemove
-					})
+				for i=1, #inventory do
+					local item = ESX.Items[inventory[i].item]
+
+					if item then
+						table.insert(userData.inventory, {
+							name = inventory[i].item,
+							count = inventory[i].count,
+							label = item.label,
+							limit = item.limit,
+							usable = ESX.UsableItemsCallbacks[inventory[i].item] ~= nil,
+							rare = item.rare,
+							canRemove = item.canRemove
+						})
+					else
+						print(('es_extended: invalid item "%s" ignored!'):format(inventory[i].item))
+					end
 				end
 
 				for k,v in pairs(ESX.Items) do
 					local found = false
 
-					for j=1, #userData.inventory, 1 do
+					for j=1, #userData.inventory do
 						if userData.inventory[j].name == k then
 							found = true
 							break
@@ -131,8 +138,52 @@ AddEventHandler('es:playerLoaded', function(source, _player)
 				MySQL.Async.fetchAll('SELECT job, job_grade, loadout, position FROM `users` WHERE `identifier` = @identifier', {
 					['@identifier'] = player.getIdentifier()
 				}, function(result)
-					userData.job['name']  = result[1].job
-					userData.job['grade'] = result[1].job_grade
+					local job, grade = result[1].job, tostring(result[1].job_grade)
+
+					if ESX.DoesJobExist(job, grade) then
+						local jobObject, gradeObject = ESX.Jobs[job], ESX.Jobs[job].grades[grade]
+
+						userData.job = {}
+
+						userData.job.id    = jobObject.id
+						userData.job.name  = jobObject.name
+						userData.job.label = jobObject.label
+
+						userData.job.grade        = grade
+						userData.job.grade_name   = gradeObject.name
+						userData.job.grade_label  = gradeObject.label
+						userData.job.grade_salary = gradeObject.salary
+
+						userData.job.skin_male    = {}
+						userData.job.skin_female  = {}
+
+						if gradeObject.skin_male ~= nil then
+							userData.job.skin_male = json.decode(gradeObject.skin_male)
+						end
+			
+						if gradeObject.skin_female ~= nil then
+							userData.job.skin_female = json.decode(gradeObject.skin_female)
+						end
+					else
+						print(('es_extended: %s had an unknown job [job: %s, grade: %s], setting as unemployed!'):format(player.getIdentifier(), job, grade))
+
+						local job, grade = 'unemployed', '0'
+						local jobObject, gradeObject = ESX.Jobs[job], ESX.Jobs[job].grades[grade]
+
+						userData.job = {}
+
+						userData.job.id    = jobObject.id
+						userData.job.name  = jobObject.name
+						userData.job.label = jobObject.label
+			
+						userData.job.grade        = grade
+						userData.job.grade_name   = gradeObject.name
+						userData.job.grade_label  = gradeObject.label
+						userData.job.grade_salary = gradeObject.salary
+			
+						userData.job.skin_male    = {}
+						userData.job.skin_female  = {}
+					end
 
 					if result[1].loadout ~= nil then
 						userData.loadout = json.decode(result[1].loadout)
@@ -140,45 +191,6 @@ AddEventHandler('es:playerLoaded', function(source, _player)
 
 					if result[1].position ~= nil then
 						userData.lastPosition = json.decode(result[1].position)
-					end
-
-					cb2()
-				end)
-
-			end)
-
-			-- Get job label
-			table.insert(tasks2, function(cb2)
-				MySQL.Async.fetchAll('SELECT * FROM `jobs` WHERE `name` = @name', {
-					['@name'] = userData.job.name
-				}, function(result)
-					userData.job['label'] = result[1].label
-					cb2()
-				end)
-			end)
-
-			-- Get job grade data
-			table.insert(tasks2, function(cb2)
-
-				MySQL.Async.fetchAll('SELECT * FROM `job_grades` WHERE `job_name` = @job_name AND `grade` = @grade',
-				{
-					['@job_name'] = userData.job.name,
-					['@grade']    = userData.job.grade
-				}, function(result)
-
-					userData.job['grade_name']   = result[1].name
-					userData.job['grade_label']  = result[1].label
-					userData.job['grade_salary'] = result[1].salary
-
-					userData.job['skin_male']   = {}
-					userData.job['skin_female'] = {}
-
-					if result[1].skin_male ~= nil then
-						userData.job['skin_male'] = json.decode(result[1].skin_male)
-					end
-
-					if result[1].skin_female ~= nil then
-						userData.job['skin_female'] = json.decode(result[1].skin_female)
 					end
 
 					cb2()
@@ -221,10 +233,10 @@ AddEventHandler('es:playerLoaded', function(source, _player)
 					job          = xPlayer.getJob(),
 					loadout      = xPlayer.getLoadout(),
 					lastPosition = xPlayer.getLastPosition(),
-					money        = xPlayer.get('money')
+					money        = xPlayer.getMoney()
 				})
 
-				xPlayer.player.displayMoney(xPlayer.get('money'))
+				xPlayer.displayMoney(xPlayer.getMoney())
 
 			end)
 
@@ -282,7 +294,6 @@ AddEventHandler('esx:giveInventoryItem', function(target, type, itemName, itemCo
 				
 				TriggerClientEvent('esx:showNotification', _source, _U('gave_item', itemCount, ESX.Items[itemName].label, targetXPlayer.name))
 				TriggerClientEvent('esx:showNotification', target,  _U('received_item', itemCount, ESX.Items[itemName].label, sourceXPlayer.name))
-				TriggerEvent("esx:giveitemalert",sourceXPlayer.name,targetXPlayer.name,ESX.Items[itemName].label,itemCount)
 			end
 
 		else
@@ -298,7 +309,6 @@ AddEventHandler('esx:giveInventoryItem', function(target, type, itemName, itemCo
 
 			TriggerClientEvent('esx:showNotification', _source, _U('gave_money', ESX.Math.GroupDigits(itemCount), targetXPlayer.name))
 			TriggerClientEvent('esx:showNotification', target,  _U('received_money', ESX.Math.GroupDigits(itemCount), sourceXPlayer.name))
-			TriggerEvent("esx:givemoneyalert",sourceXPlayer.name,targetXPlayer.name,itemCount)
 
 		else
 			TriggerClientEvent('esx:showNotification', _source, _U('imp_invalid_amount'))
@@ -313,7 +323,6 @@ AddEventHandler('esx:giveInventoryItem', function(target, type, itemName, itemCo
 
 			TriggerClientEvent('esx:showNotification', _source, _U('gave_account_money', ESX.Math.GroupDigits(itemCount), Config.AccountLabels[itemName], targetXPlayer.name))
 			TriggerClientEvent('esx:showNotification', target,  _U('received_account_money', ESX.Math.GroupDigits(itemCount), Config.AccountLabels[itemName], sourceXPlayer.name))
-			TriggerEvent("esx:givemoneybankalert",sourceXPlayer.name,targetXPlayer.name,itemCount)
 
 		else
 			TriggerClientEvent('esx:showNotification', _source, _U('imp_invalid_amount'))
@@ -331,16 +340,14 @@ AddEventHandler('esx:giveInventoryItem', function(target, type, itemName, itemCo
 			if itemCount > 0 then
 				TriggerClientEvent('esx:showNotification', _source, _U('gave_weapon_ammo', weaponLabel, itemCount, targetXPlayer.name))
 				TriggerClientEvent('esx:showNotification', target,  _U('received_weapon_ammo', weaponLabel, itemCount, sourceXPlayer.name))
-				TriggerEvent("esx:giveweaponalert",sourceXPlayer.name,targetXPlayer.name,weaponLabel)
 			else
 				TriggerClientEvent('esx:showNotification', _source, _U('gave_weapon', weaponLabel, targetXPlayer.name))
 				TriggerClientEvent('esx:showNotification', target,  _U('received_weapon', weaponLabel, sourceXPlayer.name))
-				TriggerEvent("esx:giveweaponalert",sourceXPlayer.name,targetXPlayer.name,weaponLabel)
 			end
 
 		else
 			TriggerClientEvent('esx:showNotification', _source, _U('gave_weapon_hasalready', targetXPlayer.name, weaponLabel))
-			TriggerClientEvent('esx:showNotification', _source, _U('received_weapon_hasalready', sourceXPlayer.name, weaponLabel))
+			TriggerClientEvent('esx:showNotification', target, _U('received_weapon_hasalready', sourceXPlayer.name, weaponLabel))
 		end
 
 	end
