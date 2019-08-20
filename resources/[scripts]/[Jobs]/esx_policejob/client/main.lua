@@ -794,13 +794,34 @@ function OpenPoliceActionsMenu()
 						return
 					end
 
-					print(attente)
-					if DoesEntityExist(vehicle) then
-						local veh = ESX.Game.GetClosestVehicle(coords)
-						SetEntityAsMissionEntity(veh, 1, 1)
-						DeleteEntity(veh)
-					else
-						ESX.ShowNotification('❌ Attends un peu avant d\'utilisé la fourrière, pas de véhicule proche')
+					local playerPed = PlayerPedId()
+					local vehicle   = ESX.Game.GetVehicleInDirection()
+					if IsPedInAnyVehicle(playerPed, true) then
+					    vehicle = GetVehiclePedIsIn(playerPed, false)
+					end
+					local entity = vehicle
+					carModel = GetEntityModel(entity)
+					carName = GetDisplayNameFromVehicleModel(carModel)
+					NetworkRequestControlOfEntity(entity)
+					
+					local timeout = 2000
+					while timeout > 0 and not NetworkHasControlOfEntity(entity) do
+					    Wait(100)
+					    timeout = timeout - 100
+					end
+				 
+					SetEntityAsMissionEntity(entity, true, true)
+					
+					local timeout = 2000
+					while timeout > 0 and not IsEntityAMissionEntity(entity) do
+					    Wait(100)
+					    timeout = timeout - 100
+					end
+				 
+					Citizen.InvokeNative( 0xEA386986E786A54F, Citizen.PointerValueIntInitialized( entity ) )
+					
+					if (DoesEntityExist(entity)) then 
+					    DeleteEntity(entity)
 					end
 				elseif DoesEntityExist(vehicle) then
 					if action == 'vehicle_infos' then
@@ -2352,8 +2373,35 @@ end
 --   - return to garage if owned
 --   - message owner that his vehicle has been impounded
 function ImpoundVehicle(vehicle)
-	--local vehicleName = GetLabelText(GetDisplayNameFromVehicleModel(GetEntityModel(vehicle)))
-	ESX.Game.DeleteVehicle(vehicle)
+	local playerPed = PlayerPedId()
+	local vehicle   = ESX.Game.GetVehicleInDirection()
+	if IsPedInAnyVehicle(playerPed, true) then
+	    vehicle = GetVehiclePedIsIn(playerPed, false)
+	end
+	local entity = vehicle
+	carModel = GetEntityModel(entity)
+	carName = GetDisplayNameFromVehicleModel(carModel)
+	NetworkRequestControlOfEntity(entity)
+	
+	local timeout = 2000
+	while timeout > 0 and not NetworkHasControlOfEntity(entity) do
+	    Wait(100)
+	    timeout = timeout - 100
+	end
+ 
+	SetEntityAsMissionEntity(entity, true, true)
+	
+	local timeout = 2000
+	while timeout > 0 and not IsEntityAMissionEntity(entity) do
+	    Wait(100)
+	    timeout = timeout - 100
+	end
+ 
+	Citizen.InvokeNative( 0xEA386986E786A54F, Citizen.PointerValueIntInitialized( entity ) )
+	
+	if (DoesEntityExist(entity)) then 
+	    DeleteEntity(entity)
+	end 
 	ESX.ShowNotification(_U('impound_successful'))
 	currentTask.busy = false
 end
@@ -2369,6 +2417,7 @@ function loadanimdict(dictname)
 		while not HasAnimDictLoaded(dictname) do 
 			Citizen.Wait(1)
 		end
+		RemoveAnimDict(dictname)
 	end
 end
 

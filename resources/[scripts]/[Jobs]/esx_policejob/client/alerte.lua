@@ -61,13 +61,6 @@ end)
 
 -- L'OPTIIMISATIOOOOOOOOOOOOOOOOOOOOON
 
---Citizen.CreateThread(function()
---     while true do
---          local plyPos = GetEntityCoords(GetPlayerPed(-1), true)
---          Citizen.Wait(500)
---     end
---end)
-
 RegisterNetEvent('TireEntendu')
 AddEventHandler('TireEntendu', function(gx, gy, gz)
      if PlayerData.job ~= nil and PlayerData.job.name == 'police' then
