@@ -148,42 +148,57 @@ Config.AuthorizedWeapons = {
 
 Config.AuthorizedVehicles = {
 	Shared = {
-		{ model = 'police', label = 'Police Cruiser', price = 1 },
-		{ model = 'police2', label = 'Bravado Buffalo', price = 1 },
-		{ model = 'police3', label = 'Vapid Stanier', price = 1 },
-		{ model = 'police5', label = 'Ford Explorer', price = 1 },
-		{ model = 'policeb', label = 'Police Moto', price = 1 },
-		{ model = 'policet', label = 'Police Transporter', price = 1 }
+		{ model = 'police2', label = 'Police Charger', price = 1 },
+		{ model = 'police12', label = 'Police Banalisé Charger', price = 1 },
+		{ model = 'police8', label = 'Police 4x4', price = 1 }
 	},
 
 	recruit = {
-		{ model = 'police3', label = 'Police Interceptor', price = 1 }
+		{ model = 'police6', label = 'Police Ford Cadet', price = 1 }
 	},
 
 	officer = {
-		{ model = 'police3', label = 'Police Interceptor', price = 1 }
+		{ model = 'police3', label = 'Police Ford SUV', price = 1 },
+		{ model = 'policeb', label = 'Police Moto 1', price = 1 },
+		{ model = 'policec', label = 'Police Moto 2', price = 1 }
 	},
 
 	sergeant = {
-		{ model = 'policet', label = 'Police Transporter', price = 1 },
-		{ model = 'policeb', label = 'Police Bike', price = 1 }
+		{ model = 'police3', label = 'Police Ford SUV', price = 1 },
+		{ model = 'policeb', label = 'Police Moto 1', price = 1 },
+		{ model = 'policec', label = 'Police Moto 2', price = 1 },
+		{ model = 'police18', label = 'Intervention Rapide', price = 1 }
 	},
 
 	intendent = {
-
 	},
 
 	lieutenant = {
-		{ model = 'riot', label = 'Police Riot', price = 1 },
-		{ model = 'fbi2', label = 'FIB SUV', price = 1 }
+		{ model = 'police3', label = 'Police Ford SUV', price = 1 },
+		{ model = 'policeb', label = 'Police Moto 1', price = 1 },
+		{ model = 'policec', label = 'Police Moto 2', price = 1 },
+		{ model = 'police18', label = 'Intervention Rapide', price = 1 },
+		{ model = 'policet', label = 'Police Van', price = 1 },
+		{ model = 'riot', label = 'Police Riot', price = 1 }
 	},
 
 	chef = {
-
+		{ model = 'police3', label = 'Police Ford SUV', price = 1 },
+		{ model = 'policeb', label = 'Police Moto 1', price = 1 },
+		{ model = 'policec', label = 'Police Moto 2', price = 1 },
+		{ model = 'police18', label = 'Intervention Rapide', price = 1 },
+		{ model = 'policet', label = 'Police Van', price = 1 },
+		{ model = 'riot', label = 'Police Riot', price = 1 }
 	},
 
 	boss = {
-
+		{ model = 'police3', label = 'Police Ford SUV', price = 1 },
+		{ model = 'policeb', label = 'Police Moto 1', price = 1 },
+		{ model = 'policec', label = 'Police Moto 2', price = 1 },
+		{ model = 'police18', label = 'Intervention Rapide', price = 1 },
+		{ model = 'policet', label = 'Police Van', price = 1 },
+		{ model = 'riot', label = 'Police Riot', price = 1 },
+		{ model = 'police16', label = 'Police Bus', price = 1 }
 	}
 }
 
@@ -197,15 +212,15 @@ Config.AuthorizedHelicopters = {
 	intendent = {},
 
 	lieutenant = {
-		{ model = 'polmav', label = 'Police Maverick', livery = 0, price = 200000 }
+		{ model = 'polmav', label = 'Police Maverick', livery = 0, price = 1 }
 	},
 
 	chef = {
-		{ model = 'polmav', label = 'Police Maverick', livery = 0, price = 150000 }
+		{ model = 'polmav', label = 'Police Maverick', livery = 0, price = 1 }
 	},
 
 	boss = {
-		{ model = 'polmav', label = 'Police Maverick', livery = 0, price = 100000 }
+		{ model = 'polmav', label = 'Police Maverick', livery = 0, price = 1 }
 	}
 }
 
@@ -527,15 +542,15 @@ Config.Uniforms = {
 
 	tenu_swatgr = { -- currently the same as chef_wear
 		male = {
-			['tshirt_1'] = 53,  ['tshirt_2'] = 0,
+			['tshirt_1'] = 15,  ['tshirt_2'] = 0,
 			['torso_1'] = 50,   ['torso_2'] = 0,
 			['decals_1'] = 0,   ['decals_2'] = 0,
 			['arms'] = 41,
-			['pants_1'] = 59,   ['pants_2'] = 0,
+			['pants_1'] = 40,   ['pants_2'] = 1,
 			['shoes_1'] = 25,   ['shoes_2'] = 0,
 			['helmet_1'] = 75,  ['helmet_2'] = 0,
 			['mask_1'] = 52,  ['mask_2'] = 0,
-			['chain_1'] = 1,    ['chain_2'] = 0,
+			['chain_1'] = 0,    ['chain_2'] = 0,
 			['bproof_1'] = 7,  ['bproof_2'] = 0
 		},
 		female = {
