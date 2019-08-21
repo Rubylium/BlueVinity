@@ -7,15 +7,16 @@ if Config.MaxInService ~= -1 then
 end
 
 RegisterServerEvent('renfort')
-AddEventHandler('renfort', function(x, y, z, name)
+AddEventHandler('renfort', function(coords, raison)
 	local _source = source
+	local _raison = raison
 	local xPlayer = ESX.GetPlayerFromId(_source)
 	local xPlayers = ESX.GetPlayers()
 
 	for i = 1, #xPlayers, 1 do
 		local thePlayer = ESX.GetPlayerFromId(xPlayers[i])
 		if thePlayer.job.name == 'police' then
-			TriggerClientEvent('renfort:setBlip', xPlayers[i], _source, x, y, z)
+			TriggerClientEvent('renfort:setBlip', xPlayers[i], coords, _raison)
 		end
 	end
 end)

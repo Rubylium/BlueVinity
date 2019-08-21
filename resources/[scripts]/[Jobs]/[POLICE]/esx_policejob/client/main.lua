@@ -397,7 +397,6 @@ function OpenVehicleSpawnerMenu(type, station, part, partNum)
 					}, function(data2, menu2)
 						if data2.current.stored then
 							local foundSpawn, spawnPoint = GetAvailableVehicleSpawnPoint(station, part, partNum)
-
 							if foundSpawn then
 								menu2.close()
 
@@ -939,7 +938,7 @@ function OpenPoliceActionsMenu()
 
 			table.insert(elements, {label = ('Petite demande'), value = 'petite_demande'})
 			table.insert(elements, {label = ('Demande importante'), value = 'demande_importante'})
-			table.insert(elements, {label = ('Toute les unités demandé !'), value = 'omgad'})
+			table.insert(elements, {label = ('Toute les unitées demandé !'), value = 'omgad'})
 
 
 			ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'renfort', {
@@ -954,22 +953,14 @@ function OpenPoliceActionsMenu()
 				local name = GetPlayerName(PlayerId())
 
 				if action == 'petite_demande' then
-					local notification = {
-						title    = ('Demande de renfort!'),
-						subject  = name,
-						msg      = ('Demande de renfort effectué par un agent.'),
-						iconType = 1
-					}
-
-					TriggerServerEvent('esx_service:notifyAllInService', notification, 'police')
-					local ped = GetPlayerPed(PlayerId())
-					local coords = GetEntityCoords(ped, false)
-
-					local name = GetPlayerName(PlayerId())
-
-					local x, y, z = table.unpack(GetEntityCoords(ped, true))
-					TriggerServerEvent('renfort', x, y, z, name)
-				--elseifif action == 'Demande importante' then
+					local raison = 'petit'
+					TriggerServerEvent('renfort', coords, raison)
+				elseif action == 'demande_importante' then
+					local raison = 'importante'
+					TriggerServerEvent('renfort', coords, raison)
+				elseif action == 'omgad' then
+					local raison = 'omgad'
+					TriggerServerEvent('renfort', coords, raison)
 				end
 
 			end, function(data2, menu2)
@@ -2302,16 +2293,40 @@ end
 --end)
 
 RegisterNetEvent('renfort:setBlip')
-AddEventHandler('renfort:setBlip', function(blipId, x, y, z)
-	blipId = AddBlipForCoord(x, y, z)
+AddEventHandler('renfort:setBlip', function(coords, raison)
+	if raison == 'petit' then
+		PlaySoundFrontend(-1, "Start_Squelch", "CB_RADIO_SFX", 1)
+		PlaySoundFrontend(-1, "OOB_Start", "GTAO_FM_Events_Soundset", 1)
+		ESX.ShowAdvancedNotification('LSPD INFORMATIONS', '~b~Demande de renfort', 'Demande de renfort demandé.\nRéponse: ~g~CODE-2\n~w~Importance: ~g~Légère.', 'CHAR_CALL911', 8)
+		Wait(1000)
+		PlaySoundFrontend(-1, "End_Squelch", "CB_RADIO_SFX", 1)
+		color = 2
+	elseif raison == 'importante' then
+		PlaySoundFrontend(-1, "Start_Squelch", "CB_RADIO_SFX", 1)
+		PlaySoundFrontend(-1, "OOB_Start", "GTAO_FM_Events_Soundset", 1)
+		ESX.ShowAdvancedNotification('LSPD INFORMATIONS', '~b~Demande de renfort', 'Demande de renfort demandé.\nRéponse: ~g~CODE-3\n~w~Importance: ~o~Importante.', 'CHAR_CALL911', 8)
+		Wait(1000)
+		PlaySoundFrontend(-1, "End_Squelch", "CB_RADIO_SFX", 1)
+		color = 47
+	elseif raison == 'omgad' then
+		PlaySoundFrontend(-1, "Start_Squelch", "CB_RADIO_SFX", 1)
+		PlaySoundFrontend(-1, "OOB_Start", "GTAO_FM_Events_Soundset", 1)
+		PlaySoundFrontend(-1, "FocusIn", "HintCamSounds", 1)
+		ESX.ShowAdvancedNotification('LSPD INFORMATIONS', '~b~Demande de renfort', 'Demande de renfort demandé.\nRéponse: ~g~CODE-99\n~w~Importance: ~r~URGENTE !\nDANGER IMPORTANT', 'CHAR_CALL911', 8)
+		Wait(1000)
+		PlaySoundFrontend(-1, "End_Squelch", "CB_RADIO_SFX", 1)
+		PlaySoundFrontend(-1, "FocusOut", "HintCamSounds", 1)
+		color = 1
+	end
+	blipId = AddBlipForCoord(coords)
 	SetBlipSprite(blipId, 161)
-	SetBlipScale(blipId, 2.0)
-	SetBlipColour(blipId, 2)
+	SetBlipScale(blipId, 1.2)
+	SetBlipColour(blipId, color)
 	BeginTextCommandSetBlipName("STRING")
 	AddTextComponentString('Demande renfort')
 	EndTextCommandSetBlipName(blipId)
 	table.insert(blips, blipId)
-	Wait(20 * 1000)
+	Wait(80 * 1000)
 	for i, blipId in pairs(blips) do 
 		RemoveBlip(blipId)
 	end
