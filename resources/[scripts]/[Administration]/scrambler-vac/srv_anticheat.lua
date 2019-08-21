@@ -145,7 +145,6 @@ RegisterServerEvent('scrambler:LittleDetection')
 			
 			else
 				SendWebhookMessage(webhook,"**Health Hack Detected!** \n```diff\nJoueurs: "..name.."\nID du joueurs: "..source.."\n- Nombre(s) de détéction: "..avert.."\n\n- Régénération de :"..newHealth-oldHealth.."HP\n- HP après la régen: "..newHealth.."\n- Temps pour avoir "..newHealth..": "..curWait.."ms!\n+ Anticheat Flags: ( La régenération à été forcé )\n[Detection #".. platenum .."].```")
-				
 			end
 
 
@@ -176,7 +175,7 @@ RegisterServerEvent('scrambler:GodModDetected')
 		print(' ')
 		print('===========================================')
 		SendWebhookMessageStaff(webhook,"**Mod Menu detected!** \n```diff\nJoueurs: "..nom.."\nID du joueurs: "..source.."\n\n- Nombre(s) de détéction: "..avert.."\n+ Anticheat Flags: ( Le joueur à été banni 1j après "..avert.." détéction du serveur. [Ban ID: #".. platenum .."]. )```")
-		TriggerEvent("RubyAntiCheat:Ban", 'Ruby_Anti_Cheat', source, BanMessageHealthHack)
+		TriggerEvent("RubyAntiCheat:Ban", 'Ruby_Anti_Cheat', source, 0, BanMessageHealthHack)
 		TriggerClientEvent('chatMessage', -1, "ANTI CHEAT", {255, 0, 0}, "Le joueur: " .. name .. " à été banni: "..BanMessageHealthHack.."")
 	
 		--DropPlayer(source, BanMessageHealthHack)
@@ -311,7 +310,7 @@ function WarnPlayer(playername)
 				print('===========================================')
 				SendWebhookMessageStaff(webhook,"**CHEATER DETECTED!** \n```diff\nJoueurs: "..playername.."\nID du joueurs: "..source.."\n\n+ Anticheat Flags: ( La personne à été banni 1 jours après : "..isKnownCount.." detection. )```")
 				table.remove(violations,i)
-				TriggerEvent("RubyAntiCheat:Ban", 'Ruby_Anti_Cheat', source, 1, BanMessageHealthHack)
+				TriggerEvent("RubyAntiCheat:Ban", 'Ruby_Anti_Cheat', source, 0, BanMessageHealthHack)
 				TriggerClientEvent('chatMessage', -1, "ANTI CHEAT", {255, 0, 0}, "Le joueur: " .. name .. " à été banni: "..BanMessageHealthHack.."")
 
 				--DropPlayer(source, BanMessageHealthHack)
