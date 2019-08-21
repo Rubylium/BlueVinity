@@ -82,11 +82,25 @@ for i=1, #eventsAdmin, 1 do
 end
 
 RegisterServerEvent('scrambler:AdminDetected')
-	AddEventHandler('scrambler:AdminDetected', function(name, source, isServerEvent)
+	AddEventHandler('scrambler:AdminDetected', function(source, isServerEvent)
 		name = GetPlayerName(source)
 
 		SendWebhookMessageStaff(webhook,"**Give D'argent détecté!** \n```diff\nJoueurs: "..name.."\nID du joueurs: "..source.."\n\n- La personne c'est give de l'argents par le menu admin\n+ Anticheat Flags: [Detection #".. platenum .."].```")
 	end)
+
+-- Log des société 
+function SendWebhookMessageSociete(webhook,message)
+	webhook = "https://discordapp.com/api/webhooks/613839122397659147/qNQ0hjhAq22p_UM-vSROBwzXgr0BQ7V_F6aqzu39DFECzbVJl1PDH-_rsZpu7d_9itVd"
+	if webhook ~= "none" then
+		PerformHttpRequest(webhook, function(err, text, headers) end, 'POST', json.encode({content = message}), { ['Content-Type'] = 'application/json' })
+	end
+end
+
+RegisterServerEvent('log:ArgentSociete')
+AddEventHandler('log:ArgentSociete', function(depotsOuRetire, societe, motant)
+	name = GetPlayerName(source)
+	SendWebhookMessageSociete(webhook,"**ACTION PATRON DETECTED** \n\nJoueurs: **"..name.."**\nID du joueurs: **"..source.."**\n\n"..depotsOuRetire.."\nSociété: **"..societe.."**\nMontant: **"..motant.."**$ ``` ```")
+end)
 
 function SendWebhookMessage(webhook,message)
 	webhook = "https://discordapp.com/api/webhooks/605077772850823188/Tik19q1RpAWCnzD78H_kjRiCteK7_opYx7zgAoldshptJEHXTnZnsZ4ib-iTmfSNcBga"
