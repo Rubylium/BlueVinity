@@ -781,7 +781,7 @@ function OpenPoliceActionsMenu()
 			}, function(data2, menu2)
 				local closestPlayer, closestDistance = ESX.Game.GetClosestPlayer()
 				if closestPlayer ~= -1 and closestDistance <= 3.0 then
-					local action = data2.current.valuee
+					local action = data2.current.value
 
 					if action == 'handcuff' then
 						local target, distance = ESX.Game.GetClosestPlayer()
