@@ -444,23 +444,23 @@ Citizen.CreateThread(function()
 								ownedLicenses[Licenses[i].type] = true
 							end
 							if ownedLicenses['AmeliorationWeed4'] then
-								TriggerServerEvent('esx_drugs:startHarvestWeed', 4)
+								TriggerServerEvent('drogues:RecolteWeed', 4)
 								TaskStartScenarioInPlace(playerPed, 'CODE_HUMAN_MEDIC_KNEEL', 0, true)
 								ESX.ShowNotification("📨 	~s~Vous ramassez de la ~g~Weed~n~ ~s~Attention seulement ~r~5~w~ de weed pour consommation perso.")
 							elseif ownedLicenses['AmeliorationWeed3'] then
-								TriggerServerEvent('esx_drugs:startHarvestWeed', 3)
+								TriggerServerEvent('drogues:RecolteWeed', 3)
 								TaskStartScenarioInPlace(playerPed, 'CODE_HUMAN_MEDIC_KNEEL', 0, true)
 								ESX.ShowNotification("📨 	~s~Vous ramassez de la ~g~Weed~n~ ~s~Attention seulement ~r~5~w~ de weed pour consommation perso.")
 							elseif ownedLicenses['AmeliorationWeed2'] then
-								TriggerServerEvent('esx_drugs:startHarvestWeed', 2)
+								TriggerServerEvent('drogues:RecolteWeed', 2)
 								TaskStartScenarioInPlace(playerPed, 'CODE_HUMAN_MEDIC_KNEEL', 0, true)
 								ESX.ShowNotification("📨 	~s~Vous ramassez de la ~g~Weed~n~ ~s~Attention seulement ~r~5~w~ de weed pour consommation perso.")
 							elseif ownedLicenses['AmeliorationWeed1'] then
-								TriggerServerEvent('esx_drugs:startHarvestWeed', 1)
+								TriggerServerEvent('drogues:RecolteWeed', 1)
 								TaskStartScenarioInPlace(playerPed, 'CODE_HUMAN_MEDIC_KNEEL', 0, true)
 								ESX.ShowNotification("📨 	~s~Vous ramassez de la ~g~Weed~n~ ~s~Attention seulement ~r~5~w~ de weed pour consommation perso.")
 							else
-								TriggerServerEvent('esx_drugs:startHarvestWeed', 0)
+								TriggerServerEvent('drogues:RecolteWeed', 0)
 								TaskStartScenarioInPlace(playerPed, 'CODE_HUMAN_MEDIC_KNEEL', 0, true)
 								ESX.ShowNotification("📨 	~s~Vous ramassez de la ~g~Weed~n~ ~s~Attention seulement ~r~5~w~ de weed pour consommation perso.")
 							end
@@ -473,23 +473,23 @@ Citizen.CreateThread(function()
 							ownedLicenses[Licenses[i].type] = true
 						end
 						if ownedLicenses['AmeliorationWeed4'] then
-							TriggerServerEvent('esx_drugs:startHarvestWeed', 4)
+							TriggerServerEvent('drogues:RecolteWeed', 4)
 							TaskStartScenarioInPlace(playerPed, 'CODE_HUMAN_MEDIC_KNEEL', 0, true)
 							ESX.ShowNotification("📨 	~s~Vous ramassez de la ~g~Weed~n~ ~s~Attention seulement ~r~5~w~ de weed pour consommation perso.")
 						elseif ownedLicenses['AmeliorationWeed3'] then
-							TriggerServerEvent('esx_drugs:startHarvestWeed', 3)
+							TriggerServerEvent('drogues:RecolteWeed', 3)
 							TaskStartScenarioInPlace(playerPed, 'CODE_HUMAN_MEDIC_KNEEL', 0, true)
 							ESX.ShowNotification("📨 	~s~Vous ramassez de la ~g~Weed~n~ ~s~Attention seulement ~r~5~w~ de weed pour consommation perso.")
 						elseif ownedLicenses['AmeliorationWeed2'] then
-							TriggerServerEvent('esx_drugs:startHarvestWeed', 2)
+							TriggerServerEvent('drogues:RecolteWeed', 2)
 							TaskStartScenarioInPlace(playerPed, 'CODE_HUMAN_MEDIC_KNEEL', 0, true)
 							ESX.ShowNotification("📨 	~s~Vous ramassez de la ~g~Weed~n~ ~s~Attention seulement ~r~5~w~ de weed pour consommation perso.")
 						elseif ownedLicenses['AmeliorationWeed1'] then
-							TriggerServerEvent('esx_drugs:startHarvestWeed', 1)
+							TriggerServerEvent('drogues:RecolteWeed', 1)
 							TaskStartScenarioInPlace(playerPed, 'CODE_HUMAN_MEDIC_KNEEL', 0, true)
 							ESX.ShowNotification("📨 	~s~Vous ramassez de la ~g~Weed~n~ ~s~Attention seulement ~r~5~w~ de weed pour consommation perso.")
 						else
-							TriggerServerEvent('esx_drugs:startHarvestWeed', 0)
+							TriggerServerEvent('drogues:RecolteWeed', 0)
 							TaskStartScenarioInPlace(playerPed, 'CODE_HUMAN_MEDIC_KNEEL', 0, true)
 							ESX.ShowNotification("📨 	~s~Vous ramassez de la ~g~Weed~n~ ~s~Attention seulement ~r~5~w~ de weed pour consommation perso.")
 						end

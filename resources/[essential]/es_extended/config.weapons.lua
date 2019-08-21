@@ -37,12 +37,6 @@ Config.Weapons = {
 	},
 
 	{
-		name = 'WEAPON_FLSAHBANG',
-		label = _U('weapon_flashbang'),
-		components = {}
-	},
-
-	{
 		name = 'WEAPON_PISTOL',
 		label = _U('weapon_pistol'),
 		components = {

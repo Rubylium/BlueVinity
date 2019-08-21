@@ -7,20 +7,8 @@ end)
 
 Citizen.CreateThread(function()
 	while true do
-		Citizen.Wait(3*60000)
+		Citizen.Wait(5*60000)
 		TriggerClientEvent("ActualisationVeh", -1)
-		print('Reset de la vente')
-		print('Reset de la vente')
-		print('Reset de la vente')
-		print('Reset de la vente')
-		print('Reset de la vente')
-		print('Reset de la vente')
-		print('Reset de la vente')
-		print('Reset de la vente')
-		print('Reset de la vente')
-		print('Reset de la vente')
-		print('Reset de la vente')
-		print('Reset de la vente')
 	end
 end)
 

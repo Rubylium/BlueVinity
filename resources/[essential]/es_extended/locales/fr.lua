@@ -41,7 +41,6 @@ Locales['fr'] = {
   ['company_nomoney'] = 'votre entreprise n\'a plus d\'argent pour vous payer!',
   ['received_paycheck'] = 'paiement reçu',
   ['bank'] = 'banque',
-  ['money'] = 'argent',
   ['black_money'] = 'argent Sale',
 
   ['act_imp'] = 'action impossible',
@@ -166,7 +165,6 @@ Locales['fr'] = {
   ['gadget_parachute'] = 'parachute',
   ['weapon_flare'] = 'Fusée Détresse',
   ['weapon_doubleaction'] = 'double-Action Revolver',
-  ['weapon_flashbang'] = 'Grenade Neutralisante',
 
   -- Weapon Components
   ['component_clip_default'] = 'default Grip',
