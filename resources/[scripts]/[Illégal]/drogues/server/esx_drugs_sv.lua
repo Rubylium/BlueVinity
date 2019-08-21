@@ -483,8 +483,8 @@ local function HarvestWeed(source, niveau)
 	end)
 end
 
-RegisterServerEvent('esx_drugs:startHarvestWeed')
-AddEventHandler('esx_drugs:startHarvestWeed', function(niveau)
+RegisterServerEvent('drogues:RecolteWeed')
+AddEventHandler('drogues:RecolteWeed', function(niveau)
 
 	local _source = source
 	local _niveau = niveau

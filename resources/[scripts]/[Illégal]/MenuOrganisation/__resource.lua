@@ -4,6 +4,10 @@ description 'Menu Organisation Criminel BV'
 
 version '0.1'
 
+server_scripts {
+    'server/srv_MenuOrganisation.lua'
+}
+
 client_scripts {
 	'NativeUILua_Reloaded/Wrapper/Utility.lua',
 

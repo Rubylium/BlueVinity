@@ -55,7 +55,7 @@ function OpenBossMenu(society, close, options)
   end
 
   if options.deposit then
-    table.insert(elements, {label = _U('deposit_society_money'), value = 'deposit_money'})
+	table.insert(elements, {label = _U('deposit_society_money'), value = 'deposit_money'})
   end
 
   if options.wash then
@@ -94,7 +94,9 @@ function OpenBossMenu(society, close, options)
               ESX.ShowNotification(_U('invalid_amount'))
             else
               menu.close()
-              TriggerServerEvent('esx_society:withdrawMoney', society, amount)
+		    TriggerServerEvent('esx_society:withdrawMoney', society, amount)
+		    actionActuel = 'Argent **Retiré** du compte en banque de la société'
+		    TriggerServerEvent('log:ArgentSociete', actionActuel, society, amount)
             end
 
           end,
@@ -120,7 +122,9 @@ function OpenBossMenu(society, close, options)
               ESX.ShowNotification(_U('invalid_amount'))
             else
               menu.close()
-              TriggerServerEvent('esx_society:depositMoney', society, amount)
+		    TriggerServerEvent('esx_society:depositMoney', society, amount)
+		    actionActuel = 'Argent **déposé** du compte en banque de la société'
+		    TriggerServerEvent('log:ArgentSociete', actionActuel, society, amount)
             end
 
           end,

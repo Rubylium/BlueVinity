@@ -105,6 +105,38 @@ function LoadSellPlace()
 					local pPed = GetPlayerPed(-1)
 					local VehName = GetLabelText(GetDisplayNameFromVehicleModel(GetEntityModel(Config.VehiclePositions[i]["entityId"])))
 					local vehicleClass = GetVehicleClass(Config.VehiclePositions[i]["entityId"])
+
+					if VehName == "Windsor Drop" then
+						VehName = "BMW CLR"
+					elseif VehName == "Elegy RH8" then
+						VehName = "Nissan GTR"
+					elseif VehName == "9F" then
+						VehName = "Audi R8"
+					elseif VehName == "Vacca" then
+						VehName = "Lamborghini Aventador"
+					elseif VehName == "Dominator" then
+						VehName = "Ford Mustang L.W"
+					elseif VehName == "Bestia GTS" then
+						VehName = "Audi RS"
+					elseif VehName == "811" then
+						VehName = "Audi RS5"
+					elseif VehName == "Oracle" then
+						VehName = "BMW 750 li"
+					elseif VehName == "Zion" then
+						VehName = "BMW M4"
+					elseif VehName == "Buffalo" then
+						VehName = "Lexus GS350"
+					elseif VehName == "T20" then
+						VehName = "McLaren P1"
+					elseif VehName == "FQ 2" then
+						VehName = "Porche Cayenne"
+					elseif VehName == "Massacro" then
+						VehName = "Toyota Supra"
+					elseif VehName == "Omnis" then
+						VehName = "A45 AMG"
+					elseif VehName == "Exemplar" then
+						VehName = "CLA45 AMG"
+					end
 					
 					if vehicleClass == 0 then
 						type = 'Compacts'
@@ -225,6 +257,39 @@ function OpenSellMenu(veh, price, buyVehicle, owner)
 						local VehName = GetLabelText(GetDisplayNameFromVehicleModel(GetEntityModel(GetVehiclePedIsUsing(pPed))))
 						local vehicle2 = GetVehiclePedIsIn(GetPlayerPed(-1), false)
 						local vehicleClass = GetVehicleClass(vehicle2)
+
+						if VehName == "Windsor Drop" then
+							VehName = "BMW CLR"
+						elseif VehName == "Elegy RH8" then
+							VehName = "Nissan GTR"
+						elseif VehName == "9F" then
+							VehName = "Audi R8"
+						elseif VehName == "Vacca" then
+							VehName = "Lamborghini Aventador"
+						elseif VehName == "Dominator" then
+							VehName = "Ford Mustang L.W"
+						elseif VehName == "Bestia GTS" then
+							VehName = "Audi RS"
+						elseif VehName == "811" then
+							VehName = "Audi RS5"
+						elseif VehName == "Oracle" then
+							VehName = "BMW 750 li"
+						elseif VehName == "Zion" then
+							VehName = "BMW M4"
+						elseif VehName == "Buffalo" then
+							VehName = "Lexus GS350"
+						elseif VehName == "T20" then
+							VehName = "McLaren P1"
+						elseif VehName == "FQ 2" then
+							VehName = "Porche Cayenne"
+						elseif VehName == "Massacro" then
+							VehName = "Toyota Supra"
+						elseif VehName == "Omnis" then
+							VehName = "A45 AMG"
+						elseif VehName == "Exemplar" then
+							VehName = "CLA45 AMG"
+						end
+
 						if vehicleClass == 0 then
 							type = 'Compacts'
 						elseif vehicleClass == 1 then

@@ -127,6 +127,12 @@ end, {help = _U('setmoney'), params = {{name = "id", help = _U('id_param')}, {na
 TriggerEvent('es:addGroupCommand', 'giveaccountmoney', 'admin', function(source, args, user)
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(args[1])
+
+	if not xPlayer then
+		TriggerClientEvent('chat:addMessage', source, { args = { '^1SYSTEM', 'Player not online.' } })
+		return
+	end
+
 	local account = args[2]
 	local amount  = tonumber(args[3])
 
@@ -149,11 +155,16 @@ TriggerEvent('es:addGroupCommand', 'giveitem', 'admin', function(source, args, u
 	local item    = args[2]
 	local count   = (args[3] == nil and 1 or tonumber(args[3]))
 
-	if count ~= nil then
-		if xPlayer.getInventoryItem(item) ~= nil then
-			xPlayer.addInventoryItem(item, count)
+	if count ~= nil then	
+		if not xPlayer then
+			TriggerClientEvent('chat:addMessage', source, { args = { '^1SYSTEM', 'Player not online.' } })
+			return
 		else
-			TriggerClientEvent('esx:showNotification', _source, _U('invalid_item'))
+			if xPlayer.getInventoryItem(item) ~= nil then
+				xPlayer.addInventoryItem(item, count)
+			else
+				TriggerClientEvent('esx:showNotification', _source, _U('invalid_item'))
+			end
 		end
 	else
 		TriggerClientEvent('esx:showNotification', _source, _U('invalid_amount'))
@@ -166,6 +177,11 @@ TriggerEvent('es:addGroupCommand', 'giveweapon', 'admin', function(source, args,
 	local xPlayer    = ESX.GetPlayerFromId(args[1])
 	local weaponName = string.upper(args[2])
 
+	if not xPlayer then
+		TriggerClientEvent('chat:addMessage', source, { args = { '^1SYSTEM', 'Player not online.' } })
+		return
+	end
+	
 	xPlayer.addWeapon(weaponName, tonumber(args[3]))
 end, function(source, args, user)
 	TriggerClientEvent('chat:addMessage', source, { args = { '^1SYSTEM', 'Insufficient Permissions.' } })

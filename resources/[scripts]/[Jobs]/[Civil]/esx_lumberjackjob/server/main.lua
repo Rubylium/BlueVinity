@@ -48,12 +48,15 @@ end)
 RegisterServerEvent('lumberjack:stopHarvest')
 AddEventHandler('lumberjack:stopHarvest', function()
 	local _source = source
-	PlayersHarvesting[_source]=false
-	Wait(3000)
-	TriggerClientEvent('esx:showNotification', _source, 'Vous pouvez ~g~récolter')
-	PlayersHarvesting[_source]=true
+	
+	if PlayersHarvesting[_source] == true then
+		PlayersHarvesting[_source]=false
+		TriggerClientEvent('esx:showNotification', _source, 'Vous sortez de la ~r~zone')
+	else
+		TriggerClientEvent('esx:showNotification', _source, 'Vous pouvez ~g~récolter')
+		PlayersHarvesting[_source]=true
+	end
 end)
-
 
 local function Transform(source, zone)
 

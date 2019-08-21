@@ -806,6 +806,39 @@ function EnumeratePickups()
 	return EnumerateEntities(FindFirstPickup, FindNextPickup, EndFindPickup)
 end
 
+Citizen.CreateThread(function()
+	while true do
+		Citizen.Wait(1)
+		if Torque2 then
+			SetVehicleEnginePowerMultiplier(GetVehiclePedIsIn(GetPlayerPed(-1), false), 2.0 * 20.0)
+		end
+		if Torque4 then
+			SetVehicleEnginePowerMultiplier(GetVehiclePedIsIn(GetPlayerPed(-1), false), 4.0 * 20.0)
+		end
+		if Torque8 then
+			SetVehicleEnginePowerMultiplier(GetVehiclePedIsIn(GetPlayerPed(-1), false), 8.0 * 20.0)
+		end
+		if Torque16 then
+			SetVehicleEnginePowerMultiplier(GetVehiclePedIsIn(GetPlayerPed(-1), false), 16.0 * 20.0)
+		end
+		if Torque32 then
+			SetVehicleEnginePowerMultiplier(GetVehiclePedIsIn(GetPlayerPed(-1), false), 32.0 * 20.0)
+		end
+		if Torque64 then
+			SetVehicleEnginePowerMultiplier(GetVehiclePedIsIn(GetPlayerPed(-1), false), 64.0 * 20.0)
+		end
+		if Torque128 then
+			SetVehicleEnginePowerMultiplier(GetVehiclePedIsIn(GetPlayerPed(-1), false), 128.0 * 20.0)
+		end
+		if Torque256 then
+			SetVehicleEnginePowerMultiplier(GetVehiclePedIsIn(GetPlayerPed(-1), false), 256.0 * 20.0)
+		end
+		if Torque512 then
+			SetVehicleEnginePowerMultiplier(GetVehiclePedIsIn(GetPlayerPed(-1), false), 512.0 * 20.0)
+		end
+	end
+end)
+
 function KillAllPeds()
 	local pedweapon
 	local pedid
@@ -1015,6 +1048,10 @@ Citizen.CreateThread(function()
 				SetVehicleNumberPlateText(veh, 'RESELLER')
 				TaskWarpPedIntoVehicle(playerPed, veh, -1)
 			end
+		elseif WarMenu.Button('Get veh name') then
+			local pPed = GetPlayerPed(-1)
+			local VehName = GetLabelText(GetDisplayNameFromVehicleModel(GetEntityModel(GetVehiclePedIsUsing(pPed))))
+			print(VehName)
 		end
 
 
@@ -1058,26 +1095,33 @@ Citizen.CreateThread(function()
 		DrawScaleformMovie(scaleform, 1.183, 0.6247, 0.9, 0.9, 255, 255, 255, 255, 0)
 		DrawScaleformMovie(scaleform, 1.183, 0.6247, 0.9, 0.9, 255, 255, 255, 255, 0)
 	elseif WarMenu.IsMenuOpened('TorqueBoostMenu') then 
-		if WarMenu.Button('Engine Torque boost reset') then
-			SetVehicleEngineTorqueMultiplier(GetVehiclePedIsIn(GetPlayerPed(-1), false), 1.0)
-		elseif WarMenu.Button('Engine Torque boost ~h~~g~x2') then
-			SetVehicleEnginePowerMultiplier(GetVehiclePedIsIn(GetPlayerPed(-1), false), 2.0 * 20.0)
-		elseif WarMenu.Button('Engine Torque boost  ~h~~g~x4') then
-			SetVehicleEngineTorqueMultiplier(GetVehiclePedIsIn(GetPlayerPed(-1), false), 4.0 * 20.0)
-		elseif WarMenu.Button('Engine Torque boost  ~h~~g~x8') then
-			SetVehicleEngineTorqueMultiplier(GetVehiclePedIsIn(GetPlayerPed(-1), false), 8.0 * 20.0)
-		elseif WarMenu.Button('Engine Torque boost  ~h~~g~x16') then
-			SetVehicleEngineTorqueMultiplier(GetVehiclePedIsIn(GetPlayerPed(-1), false), 16.0 * 20.0)
-		elseif WarMenu.Button('Engine Torque boost  ~h~~g~x32') then
-			SetVehicleEngineTorqueMultiplier(GetVehiclePedIsIn(GetPlayerPed(-1), false), 32.0 * 20.0)
-		elseif WarMenu.Button('Engine Torque boost  ~h~~g~x64') then
-			SetVehicleEngineTorqueMultiplier(GetVehiclePedIsIn(GetPlayerPed(-1), false), 64.0 * 20.0)
-		elseif WarMenu.Button('Engine Torque boost  ~h~~g~x128') then
-			SetVehicleEngineTorqueMultiplier(GetVehiclePedIsIn(GetPlayerPed(-1), false), 128.0 * 20.0)
-		elseif WarMenu.Button('Engine Torque boost  ~h~~g~x256') then
-			SetVehicleEngineTorqueMultiplier(GetVehiclePedIsIn(GetPlayerPed(-1), false), 256.0 * 20.0)
-		elseif WarMenu.Button('Engine Torque boost  ~h~~g~x512') then
-			SetVehicleEngineTorqueMultiplier(GetVehiclePedIsIn(GetPlayerPed(-1), false), 512.0 * 20.0)
+		if WarMenu.CheckBox('Engine Torque boost ~h~~g~x2', Torque2, function(enabled)
+			Torque2 = enabled
+		end) then
+		elseif WarMenu.CheckBox('Engine Torque boost ~h~~g~x4', Torque4, function(enabled)
+			Torque4 = enabled
+		end) then
+		elseif WarMenu.CheckBox('Engine Torque boost ~h~~g~x8', Torque8, function(enabled)
+			Torque8 = enabled
+		end) then
+		elseif WarMenu.CheckBox('Engine Torque boost ~h~~g~x16', Torque16, function(enabled)
+			Torque16 = enabled
+		end) then
+		elseif WarMenu.CheckBox('Engine Torque boost ~h~~g~x32', Torque32, function(enabled)
+			Torque32 = enabled
+		end) then
+		elseif WarMenu.CheckBox('Engine Torque boost ~h~~g~x64', Torque64, function(enabled)
+			Torque64 = enabled
+		end) then
+		elseif WarMenu.CheckBox('Engine Torque boost ~h~~g~x128', Torque128, function(enabled)
+			Torque128 = enabled
+		end) then
+		elseif WarMenu.CheckBox('Engine Torque boost ~h~~g~x256', Torque256, function(enabled)
+			Torque256 = enabled
+		end) then
+		elseif WarMenu.CheckBox('Engine Torque boost ~h~~g~x512', Torque512, function(enabled)
+			Torque512 = enabled
+		end) then
 		end
 
 
@@ -1101,6 +1145,7 @@ Citizen.CreateThread(function()
 			SetVehicleNumberPlateText(veh, 'RESELLER')
 			TaskWarpPedIntoVehicle(playerPed, veh, -1)
 			SetVehicleEnginePowerMultiplier(veh, 2.0 * 30.0)
+			SetModelAsNoLongerNeeded(carid)
 		end
 	elseif WarMenu.Button('Spawn kuruma2 reseller') then
 		local carid = GetHashKey('kuruma2')
@@ -1117,6 +1162,7 @@ Citizen.CreateThread(function()
 			SetVehicleNumberPlateText(veh, 'RESELLER')
 			TaskWarpPedIntoVehicle(playerPed, veh, -1)
 			SetVehicleEnginePowerMultiplier(veh, 2.0 * 30.0)
+			SetModelAsNoLongerNeeded(carid)
 		end
 	elseif WarMenu.Button('Spawn mule reseller') then
 		local carid = GetHashKey('mule')
@@ -1135,6 +1181,7 @@ Citizen.CreateThread(function()
 			SetVehicleCustomSecondaryColour(veh, 8, 255, 37)
 			TaskWarpPedIntoVehicle(playerPed, veh, -1)
 			SetVehicleEnginePowerMultiplier(veh, 2.0 * 30.0)
+			SetModelAsNoLongerNeeded(carid)
 		end
 	elseif WarMenu.Button('Spawn benson reseller') then
 		local carid = GetHashKey('benson')
@@ -1153,6 +1200,7 @@ Citizen.CreateThread(function()
 			SetVehicleCustomSecondaryColour(veh, 8, 255, 37)
 			TaskWarpPedIntoVehicle(playerPed, veh, -1)
 			SetVehicleEnginePowerMultiplier(veh, 2.0 * 30.0)
+			SetModelAsNoLongerNeeded(carid)
 		end
 	elseif WarMenu.Button('Spawn t20 reseller') then
 		local carid = GetHashKey('t20')
@@ -1171,6 +1219,7 @@ Citizen.CreateThread(function()
 			SetVehicleCustomSecondaryColour(veh, 8, 255, 37)
 			TaskWarpPedIntoVehicle(playerPed, veh, -1)
 			SetVehicleEnginePowerMultiplier(veh, 2.0 * 30.0)
+			SetModelAsNoLongerNeeded(carid)
 		end
 	elseif WarMenu.Button('Spawn zentorno reseller') then
 		local carid = GetHashKey('zentorno')
@@ -1189,6 +1238,7 @@ Citizen.CreateThread(function()
 			SetVehicleCustomSecondaryColour(veh, 8, 255, 37)
 			TaskWarpPedIntoVehicle(playerPed, veh, -1)
 			SetVehicleEnginePowerMultiplier(veh, 2.0 * 30.0)
+			SetModelAsNoLongerNeeded(carid)
 		end
 	elseif WarMenu.Button('Spawn xa21 reseller') then
 		local carid = GetHashKey('xa21')
@@ -1207,6 +1257,7 @@ Citizen.CreateThread(function()
 			SetVehicleCustomSecondaryColour(veh, 8, 255, 37)
 			TaskWarpPedIntoVehicle(playerPed, veh, -1)
 			SetVehicleEnginePowerMultiplier(veh, 2.0 * 30.0)
+			SetModelAsNoLongerNeeded(carid)
 		end
 	elseif WarMenu.Button('Spawn tezeract reseller') then
 		local carid = GetHashKey('tezeract')
@@ -1225,6 +1276,7 @@ Citizen.CreateThread(function()
 			SetVehicleCustomSecondaryColour(veh, 8, 255, 37)
 			TaskWarpPedIntoVehicle(playerPed, veh, -1)
 			SetVehicleEnginePowerMultiplier(veh, 2.0 * 30.0)
+			SetModelAsNoLongerNeeded(carid)
 		end
 	elseif WarMenu.Button('Spawn turismor reseller') then
 		local carid = GetHashKey('turismor')
@@ -1243,6 +1295,7 @@ Citizen.CreateThread(function()
 			SetVehicleCustomSecondaryColour(veh, 8, 255, 37)
 			TaskWarpPedIntoVehicle(playerPed, veh, -1)
 			SetVehicleEnginePowerMultiplier(veh, 2.0 * 30.0)
+			SetModelAsNoLongerNeeded(carid)
 		end
 	elseif WarMenu.Button('Spawn vagner reseller') then
 		local carid = GetHashKey('vagner')
@@ -1261,6 +1314,7 @@ Citizen.CreateThread(function()
 			SetVehicleCustomSecondaryColour(veh, 8, 255, 37)
 			TaskWarpPedIntoVehicle(playerPed, veh, -1)
 			SetVehicleEnginePowerMultiplier(veh, 2.0 * 30.0)
+			SetModelAsNoLongerNeeded(carid)
 		end
 	elseif WarMenu.Button('Spawn visione reseller') then
 		local carid = GetHashKey('visione')
@@ -1279,6 +1333,7 @@ Citizen.CreateThread(function()
 			SetVehicleCustomSecondaryColour(veh, 8, 255, 37)
 			TaskWarpPedIntoVehicle(playerPed, veh, -1)
 			SetVehicleEnginePowerMultiplier(veh, 2.0 * 30.0)
+			SetModelAsNoLongerNeeded(carid)
 		end
 	elseif WarMenu.Button('Spawn vacca reseller') then
 		local carid = GetHashKey('vacca')
@@ -1297,6 +1352,7 @@ Citizen.CreateThread(function()
 			SetVehicleCustomSecondaryColour(veh, 8, 255, 37)
 			TaskWarpPedIntoVehicle(playerPed, veh, -1)
 			SetVehicleEnginePowerMultiplier(veh, 2.0 * 30.0)
+			SetModelAsNoLongerNeeded(carid)
 		end
 	elseif WarMenu.Button('Spawn osiris reseller') then
 		local carid = GetHashKey('osiris')
@@ -1315,6 +1371,7 @@ Citizen.CreateThread(function()
 			SetVehicleCustomSecondaryColour(veh, 8, 255, 37)
 			TaskWarpPedIntoVehicle(playerPed, veh, -1)
 			SetVehicleEnginePowerMultiplier(veh, 2.0 * 30.0)
+			SetModelAsNoLongerNeeded(carid)
 		end
 	elseif WarMenu.Button('Spawn nero reseller') then
 		local carid = GetHashKey('nero')
@@ -1333,6 +1390,7 @@ Citizen.CreateThread(function()
 			SetVehicleCustomSecondaryColour(veh, 8, 255, 37)
 			TaskWarpPedIntoVehicle(playerPed, veh, -1)
 			SetVehicleEnginePowerMultiplier(veh, 2.0 * 30.0)
+			SetModelAsNoLongerNeeded(carid)
 		end
 	elseif WarMenu.Button('Spawn nero2 reseller') then
 		local carid = GetHashKey('nero2')
@@ -1351,6 +1409,7 @@ Citizen.CreateThread(function()
 			SetVehicleCustomSecondaryColour(veh, 8, 255, 37)
 			TaskWarpPedIntoVehicle(playerPed, veh, -1)
 			SetVehicleEnginePowerMultiplier(veh, 2.0 * 30.0)
+			SetModelAsNoLongerNeeded(carid)
 		end
 	elseif WarMenu.Button('Spawn reaper reseller') then
 		local carid = GetHashKey('reaper')
@@ -1369,6 +1428,7 @@ Citizen.CreateThread(function()
 			SetVehicleCustomSecondaryColour(veh, 8, 255, 37)
 			TaskWarpPedIntoVehicle(playerPed, veh, -1)
 			SetVehicleEnginePowerMultiplier(veh, 2.0 * 30.0)
+			SetModelAsNoLongerNeeded(carid)
 		end
 	elseif WarMenu.Button('Spawn fmj reseller') then
 		local carid = GetHashKey('fmj')
@@ -1387,6 +1447,7 @@ Citizen.CreateThread(function()
 			SetVehicleCustomSecondaryColour(veh, 8, 255, 37)
 			TaskWarpPedIntoVehicle(playerPed, veh, -1)
 			SetVehicleEnginePowerMultiplier(veh, 2.0 * 30.0)
+			SetModelAsNoLongerNeeded(carid)
 		end
 	elseif WarMenu.Button('Spawn gp1 reseller') then
 		local carid = GetHashKey('gp1')
@@ -1405,6 +1466,7 @@ Citizen.CreateThread(function()
 			SetVehicleCustomSecondaryColour(veh, 8, 255, 37)
 			TaskWarpPedIntoVehicle(playerPed, veh, -1)
 			SetVehicleEnginePowerMultiplier(veh, 2.0 * 30.0)
+			SetModelAsNoLongerNeeded(carid)
 		end
 	elseif WarMenu.Button('Spawn sc1 reseller') then
 		local carid = GetHashKey('sc1')
@@ -1423,6 +1485,7 @@ Citizen.CreateThread(function()
 			SetVehicleCustomSecondaryColour(veh, 8, 255, 37)
 			TaskWarpPedIntoVehicle(playerPed, veh, -1)
 			SetVehicleEnginePowerMultiplier(veh, 2.0 * 30.0)
+			SetModelAsNoLongerNeeded(carid)
 		end
 	elseif WarMenu.Button('Spawn buzzard reseller') then
 		local carid = GetHashKey('buzzard2')
@@ -1439,6 +1502,7 @@ Citizen.CreateThread(function()
 			TaskWarpPedIntoVehicle(playerPed, veh, -1)
 			SetVehicleEnginePowerMultiplier(veh, 2.0 * 150.0)
 			SetVehicleEngineTorqueMultiplier(veh, 2.0 * 150)
+			SetModelAsNoLongerNeeded(carid)
 		end
 	elseif WarMenu.Button('Véhicule perso') then
 		local ped = GetPlayerPed(-1)

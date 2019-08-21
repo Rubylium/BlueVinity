@@ -25,6 +25,7 @@ local CurrentActionMsg          = ''
 local CurrentActionData         = {}
 local JobBlips                = {}
 local publicBlip = false
+local SpawnVehicule = {coords = vector3(1200.3492, -1288.03, 35.217)}
 ESX                             = nil
 GUI.Time                        = 0
 
@@ -207,8 +208,7 @@ function OpenVehicleSpawnerMenu()
 	else
 	
 		local elements = {
-			{label = 'Camion',  value = 'phantom'},
-			--{label = 'Remorque',  value = 'trailers'},
+			{label = 'Camion de bucheron',  value = 'phantom'},
 		}
 		
 		ESX.UI.Menu.Open(
@@ -221,13 +221,24 @@ function OpenVehicleSpawnerMenu()
 			function(data, menu)
 
 				menu.close()
+				
+				RequestModel(2112052861)
+				while not HasModelLoaded(2112052861) do
+					Citizen.Wait(0)
+				end
+				local spawn = ESX.Game.IsSpawnPointClear(SpawnVehicule.coords, 20)
+				print(spawn)
+				if spawn == false then
+					--local despawn = ESX.Game.GetVehiclesInArea(SpawnVehicule.coords, 20)
+					local despawn = ESX.Game.GetClosestVehicle(SpawnVehicule.coords)
+					print(despawn)
+					ESX.Game.DeleteVehicle(despawn)
+				end
 
-				local model = data.current.value
-		
-				ESX.Game.SpawnVehicle(model, Config.Zones.VehicleSpawnPoint.Pos, 56.326, function(vehicle)
-					local playerPed = GetPlayerPed(-1)
-					TaskWarpPedIntoVehicle(playerPed,  vehicle,  -1)
-				end)
+				local veh = CreateVehicle(2112052861, SpawnVehicule.coords, 261.71, true, true)
+				local ped = PlayerPedId()
+				TaskWarpPedIntoVehicle(ped, veh, -1)
+				SetModelAsNoLongerNeeded(2112052861)
 			end,
 			function(data, menu)
 
@@ -581,22 +592,22 @@ function blips()
 				table.insert(JobBlips, blip2)
 			end
 		end
-		for k,v in pairs(Config.Zones2)do
-			if v.Type == 20 then
-				local blip2 = AddBlipForCoord(v.Pos.x, v.Pos.y, v.Pos.z)
-
-				SetBlipSprite (blip2, 162)
-				SetBlipDisplay(blip2, 4)
-				SetBlipScale  (blip2, 0.85)
-				SetBlipColour (blip2, 2)
-				SetBlipAsShortRange(blip2, true)
-
-				BeginTextCommandSetBlipName("STRING")
-				AddTextComponentString(v.Name)
-				EndTextCommandSetBlipName(blip2)
-				table.insert(JobBlips, blip2)
-			end
-		end
+		--for k,v in pairs(Config.Zones2)do
+		--	if v.Type == 20 then
+		--		local blip2 = AddBlipForCoord(v.Pos.x, v.Pos.y, v.Pos.z)
+--
+		--		SetBlipSprite (blip2, 162)
+		--		SetBlipDisplay(blip2, 4)
+		--		SetBlipScale  (blip2, 0.85)
+		--		SetBlipColour (blip2, 2)
+		--		SetBlipAsShortRange(blip2, true)
+--
+		--		BeginTextCommandSetBlipName("STRING")
+		--		AddTextComponentString(v.Name)
+		--		EndTextCommandSetBlipName(blip2)
+		--		table.insert(JobBlips, blip2)
+		--	end
+		--end
 	end
 end
 
@@ -638,7 +649,7 @@ Citizen.CreateThread(function()
 			local currentZone = nil
 
 			for k,v in pairs(Config.Zones) do
-				if(GetDistanceBetweenCoords(coords, v.Pos.x, v.Pos.y, v.Pos.z, true) < 1.0) then
+				if(GetDistanceBetweenCoords(coords, v.Pos.x, v.Pos.y, v.Pos.z, true) < 3.0) then
 					isInMarker  = true
 					currentZone = k
 				end
@@ -665,23 +676,23 @@ Citizen.CreateThread(function()
 	end
 end)
 
+local RecolteEnCours = false
+
 Citizen.CreateThread(function()
 	while true do
 		Citizen.Wait(0)
-		if IsControlPressed(0,  Keys['E']) and PlayerData.job ~= nil and PlayerData.job.name == 'lumberjack' and isInZone then
-			local playerPed = GetPlayerPed(-1)
-			isInZone = false -- do not freeze user
-			TriggerEvent('lumberjack:freezePlayer', false)
-			ClearPedTasksImmediately(playerPed)
-			Citizen.Wait(2000)
-			CurrentAction = nil
-			isInMarker  = false
-			HasAlreadyEnteredMarker = false
-			TriggerServerEvent('lumberjack:stopHarvest')
+		if RecolteEnCours then
+			SetTextComponentFormat('STRING')
+			AddTextComponentString("Appuyer sur [E] pour stoppé l'animation")
+			DisplayHelpTextFromStringLabel(0, 0, 1, -1)
+			if IsControlPressed(0,  Keys['E']) and PlayerData.job ~= nil and PlayerData.job.name == 'lumberjack' and RecolteEnCours then
+				local playerPed = GetPlayerPed(-1)
+				ClearPedTasksImmediately(playerPed)
+				RecolteEnCours = false
+			end
 		end
 	end
 end)
-
 -- Key Controls
 Citizen.CreateThread(function()
 	while true do
@@ -698,15 +709,21 @@ Citizen.CreateThread(function()
 				if CurrentAction == 'raisin_harvest' then
 					TriggerServerEvent('lumberjack:startHarvest', CurrentActionData.zone)
 					local playerPed = GetPlayerPed(-1)
-					RequestAnimDict("missarmenian3_gardener")
-					while (not HasAnimDictLoaded("missarmenian3_gardener")) do Citizen.Wait(0) end
-					TaskPlayAnim(playerPed, 'missarmenian3_gardener', 'idle_a', 8.0, -8.0, -1, 0, 0, false, false, false)
-					Citizen.Wait(1000)
-					isInZone = true
-					while isInZone do
-						TaskPlayAnim(playerPed, 'missarmenian3_gardener', 'idle_a', 8.0, -8.0, -1, 0, 0, false, false, false)
-						Wait(30000)
-						RemoveAnimDict("missarmenian3_gardener")
+					RequestAnimDict("amb")
+					RequestAnimDict("amb@world_human_hammering")
+					RequestAnimDict("amb@world_human_hammering@male")
+					RequestAnimDict("amb@world_human_hammering@male@base")
+					while (not HasAnimDictLoaded("amb@world_human_hammering@male@base")) do Citizen.Wait(0) end
+					TaskPlayAnim(playerPed, 'amb@world_human_hammering@male@base', 'base', 8.0, -8.0, -1, 0, 0, false, false, false)
+					Citizen.Wait(200)
+					RecolteEnCours = true
+					while RecolteEnCours do
+						TaskPlayAnim(playerPed, 'amb@world_human_hammering@male@base', 'base', 8.0, -8.0, -1, 0, 0, false, false, false)
+						Wait(3133)
+						RemoveAnimDict("amb")
+						RemoveAnimDict("amb@world_human_hammering")
+						RemoveAnimDict("amb@world_human_hammering@male")
+						RemoveAnimDict("amb@world_human_hammering@male@base")
 					end
 				end
 				if CurrentAction == 'jus_traitement' then
@@ -735,10 +752,6 @@ Citizen.CreateThread(function()
 					ESX.Game.DeleteVehicle(CurrentActionData.vehicle)
 				end
 
-				if isInZone then
-					TriggerEvent('lumberjack:freezePlayer', true)
-				end
-
 				CurrentAction = nil
 				GUI.Time      = GetGameTimer()
 
@@ -750,10 +763,4 @@ Citizen.CreateThread(function()
 			GUI.Time = GetGameTimer()
 		end
 	end
-end)
-
-
-RegisterNetEvent('lumberjack:freezePlayer')
-AddEventHandler('lumberjack:freezePlayer', function(freeze)
-	FreezeEntityPosition(GetPlayerPed(-1), freeze)
 end)

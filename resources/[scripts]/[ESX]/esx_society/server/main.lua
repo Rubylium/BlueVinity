@@ -129,7 +129,6 @@ AddEventHandler('esx_society:washMoney', function(society, amount)
   if amount > 0 and account.money >= amount then
 
     xPlayer.removeAccountMoney('black_money', amount)
-    TriggerEvent("esx:washingmoneyalert",xPlayer.name,amount)
 
       MySQL.Async.execute(
         'INSERT INTO society_moneywash (identifier, society, amount) VALUES (@identifier, @society, @amount)',

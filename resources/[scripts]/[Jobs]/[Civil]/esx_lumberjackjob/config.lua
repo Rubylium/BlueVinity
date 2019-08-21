@@ -37,9 +37,36 @@ Config.Zones2 = {
 }
 
 Config.Zones = {
-
+	WoodFarm = {
+		Pos   = {x = -492.80, y = 5395.008, z = 1000.233},
+		Size  = {x = 2.0, y = 2.0, z = 2.0},
+		Color = {r = 255, g = 255, b = 255},
+		Name  = "Chargement de Bois",
+		Type  = 1
+	},
+	--WoodFarm2 = {
+	--	Pos   = {x = -504.32, y = 5390.91, z = 75.56},
+	--	Size  = {x = 2.0, y = 2.0, z = 2.0},
+	--	Color = {r = 255, g = 255, b = 255},
+	--	Name  = "Chargement de Bois",
+	--	Type  = 20
+	--},
+	--WoodFarm3 = {
+	--	Pos   = {x = -500.506, y = 5400.45, z = 75.1538},
+	--	Size  = {x = 2.0, y = 2.0, z = 2.0},
+	--	Color = {r = 255, g = 255, b = 255},
+	--	Name  = "Chargement de Bois",
+	--	Type  = 20
+	--},
+	--WoodFarm4 = {
+	--	Pos   = {x = -510.89, y = 5389.04, z = 72.5156},
+	--	Size  = {x = 2.0, y = 2.0, z = 2.0},
+	--	Color = {r = 255, g = 255, b = 255},
+	--	Name  = "Chargement de Bois",
+	--	Type  = 20
+	--},
 	TraitementWood = {
-		Pos   = {x = -552.21, y = 5326.90, z = 72.59},
+		Pos   = {x = -552.21, y = 5326.90, z = 72.79},
 		Size  = {x = 2.0, y = 2.0, z = 1.0},
 		Color = {r = 136, g = 243, b = 216},
 		Name  = "Coupe du Bois",
