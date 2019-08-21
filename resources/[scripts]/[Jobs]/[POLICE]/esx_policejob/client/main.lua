@@ -649,13 +649,14 @@ function OpenPoliceActionsMenu()
 		title    = 'Police',
 		align    = 'top-left',
 		elements = {
-			{label = 'Intéraction Citoyen <span style="color:cyan;"> >', value = 'citizen_interaction'},
-			{label = 'Menu Menottes<span style="color:cyan;"> >', value = 'menu_menottes'},
-			{label = 'Intéraction véhicule <span style="color:cyan;"> >', value = 'vehicle_interaction'},
-			{label = 'Menu objets <span style="color:cyan;"> >', value = 'object_spawner'},
-			{label = 'Equipement LSPD<span style="color:cyan;"> >', value = 'lspd_equipement'},
-			{label = 'Donner une ammende<span style="color:cyan;"> >', value = 'ammende'},
-			{label = 'Demande renfort<span style="color:cyan;"> >', value = 'renfort'}
+			{label = '<span style="color:orange;">Status de l\'agent <span style="color:cyan;"> >', value = 'status'},
+			{label = '<span style="color:#00cc00;">Intéraction Citoyen <span style="color:cyan;"> >', value = 'citizen_interaction'},
+			{label = '<span style="color:#669999;">Menu Menottes<span style="color:cyan;"> >', value = 'menu_menottes'},
+			{label = '<span style="color:#00cc00;">Intéraction véhicule <span style="color:cyan;"> >', value = 'vehicle_interaction'},
+			{label = '<span style="color:#669999;">Menu objets <span style="color:cyan;"> >', value = 'object_spawner'},
+			{label = '<span style="color:#669999;">Equipement LSPD<span style="color:cyan;"> >', value = 'lspd_equipement'},
+			{label = '<span style="color:#669999;">Donner une ammende<span style="color:cyan;"> >', value = 'ammende'},
+			{label = '<span style="color:#ff6600;">Demande renfort<span style="color:cyan;"> >', value = 'renfort'}
 	}}, function(data, menu)
 		if data.current.value == 'citizen_interaction' then
 			local elements = {
@@ -813,6 +814,37 @@ function OpenPoliceActionsMenu()
 					end
 				else
 					ESX.ShowNotification('Pas de joueurs proches')
+				end
+
+			end, function(data2, menu2)
+				menu2.close()
+			end)
+		elseif data.current.value == 'status' then
+			local elements  = {}
+
+			local elements = {
+				{label = '<span style="color:green;">Prise<span style="color:white;"> de service', value = 'prise'},
+				{label = '<span style="color:red;">Fin<span style="color:white;"> de service', value = 'fin'},
+				{label = '<span style="color:orange;">Pause<span style="color:white;"> de service', value = 'pause'}
+			}
+
+			ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'status_service', {
+				css      = 'police',
+				title    = 'Status Service',
+				align    = 'top-left',
+				elements = elements
+			}, function(data2, menu2)
+				local action = data2.current.value
+
+				if action == 'prise' then
+					local info = 'prise'
+					TriggerServerEvent('police:PriseEtFinservice', info)
+				elseif action == 'fin' then
+					local info = 'fin'
+					TriggerServerEvent('police:PriseEtFinservice', info)
+				elseif action == 'pause' then
+					local info = 'pause'
+					TriggerServerEvent('police:PriseEtFinservice', info)
 				end
 
 			end, function(data2, menu2)
@@ -2329,6 +2361,26 @@ AddEventHandler('renfort:setBlip', function(coords, raison)
 	Wait(80 * 1000)
 	for i, blipId in pairs(blips) do 
 		RemoveBlip(blipId)
+	end
+end)
+
+RegisterNetEvent('police:InfoService')
+AddEventHandler('police:InfoService', function(service, nom)
+	if service == 'prise' then
+		PlaySoundFrontend(-1, "Start_Squelch", "CB_RADIO_SFX", 1)
+		ESX.ShowAdvancedNotification('LSPD INFORMATIONS', '~b~Prise de service', 'Agent: ~g~'..nom..'\n~w~Code: ~g~10-8\n~w~Information: ~g~Prise de service.', 'CHAR_CALL911', 8)
+		Wait(1000)
+		PlaySoundFrontend(-1, "End_Squelch", "CB_RADIO_SFX", 1)
+	elseif service == 'fin' then
+		PlaySoundFrontend(-1, "Start_Squelch", "CB_RADIO_SFX", 1)
+		ESX.ShowAdvancedNotification('LSPD INFORMATIONS', '~b~Fin de service', 'Agent: ~g~'..nom..'\n~w~Code: ~g~10-10\n~w~Information: ~g~Fin de service.', 'CHAR_CALL911', 8)
+		Wait(1000)
+		PlaySoundFrontend(-1, "End_Squelch", "CB_RADIO_SFX", 1)
+	elseif service == 'pause' then
+		PlaySoundFrontend(-1, "Start_Squelch", "CB_RADIO_SFX", 1)
+		ESX.ShowAdvancedNotification('LSPD INFORMATIONS', '~b~Pause de service', 'Agent: ~g~'..nom..'\n~w~Code: ~g~10-6\n~w~Information: ~g~Pause de service.', 'CHAR_CALL911', 8)
+		Wait(1000)
+		PlaySoundFrontend(-1, "End_Squelch", "CB_RADIO_SFX", 1)
 	end
 end)
 
