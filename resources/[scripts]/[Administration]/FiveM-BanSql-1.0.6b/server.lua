@@ -167,7 +167,7 @@ AddEventHandler('RubyAntiCheat:Ban', function(source, id, duree, raison)
 	local discord   = "no info"
 	local playerip
 	local target    = id
-	local duree     = duree
+	local duree     = 0
 	local reason    = raison
 	local permanent = 0
 
