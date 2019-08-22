@@ -308,26 +308,3 @@ ESX.RegisterServerCallback('esx_mechanicjob:getPlayerInventory', function(source
 
 	cb({items = items})
 end)
-
-
-RegisterServerEvent('AnnounceMecanoOuvert')
-AddEventHandler('AnnounceMecanoOuvert', function()
-	local _source = source
-	local xPlayer = ESX.GetPlayerFromId(_source)
-	local xPlayers	= ESX.GetPlayers()
-	--for i=1, #xPlayers, 1 do
-	--	local xPlayer = ESX.GetPlayerFromId(xPlayers[i])
-		TriggerClientEvent('esx:showAdvancedNotification', -1, 'Mécano', '~b~Annonce Mécano', 'Le Mécano vient d\'ouvrir! Venez réparer et faire vos custom!', 'CHAR_LS_CUSTOMS', 8)
-	--end
-end)
-
-RegisterServerEvent('AnnounceMecanoFerme')
-AddEventHandler('AnnounceMecanoFerme', function()
-	local _source = source
-	local xPlayer = ESX.GetPlayerFromId(_source)
-	local xPlayers	= ESX.GetPlayers()
-	--for i=1, #xPlayers, 1 do
-	--	local xPlayer = ESX.GetPlayerFromId(xPlayers[i])
-		TriggerClientEvent('esx:showAdvancedNotification', -1, 'Mécano', '~b~Annonce Mécano', 'Le Mécano vient de fermer, passer plus tard.', 'CHAR_LS_CUSTOMS', 8)
-	--end
-end)
