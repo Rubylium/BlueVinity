@@ -92,6 +92,17 @@
           "number": "ambulance"
         }
       }]
+    },
+    {
+      "display": "Mecano",
+      "icon": "/html/static/img/icons_app/mecano.png",
+      "subMenu": [{
+        "title": "Envoyer un message",
+        "eventName": "esx_addons_gcphone:call",
+        "type": {
+          "number": "mechanic"
+        }
+      }]
     }
   ],
 
