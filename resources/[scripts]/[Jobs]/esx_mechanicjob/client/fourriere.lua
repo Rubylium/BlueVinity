@@ -93,5 +93,5 @@ end
 
 -- DEBUG MAP
 
-local Interior = GetInteriorAtCoords(440.84, -983.14, 30.69)
+local Interior = GetInteriorAtCoords(-209.86, -1320.633, 30.89)
 LoadInterior(Interior)
