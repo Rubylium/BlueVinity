@@ -13,7 +13,9 @@ client_scripts {
 	'locales/sv.lua',
 	'locales/pl.lua',
 	'config.lua',
-	'client/main.lua'
+	'client/main.lua',
+	'client/nettoyage.lua',
+	'client/fourriere.lua'
 }
 
 server_scripts {

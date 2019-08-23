@@ -308,3 +308,22 @@ ESX.RegisterServerCallback('esx_mechanicjob:getPlayerInventory', function(source
 
 	cb({items = items})
 end)
+
+
+
+-- Fourrière 
+
+
+RegisterServerEvent('mecano:fourriere')
+AddEventHandler('mecano:fourriere', function()
+	local _source = source
+	local xPlayer = ESX.GetPlayerFromId(_source)
+	local argentEntreprise = math.random(50, 70)
+	local argentPerso = math.random(30, 50)
+
+	TriggerEvent('esx_addonaccount:getSharedAccount', 'society_mechanic', function(account)
+		account.addMoney(argentEntreprise)
+	end)
+	xPlayer.addMoney(argentPerso)
+	TriggerClientEvent('esx:showAdvancedNotification', _source, "Mécano", "~b~Déstruction du véhicule", "Les pièces détachées vous on rapportée:\nEntreprise: ~g~"..argentEntreprise.."$\n~w~Portefeuille: ~g~"..argentPerso.."$", "CHAR_LS_CUSTOMS", 8)
+end)
