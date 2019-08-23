@@ -5898,7 +5898,7 @@
       <animConvRoofName>null</animConvRoofName>
       <animConvRoofWindowsAffected />
       <ptfxAssetName>null</ptfxAssetName>
-      <audioNameHash>POLICE2</audioNameHash>
+      <audioNameHash>AUTARCH</audioNameHash>
       <layout>LAYOUT_LOW_INFERNUS</layout>
       <coverBoundOffsets>DOMINATOR_COVER_OFFSET_INFO</coverBoundOffsets>
       <explosionInfo>EXPLOSION_INFO_DEFAULT</explosionInfo>

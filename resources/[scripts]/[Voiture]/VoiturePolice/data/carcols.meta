@@ -32,7 +32,7 @@
       <rightTailLightMultiples value="4"/>
       <useRealLights value="true"/>
       <sirens>
-        <Item>	<!---police-siren1--->
+        <Item>
           <rotation>
             <delta value="0.00000000"/>
             <start value="0.00000000"/>
@@ -68,7 +68,7 @@
           <spotLight value="true"/>
           <castShadows value="false"/>
         </Item>
-        <Item>	<!---police-siren2--->
+        <Item>
           <rotation>
             <delta value="0.00000000"/>
             <start value="0.00000000"/>
@@ -104,7 +104,7 @@
           <spotLight value="true"/>
           <castShadows value="false"/>
         </Item>
-        <Item>	<!---police-siren3--->
+        <Item>
           <rotation>
             <delta value="0.00000000"/>
             <start value="0.00000000"/>
