@@ -109,7 +109,7 @@ Config.DoorList = {
 		objYaw = 0.0,
 		objCoords  = vector3(463.8, -992.6, 24.9),
 		textCoords = vector3(463.3, -992.6, 25.1),
-		authorizedJobs = { 'police' },
+		authorizedJobs = { 'police','admin' },
 		locked = true
 	},
 
@@ -119,7 +119,7 @@ Config.DoorList = {
 		objYaw = -90.0,
 		objCoords  = vector3(462.3, -993.6, 24.9),
 		textCoords = vector3(461.8, -993.3, 25.0),
-		authorizedJobs = { 'police' },
+		authorizedJobs = { 'police','admin' },
 		locked = true
 	},
 
@@ -129,7 +129,7 @@ Config.DoorList = {
 		objYaw = 90.0,
 		objCoords  = vector3(462.3, -998.1, 24.9),
 		textCoords = vector3(461.8, -998.8, 25.0),
-		authorizedJobs = { 'police' },
+		authorizedJobs = { 'police','admin' },
 		locked = true
 	},
 
@@ -139,7 +139,46 @@ Config.DoorList = {
 		objYaw = 90.0,
 		objCoords  = vector3(462.7, -1001.9, 24.9),
 		textCoords = vector3(461.8, -1002.4, 25.0),
-		authorizedJobs = { 'police' },
+		authorizedJobs = { 'police','admin' },
+		locked = true
+	},
+	-- Cell 4
+	{
+     	objName = 'v_ilev_ph_cellgate',
+     	objYaw = 90.0,
+     	objCoords  = vector3(466.145, -1001.306, 25.06443),
+     	textCoords = vector3(466.145, -1001.306, 25.06443),
+     	authorizedJobs = { 'police','admin' },
+     	locked = true
+	},
+
+	-- Cell 5
+	{
+		objName = 'v_ilev_ph_cellgate',
+		objYaw = 90.0,
+		objCoords  = vector3(466.145, -997.6584, 25.06443),
+		textCoords = vector3(466.145, -997.6584, 25.06443),
+		authorizedJobs = { 'police','admin' },
+		locked = true
+	},
+
+	-- Cell 6
+	{
+		objName = 'v_ilev_ph_cellgate',
+		objYaw = 0.0,
+		objCoords  = vector3(482.737, -991.7142, 25.0654),
+		textCoords = vector3(482.737, -991.7142, 25.0654),
+		authorizedJobs = { 'police','admin' },
+		locked = true
+	},
+
+	-- Cell 7
+	{
+		objName = 'v_ilev_ph_cellgate',
+		objYaw = 0.0,
+		objCoords  = vector3(482.737, -988.2937, 25.0654),
+		textCoords = vector3(482.737, -988.2937, 25.0654),
+		authorizedJobs = { 'police','admin' },
 		locked = true
 	},
 
