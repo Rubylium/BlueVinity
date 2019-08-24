@@ -453,20 +453,22 @@ end)
 RegisterServerEvent('gcPhone:acceptCall')
 AddEventHandler('gcPhone:acceptCall', function(infoCall, rtcAnswer)
 	local id = infoCall.id
-	if AppelsEnCours[id] ~= nil then
+    if AppelsEnCours[id] ~= nil then
+        
 		--if PhoneFixeInfo[id] ~= nil then
 		--	onAcceptFixePhone(source, infoCall, rtcAnswer)
 		--	return
-		--end
-		--AppelsEnCours[id].receiver_src = infoCall.receiver_src or AppelsEnCours[id].receiver_src
+        --end
+        
+		AppelsEnCours[id].receiver_src = infoCall.receiver_src or AppelsEnCours[id].receiver_src
 		if AppelsEnCours[id].transmitter_src ~= nil and AppelsEnCours[id].receiver_src~= nil then
 			AppelsEnCours[id].is_accepts = true
 			AppelsEnCours[id].rtcAnswer = rtcAnswer
 			TriggerClientEvent('gcPhone:acceptCall', AppelsEnCours[id].transmitter_src, AppelsEnCours[id], true)
-			SetTimeout(1000, function()
-			TriggerClientEvent('gcPhone:acceptCall', AppelsEnCours[id].receiver_src, AppelsEnCours[id], false)
-			saveAppels(AppelsEnCours[id])
-			end)
+			SetTimeout(2000, function()
+                TriggerClientEvent('gcPhone:acceptCall', AppelsEnCours[id].receiver_src, AppelsEnCours[id], false)
+            end)
+            saveAppels(AppelsEnCours[id])
 		end
 	end
 end)

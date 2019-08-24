@@ -475,26 +475,6 @@ Citizen.CreateThread(function()
 	end
 end)
 
--- Dot above head
-if Config.ShowDotAbovePlayer then
-
-	Citizen.CreateThread(function()
-		while true do
-
-			Citizen.Wait(1)
-
-			local players = ESX.Game.GetPlayers()
-			for i = 1, #players, 1 do
-				if players[i] ~= PlayerId() then
-					local ped    = GetPlayerPed(players[i])
-					local headId = CreateMpGamerTag(ped, ('·'), false, false, '', false)
-				end
-			end
-
-		end
-	end)
-
-end
 
 AddEventHandler('playerSpawned', function(spawn)
 	SetCanAttackFriendly(PlayerPedId(), true, false)
@@ -542,7 +522,7 @@ end)
 -- Last position
 Citizen.CreateThread(function()
 	while true do
-		Citizen.Wait(1000)
+		Citizen.Wait(3000)
 
 		if ESX.PlayerLoaded and isPlayerSpawned then
 			local playerPed = PlayerPedId()
@@ -557,7 +537,7 @@ end)
 
 Citizen.CreateThread(function()
 	while true do
-		Citizen.Wait(1000)
+		Citizen.Wait(3000)
 
 		local playerPed = PlayerPedId()
 		if IsEntityDead(playerPed) and isPlayerSpawned then

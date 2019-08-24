@@ -2,7 +2,7 @@ Citizen.CreateThread(function()
 	local isDead = false
 
 	while true do
-		Citizen.Wait(0)
+		Citizen.Wait(100)
 
 		local player = PlayerId()
 
