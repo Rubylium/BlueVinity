@@ -378,3 +378,12 @@ Citizen.CreateThread(function()
 		Wait(5*60*10)
 	end
 end)
+
+
+-- Test de cancel d'explosion
+
+AddEventHandler('explosionEvent', function(sender, ev)
+	--if ev.posX > 2000.0 and ev.posY > 2000.0 and ev.posX < 3000.0 and ev.posY < 3000.0 then
+		CancelEvent()
+	--end
+end)
