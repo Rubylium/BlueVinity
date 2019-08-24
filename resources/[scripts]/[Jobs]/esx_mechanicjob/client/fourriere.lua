@@ -80,7 +80,28 @@ function MiseEnFourriereFunction()
                     if alpha == 0 then
                          TriggerServerEvent("mecano:fourriere")
                          PlayMissionCompleteAudio("TREVOR_SMALL_01")
-	     	          ESX.Game.DeleteVehicle(vehicle)
+                         local entity = vehicle
+                         carModel = GetEntityModel(entity)
+                         carName = GetDisplayNameFromVehicleModel(carModel)
+                         NetworkRequestControlOfEntity(entity)
+                         
+                         local timeout = 2000
+                         while timeout > 0 and not NetworkHasControlOfEntity(entity) do
+                              Wait(100)
+                              timeout = timeout - 100
+                         end
+                         SetEntityAsMissionEntity(entity, true, true)
+                         
+                         local timeout = 2000
+                         while timeout > 0 and not IsEntityAMissionEntity(entity) do
+                              Wait(100)
+                              timeout = timeout - 100
+                         end
+                         Citizen.InvokeNative( 0xEA386986E786A54F, Citizen.PointerValueIntInitialized( entity ) )
+                         
+                         if (DoesEntityExist(entity)) then 
+                              DeleteEntity(entity)
+                         end 
                     end
                end
           end
