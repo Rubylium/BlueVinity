@@ -358,6 +358,17 @@ function OpenMobileMechanicActionsMenu()
 					SetVehicleUndriveable(vehicle, false)
 					SetVehicleEngineOn(vehicle, true, true)
 					ClearPedTasksImmediately(playerPed)
+					TaskEnterVehicle(playerPed, vehicle, 1, -1, 2.0, 16, 0)
+					local veh = GetVehiclePedIsIn(playerPed, false)
+					local DansUnVeh = IsPedInAnyVehicle(playerPed, false)
+					while DansUnVeh == false do
+						local DansUnVeh = IsPedInAnyVehicle(playerPed, false)
+						Wait(50)
+					end
+					SetVehicleFixed(veh)
+					SetVehicleDeformationFixed(veh)
+					SetVehicleUndriveable(veh, false)
+					SetVehicleEngineOn(veh, true, true)
 
 					ESX.ShowNotification(_U('vehicle_repaired'))
 					isBusy = false

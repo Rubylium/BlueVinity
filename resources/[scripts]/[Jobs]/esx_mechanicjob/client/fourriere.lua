@@ -1,4 +1,5 @@
 ESX = nil
+local PlayerData                = {}
 
 local MiseEnFourriere = {coords = vector3(-202.73, -1324.238, 31.08)}
 
@@ -20,7 +21,10 @@ end)
 -- Zone de mise en fourrière
 
 Citizen.CreateThread(function()
-	while true do
+     while true do
+          while ESX == nil do
+               Citizen.Wait(10)
+          end
 		local sleepThread = 500
 		local ped = PlayerPedId()
 		local pedCoords = GetEntityCoords(ped)

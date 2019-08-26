@@ -1,4 +1,5 @@
 ESX = nil
+local PlayerData                = {}
 
 local nettoyage = {coords = vector3(-210.83, -1313.82, 31.08)}
 --local nettoyagePublique = {coords = vector3(21.09, -1391.97, 29.8)}
@@ -22,7 +23,10 @@ end)
 -- Zone de mise nettoyage
 
 Citizen.CreateThread(function()
-	while true do
+     while true do
+          while ESX == nil do
+               Citizen.Wait(10)
+          end
 		local sleepThread = 1000
 		local ped = PlayerPedId()
 		local pedCoords = GetEntityCoords(ped)
