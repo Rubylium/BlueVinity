@@ -336,7 +336,7 @@ function SpawnVehicle(vehicle)
         SetVehRadioStation(callback_vehicle, 'OFF')
         TaskWarpPedIntoVehicle(GetPlayerPed(-1), callback_vehicle, -1)
         local plate = GetVehicleNumberPlateText(callback_vehicle)
-        TriggerServerEvent('ls:mainCheck', plate, callback_vehicle, true)
+        TriggerEvent("ls:newVehicle", carplate, nil, nil)
     end)
 
     TriggerServerEvent('eden_garage:modifystate', vehicle, false)
