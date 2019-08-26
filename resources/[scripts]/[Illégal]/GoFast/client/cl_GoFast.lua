@@ -1,3 +1,4 @@
+local GoFastDejaFait = nil
 
 ESX = nil
 
@@ -20,10 +21,20 @@ local BlipsGoFast = nil
 
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
+RegisterNetEvent("Sync:GoFast")
+AddEventHandler("Sync:GoFast", function(_GoFastDejaFait)
+	GoFastDejaFait = _GoFastDejaFait
+end)
+
 -- Affichage du points sur la map
 
 Citizen.CreateThread(function()
 	while true do
+		while GoFastDejaFait == nil do
+			Wait(1000)
+			print("Pas bon: ")
+			GoFastDejaFait = 1
+		end
 		local sleepThread = 500
 		local ped = PlayerPedId()
 		local pedCoords = GetEntityCoords(ped)
@@ -31,9 +42,13 @@ Citizen.CreateThread(function()
 		if dstCheck <= 4.2 then
 			sleepThread = 5
 			if dstCheck <= 4.2 then
-				ESX.Game.Utils.DrawText3D(DebutMission.coords, "[E] Ouvrir le menu de ~g~GoFast\n~r~Activitée illégal", 1.0)
+				ESX.Game.Utils.DrawText3D(DebutMission.coords, "[E] Ouvrir le menu de ~g~GoFast\n~r~Activitée illégal\n~w~GoFast disponible: ~g~"..GoFastDejaFait, 1.0)
 				if IsControlJustPressed(0, 38) then
-					DebutMissionMenu()
+					if GoFastDejaFait > 0 then
+						DebutMissionMenu()
+					else
+						ESX.ShowAdvancedNotification("GoFast", "~b~Livraison GoFast", "Aucun GoFast disponbile, revient plus tard.", "CHAR_LESTER_DEATHWISH", 8)
+					end
 				end
 			end
 		end
@@ -91,6 +106,7 @@ function DebutMissionMenu()
 
 		if action == "start" then
 			ESX.UI.Menu.CloseAll()
+			TriggerServerEvent("Sync:MoinUnGoFast")
 			RenderScriptCams(0, 1, 1000, 1, 1)
 			DestroyCam(camera, true)
 			AnimDebutMission()
