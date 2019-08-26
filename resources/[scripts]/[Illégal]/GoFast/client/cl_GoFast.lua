@@ -6,9 +6,9 @@ PlayerData = {}
 
 -- Coordonée pour le point de début de mission
 
-local DebutMission = {coords = vector3(-60.254, -2518.02, 7.40)}
-local SpawnVehicule = {coords = vector3(-233.27, -2405.201, 6.001)}
-local SpawnVehiculeJoueur = {coords = vector3(-231.54, -2401.35, 6.001)}
+local DebutMission = {coords = vector3(1570.1783, -2130.38, 78.33)}
+local SpawnVehicule = {coords = vector3(1563.67, -2168.06, 77.51)}
+local SpawnVehiculeJoueur = {coords = vector3(1566.83, -2168.48, 77.53)}
 local GoFastVente = {coords = vector3(114.87, 6611.87, 31.86)}
 
 local GoFastEnCours = false
@@ -70,7 +70,7 @@ function DebutMissionMenu()
 	local camera = CreateCam("DEFAULT_SCRIPTED_CAMERA", 1)
 	--CreateCam(camera, true)
 	local ped = PlayerPedId()
-	SetCamCoord(camera, -55.31, -2519.99, 8.19)
+	SetCamCoord(camera, 1571.88, -2135.56, 80.43)
 	--AttachCamToEntity(camera, ped, -10.31, -2519.99, 8.19, 1)
 	PointCamAtEntity(camera, ped, 0, 0, 0, 1)
 	RenderScriptCams(1, 1, 1000, 1, 1)
@@ -144,7 +144,7 @@ end
 function SpawnDuVehicule()
 	local ped = PlayerPedId()
 	print('Début animation')
-	local veh = CreateVehicle(917809321, SpawnVehicule.coords, 335.26, true, true)
+	local veh = CreateVehicle(917809321, SpawnVehicule.coords, 353.13, true, true)
 	print('Spawn du véhicule')
 	--ESX.Game.Teleport(ped, SpawnVehiculeJoueur.coords, cb)
 	print('Téléportation du joueur')
@@ -206,11 +206,11 @@ function AnimDebutMission()
 				Citizen.Wait(0)
 			end
 
-			local veh = CreateVehicle(917809321, SpawnVehicule.coords, 199.47, true, true)
+			local veh = CreateVehicle(917809321, SpawnVehicule.coords, 353.13, true, true)
 			SetVehicleNumberPlateText(veh, 'GOFAST')
 			SetVehicleEnginePowerMultiplier(veh, 2.0 * 20.0)
 			TaskEnterVehicle(ped, veh, 1000, -1, 1.0, 1, 0)
-			TaskVehiclePark(ped, veh, -174.61, -2438.12, 5.49, 231.01, 0, 20.0, true)
+			TaskVehiclePark(ped, veh, 1565.92, -2154.84, 77.55, 352.04, 0, 20.0, true)
 			SetModelAsNoLongerNeeded(917809321)
 			SetModelAsNoLongerNeeded(veh)
 			-- Création du blips pour livrer le véhicule
