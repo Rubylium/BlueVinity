@@ -229,6 +229,7 @@ function AnimDebutMission()
 			TaskVehiclePark(ped, veh, 1565.92, -2154.84, 77.55, 352.04, 0, 20.0, true)
 			SetModelAsNoLongerNeeded(917809321)
 			SetModelAsNoLongerNeeded(veh)
+			SetVehicleAsNoLongerNeeded(veh)
 			-- Création du blips pour livrer le véhicule
 			GoFastEnCours = true
 			-- Wait for the player switch to be completed (state 12).

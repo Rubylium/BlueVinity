@@ -5,7 +5,7 @@ Config = {
 	
 	Locale = "en",
 
-	Price = 3000,
+	Price = 250,
 
 	-- This is the multiplier of price to pay when the car is damaged
 	-- 100% damaged means 1000 * Multiplier

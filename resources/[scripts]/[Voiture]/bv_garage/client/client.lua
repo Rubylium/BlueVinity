@@ -336,7 +336,7 @@ function SpawnVehicle(vehicle)
         SetVehRadioStation(callback_vehicle, 'OFF')
         TaskWarpPedIntoVehicle(GetPlayerPed(-1), callback_vehicle, -1)
         local plate = GetVehicleNumberPlateText(callback_vehicle)
-        TriggerEvent("ls:newVehicle", carplate, nil, nil)
+        TriggerEvent("ls:newVehicle", plate, nil, nil)
     end)
 
     TriggerServerEvent('eden_garage:modifystate', vehicle, false)
@@ -499,6 +499,8 @@ Citizen.CreateThread(function()
         if not isInMarker and hasAlreadyEnteredMarker then
             hasAlreadyEnteredMarker = false
             TriggerEvent('eden_garage:hasExitedMarker', LastZone)
+            RenderScriptCams(0, 1, 2000, 1, 1)
+            DestroyCam(camera, true)
         end
     end
 end)
