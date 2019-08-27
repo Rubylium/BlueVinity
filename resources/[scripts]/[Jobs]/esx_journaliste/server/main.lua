@@ -6,7 +6,7 @@ if Config.MaxInService ~= -1 then
   TriggerEvent('esx_service:activateService', 'journaliste', Config.MaxInService)
 end
 
-TriggerEvent('esx_phone:registerNumber', 'journaliste', _U('journaliste_customer'), true, true)
+TriggerEvent('esx_phone:registerNumber', 'journaliste', 'Contacter un journaliste', true, true)
 TriggerEvent('esx_society:registerSociety', 'journaliste', 'journaliste', 'society_journaliste', 'society_journaliste', 'society_journaliste', {type = 'private'})
 
 RegisterServerEvent('esx_journaliste:getStockItem')

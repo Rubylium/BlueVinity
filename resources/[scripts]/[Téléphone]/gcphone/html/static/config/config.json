@@ -105,6 +105,17 @@
       }]
     },
     {
+      "display": "Journaliste",
+      "icon": "/html/static/img/icons_app/journaliste.png",
+      "subMenu": [{
+        "title": "Envoyer un message",
+        "eventName": "esx_addons_gcphone:call",
+        "type": {
+          "number": "journaliste"
+        }
+      }]
+    },
+    {
       "display": "Avocat",
       "icon": "/html/static/img/icons_app/avocat.png",
       "subMenu": [{
