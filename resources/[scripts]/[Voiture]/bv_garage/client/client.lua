@@ -8,7 +8,10 @@ local CurrentActionData = {}
 local times = 0
 local this_Garage = {}
 
+
 local vehicleHash = ''
+local rangerNormal = false
+local nombreEnFourriere = 0
 -- Init ESX
 ESX = nil
 
@@ -133,6 +136,7 @@ end
 -- View Vehicle Listings
 function ListVehiclesMenu()
     local elements = {}
+    nombreEnFourriere = 0
 
     ESX.TriggerServerCallback('eden_garage:getVehicles', function(vehicles)
         for _, v in pairs(vehicles) do
@@ -144,6 +148,8 @@ function ListVehiclesMenu()
                 labelvehicle = vehicleName..'<font color="green">Dans le garage</font>'
             else
                 labelvehicle = vehicleName..'<font color="red">En fourrière</font>'
+                nombreEnFourriere = nombreEnFourriere + 1
+                print(nombreEnFourriere)
             end
 
             table.insert(elements, {
@@ -285,6 +291,7 @@ function StockVehicleMenu()
                                 reparation(fraisRep, vehicle, vehicleProps)
                             else
                                 ranger(vehicle, vehicleProps)
+                                rangerNormal = true
                                 RenderScriptCams(0, 1, 2000, 1, 1)
                                 DestroyCam(camera, true)
                             end
@@ -337,6 +344,50 @@ function SpawnVehicle(vehicle)
         TaskWarpPedIntoVehicle(GetPlayerPed(-1), callback_vehicle, -1)
         local plate = GetVehicleNumberPlateText(callback_vehicle)
         TriggerEvent("ls:newVehicle", plate, nil, nil)
+        SetVehicleHasBeenOwnedByPlayer(callback_vehicle, true)
+        local blipPerso = AddBlipForEntity(callback_vehicle)
+        SetBlipScale(blipPerso, 0.65)
+        SetBlipSprite(blipPerso, 225)
+        SetBlipColour(blipPerso, 26)
+        SetBlipShrink(blipPerso, true)
+        ShowTickOnBlip(blipPerso, true)
+        SetBlipAsShortRange(blipPerso, true)
+        BeginTextCommandSetBlipName('STRING')
+        AddTextComponentString('~b~Véhicule Personnel > plaque: '..plate)
+        EndTextCommandSetBlipName(blipPerso)
+        Wait(1000)
+        local persoPresent = IsBlipShortRange(blipPerso)
+        while persoPresent do
+            persoPresent = IsBlipShortRange(blipPerso)
+            Wait(1000)
+        end
+        Wait(2000)
+        if rangerNormal then
+        else
+            nombreEnFourriere = 0
+
+            ESX.TriggerServerCallback('eden_garage:getVehicles', function(vehicles)
+                for _, v in pairs(vehicles) do
+                    local hashVehicule = v.vehicle.model
+                    local vehicleName = GetDisplayNameFromVehicleModel(hashVehicule)
+                    local labelvehicle
+        
+                    if (v.state) then
+                        labelvehicle = vehicleName..'<font color="green">Dans le garage</font>'
+                    else
+                        labelvehicle = vehicleName..'<font color="red">En fourrière</font>'
+                        nombreEnFourriere = nombreEnFourriere + 1
+                        print(nombreEnFourriere)
+                    end
+                end
+                local F = "\n~w~Véhicule(s) en fourrière: ~r~"
+                local S = nombreEnFourriere
+                ESX.ShowAdvancedNotification("Garage Personnel", "~b~Information garage perso", "Votre véhicule a été mis en fourrière.\nPlaque: ~g~"..plate..""..F..S, "CHAR_PROPERTY_TOWING_IMPOUND", 8)
+            end)
+            
+        end
+        Wait(2000)
+        rangerNormal = false
     end)
 
     TriggerServerEvent('eden_garage:modifystate', vehicle, false)
