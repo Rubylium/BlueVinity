@@ -76,8 +76,8 @@ end
 function openTakeService()
 
   local elements = {
-    {label = "citizen wear", value = 'citizen_wear'},
-    {label = "lawyer wear", value = 'avocat_wear'}
+    {label = "Tenu civil", value = 'citizen_wear'},
+    {label = "Tenu avocat", value = 'avocat_wear'}
   }
 
   ESX.UI.Menu.CloseAll()
@@ -85,7 +85,7 @@ function openTakeService()
     ESX.UI.Menu.Open(
       'default', GetCurrentResourceName(), 'cloakroom',
       {
-        title    = 'Service plug',
+        title    = 'Changer ça tenu',
         align    = 'bottom-right',
         elements = elements,
         },

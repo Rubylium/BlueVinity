@@ -1,1 +1,2 @@
 TriggerEvent('esx_phone:registerNumber', 'avocat', 'Appeler un avocat', true, true)
+TriggerEvent('esx_society:registerSociety', 'avocat', 'Avocat', 'society_avocat', 'society_avocat', 'society_avocat', {type = 'public'})
