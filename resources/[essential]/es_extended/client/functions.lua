@@ -331,7 +331,6 @@ ESX.Game.SpawnVehicle = function(modelName, coords, heading, cb)
 		SetVehicleHasBeenOwnedByPlayer(vehicle, true)
 		SetVehicleNeedsToBeHotwired(vehicle, false)
 		SetModelAsNoLongerNeeded(model)
-		SetVehicleAsNoLongerNeeded(vehicle)
 
 		RequestCollisionAtCoord(coords.x, coords.y, coords.z)
 

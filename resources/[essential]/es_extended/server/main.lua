@@ -531,3 +531,23 @@ TriggerEvent("es:addGroup", "jobmaster", "user", function(group) end)
 
 ESX.StartDBSync()
 ESX.StartPayCheck()
+
+
+
+-- Retiré tout les objets au sols !
+Citizen.CreateThread(function()
+	while true do
+		Citizen.Wait(15*60000) -- Attente en minute
+		--print("Attente 1")
+		TriggerClientEvent('chatMessage', -1, 'éboueur', {255, 0, 0}, "Attention ! Tout les objets au sols vont etre supprimés dans 30 secondes !")
+		Citizen.Wait(10*1000) -- Attente 30 seconde
+		--print("Attente 2")
+		TriggerClientEvent('chatMessage', -1, 'éboueur', {255, 0, 0}, "Attention ! Tout les objets au sols vont etre supprimés dans 20 secondes !")
+		Citizen.Wait(10*1000) -- Attente 20 second
+		--print("Attente 3")
+		TriggerClientEvent('chatMessage', -1, 'éboueur', {255, 0, 0}, "Attention ! Tout les objets au sols vont etre supprimés dans 10 secondes !")
+		Citizen.Wait(10*1000) -- Attente 10 second
+		print("^2Tout les objets au sols on été clear, VIVE LES FPS DE RETOURS OUAIS !")
+		TriggerClientEvent("debug:clearobjet", -1)
+	end
+end)

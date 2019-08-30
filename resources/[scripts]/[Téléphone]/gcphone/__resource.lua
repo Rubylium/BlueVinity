@@ -31,6 +31,7 @@ files {
 	'html/static/img/icons_app/mecano.png',
 	'html/static/img/icons_app/avocat.png',
 	'html/static/img/icons_app/journaliste.png',
+	'html/static/img/icons_app/sheriff.png',
 	
 	'html/static/img/app_bank/logo_mazebank.jpg',
 

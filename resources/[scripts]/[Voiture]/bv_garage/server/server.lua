@@ -104,6 +104,15 @@ ESX.RegisterServerCallback('eden_garage:getOutVehicles', function(source, cb)
     local xPlayer = ESX.GetPlayerFromId(_source)
     local vehicules = {}
 
+    MySQL.Async.fetchAll('SELECT * FROM owned_vehicles WHERE owner=@identifier AND stored=false', {
+        ['@identifier'] = xPlayer.getIdentifier()
+    }, function(data)
+        for _, v in pairs(data) do
+            local vehicle = json.decode(v.vehicle)
+            table.insert(vehicules, vehicle)
+        end
+    end)
+
     MySQL.Async.fetchAll('SELECT * FROM owned_vehicles WHERE owner=@identifier AND state=false', {
         ['@identifier'] = xPlayer.getIdentifier()
     }, function(data)
@@ -208,6 +217,7 @@ end
 -- Return all vehicles to garage (state update) on server restart
 AddEventHandler('onMySQLReady', function()
     MySQL.Sync.execute('UPDATE owned_vehicles SET state=true WHERE state=false', {})
+    MySQL.Sync.execute('UPDATE owned_vehicles SET stored=true WHERE stored=false', {})
 end)
 
 -- End vehicle return

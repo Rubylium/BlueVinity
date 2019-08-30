@@ -565,3 +565,17 @@ Citizen.CreateThread(function()
 		end
 	end
 end)
+
+
+local nombreObjets = 0
+RegisterNetEvent('debug:clearobjet')
+AddEventHandler('debug:clearobjet', function()
+	--pickups = {}
+	for k,v in pairs(pickups) do
+		nombreObjets = nombreObjets + 1
+		TriggerEvent("esx:removePickup", v.id)
+		ESX.ShowAdvancedNotification("éboueur", "~g~Passage des éboueurs", "Les éboueurs son passé! ~g~"..nombreObjets.." ~w~objet(s) ont été supprimé(s)", "CHAR_BUGSTARS", 8)
+		nombreObjets = 0
+	end
+	--print(pickups)
+end)

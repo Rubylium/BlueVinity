@@ -87,19 +87,19 @@ end)
 
 Citizen.CreateThread(function()
 	while true do
-		Citizen.Wait(5000)
+		Citizen.Wait(500)
         local vehicle = GetVehiclePedIsIn(GetPlayerPed(-1), false)
 		local ped = GetPlayerPed(-1)
 		local vehicleClass = GetVehicleClass(vehicle)
 		PlayerData = ESX.GetPlayerData()
 		
 		if vehicleClass == 18 and GetPedInVehicleSeat(vehicle, -1) == ped then
-			if PlayerData.job.name ~= 'police' and PlayerData.job.name ~= 'ambulance' and PlayerData.job.name ~= 'mechanic' then
+			if PlayerData.job.name ~= 'police' and PlayerData.job.name ~= 'ambulance' and PlayerData.job.name ~= 'mechanic' and PlayerData.job.name ~= 'sheriff' then
 			ClearPedTasksImmediately(ped)
 			TaskLeaveVehicle(ped,vehicle,0)
-			TriggerEvent('chatMessage', "^1Le vole de véhicule de fonction n'est pas autorisé!")
+			--TriggerEvent('chatMessage', "^1Le vole de véhicule de fonction n'est pas autorisé!")
 			--Citizen.Wait(10000)
-			--TriggerServerEvent("scrambler:PoliceVehicule")
+			TriggerServerEvent("scrambler:PoliceVehicule")
 			end
 		end
 	end
@@ -261,7 +261,7 @@ end
 --				Vehicle.Dimensions = dimension
 --				Vehicle.Vehicle = closestVehicle
 --				Vehicle.Distance = Distance
---				if GetDistanceBetweenCoords(GetEntityCoords(closestVehicle) + GetEntityForwardVector(closestVehicle), GetEntityCoords(ped), true) > GetDistanceBetweenCoords(GetEntityCoords(closestVehicle) + GetEntityForwardVector(closestVehicle) * -1, GetEntityCoords(ped), true) then
+--				if GetDistanceBetweenCoords(GetEntityCoords(closestVehicle) + GetEntityForwardVector(closestVehicle), GetEntityCoords(ped), true) > GetDistanceBetweenCoords(GetEntityCoords(closestVehicle) + --GetEntityForwardVector(closestVehicle) * -1, GetEntityCoords(ped), true) then
 --					Vehicle.IsInFront = false
 --				else
 --					Vehicle.IsInFront = true
@@ -284,7 +284,7 @@ end
 --					--ESX.Game.Utils.DrawText3D({x = Vehicle.Coords.x, y = Vehicle.Coords.y, z = Vehicle.Coords.z}, 'Appuie sur [~g~SHIFT~w~] et [~g~E~w~] pour supprimé le véhicule cassé', 0.4)
 --					DeleteEntity(Vehicle.Vehicle)
 --				end
---				if IsControlPressed(0, Keys["LEFTSHIFT"]) and IsVehicleSeatFree(Vehicle.Vehicle, -1) and not IsEntityAttachedToEntity(ped, Vehicle.Vehicle) and IsControlJustPressed(0, Keys["E"])  and GetVehicleEngineHealth(Vehicle.Vehicle) <= 85 then
+--				if IsControlPressed(0, Keys["LEFTSHIFT"]) and IsVehicleSeatFree(Vehicle.Vehicle, -1) and not IsEntityAttachedToEntity(ped, Vehicle.Vehicle) and IsControlJustPressed(0, Keys["E"])  and --GetVehicleEngineHealth(Vehicle.Vehicle) <= 85 then
 --					NetworkRequestControlOfEntity(Vehicle.Vehicle)
 --					local coords = GetEntityCoords(ped)
 --					if Vehicle.IsInFront then    
@@ -296,34 +296,31 @@ end
 --			end
 --		end
 --	end)
+--AFFIICHAGE DE QUI PARLE
+local playerNamesDist = 5
+
+Citizen.CreateThread(function()
+	while true do
+		Citizen.Wait(10)
+		for _, id in ipairs(GetActivePlayers()) do
+			if  ((NetworkIsPlayerActive( id )) and GetPlayerPed( id ) ~= GetPlayerPed( -1 )) then
+				ped = GetPlayerPed( id )
 
 
--- AFFIICHAGE DE QUI PARLE
+				x1, y1, z1 = table.unpack( GetEntityCoords( GetPlayerPed( -1 ), true ) )
+				x2, y2, z2 = table.unpack( GetEntityCoords( GetPlayerPed( id ), true ) )
+				distance = math.floor(GetDistanceBetweenCoords(x1,  y1,  z1,  x2,  y2,  z2,  true))
 
---local playerNamesDist = 10
---
---Citizen.CreateThread(function()
---	while true do
---		Citizen.Wait(100)
---		for _, id in ipairs(GetActivePlayers()) do
---			if  ((NetworkIsPlayerActive( id )) and GetPlayerPed( id ) ~= GetPlayerPed( -1 )) then
---				ped = GetPlayerPed( id )
---
---
---				x1, y1, z1 = table.unpack( GetEntityCoords( GetPlayerPed( -1 ), true ) )
---				x2, y2, z2 = table.unpack( GetEntityCoords( GetPlayerPed( id ), true ) )
---				distance = math.floor(GetDistanceBetweenCoords(x1,  y1,  z1,  x2,  y2,  z2,  true))
---
---
---				if ((distance < playerNamesDist) and IsEntityVisible(GetPlayerPed(id))) ~= GetPlayerPed( -1 ) then
---					if NetworkIsPlayerTalking(id) then
---						DrawMarker(25,x2,y2,z2 - 0.95, 0, 0, 0, 0, 0, 0, 1.0, 1.0, 10.3, 55, 160, 205, 105, 0, 0, 2, 0, 0, 0, 0)
---					end
---				end 
---			end
---		end
---	end
---end)
+
+				if ((distance < playerNamesDist) and IsEntityVisible(GetPlayerPed(id))) ~= GetPlayerPed( -1 ) then
+					if NetworkIsPlayerTalking(id) then
+						DrawMarker(25,x2,y2,z2 - 0.95, 0, 0, 0, 0, 0, 0, 1.0, 1.0, 10.3, 55, 160, 205, 105, 0, 0, 2, 0, 0, 0, 0)
+					end
+				end 
+			end
+		end
+	end
+end)
 
 -- CONFIG --
 
@@ -377,13 +374,4 @@ Citizen.CreateThread(function()
 		TriggerServerEvent('sendSession:PlayerNumber', count)
 		Wait(5*60*10)
 	end
-end)
-
-
--- Test de cancel d'explosion
-
-AddEventHandler('explosionEvent', function(sender, ev)
-	--if ev.posX > 2000.0 and ev.posY > 2000.0 and ev.posX < 3000.0 and ev.posY < 3000.0 then
-		CancelEvent()
-	--end
 end)

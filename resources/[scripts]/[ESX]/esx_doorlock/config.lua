@@ -27,6 +27,55 @@ Config.DoorList = {
 			}
 		}
 	},
+	-- sherif cellule 
+
+	{
+		objName = 'prop_ld_jail_door',
+		objYaw = 37.0,
+		objCoords  = vector3(1845.86, 3705.238, 1.21),
+		textCoords = vector3(1845.86, 3705.238, 1.21),
+		authorizedJobs = { 'sheriff' },
+		locked = true
+	},
+
+	{
+		objName = 'prop_ld_jail_door',
+		objYaw = 37.0,
+		objCoords  = vector3(1849.713, 3708.264, 1.21),
+		textCoords = vector3(1849.713, 3708.264, 1.21),
+		authorizedJobs = { 'sheriff' },
+		locked = true
+	},
+
+	{
+		objName = 'prop_ld_jail_door',
+		objYaw = 37.0,
+		objCoords  = vector3(1847.71, 3710.89, 1.21),
+		textCoords = vector3(1847.71, 3710.89, 1.21),
+		authorizedJobs = { 'sheriff' },
+		locked = true
+	},
+
+	{
+		objName = 'prop_ld_jail_door',
+		objYaw = 37.0,
+		objCoords  = vector3(1843.79, 3707.81, 1.22776),
+		textCoords = vector3(1843.79, 3707.81, 1.22776),
+		authorizedJobs = { 'sheriff' },
+		locked = true
+	},
+
+	-- Porte entré sheriff
+
+	{
+		objName = 'v_ilev_shrf2door',
+		objYaw = 135.0,
+		objCoords  = vector3(1843.79, 3707.81, 1.22776),
+		textCoords = vector3(1843.79, 3707.81, 1.22776),
+		authorizedJobs = { 'sheriff' },
+		locked = true
+	},
+
 
 	-- To locker room & roof
 	{
@@ -250,7 +299,7 @@ Config.DoorList = {
 	-- Entrance (double doors)
 	{
 		textCoords = vector3(-443.5, 6016.3, 32.0),
-		authorizedJobs = { 'police' },
+		authorizedJobs = { 'sheriff' },
 		locked = false,
 		distance = 2.5,
 		doors = {
