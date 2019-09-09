@@ -38,6 +38,16 @@ end)
 local texte = {coords = vector3(-449.41, 6012.07, 31.71)}
 local texteSecondaire = {coords = vector3(1853.17, 3690.02, 34.26)}
 
+
+local police = {coords = vector3(445.4, -978.2, 35.9)}
+local police2 = {coords = vector3(445.9, -982.8, 35.9)}
+local police3 = {coords = vector3(440.1, -983.7, 35.9)}
+local police4 = {coords = vector3(439.2, -977.8, 35.9)}
+local police5 = {coords = vector3(443.3, -983.60, 35.93)}
+local police6 = {coords = vector3(451.8, -976.85, 35.9)}
+local police7 = {coords = vector3(457.02, -976.84, 35.9)}
+local police8 = {coords = vector3(461.57, -1007.48, 35.9)}
+
 Citizen.CreateThread(function ()
 	while true do 
 		Citizen.Wait(1)
@@ -69,6 +79,132 @@ Citizen.CreateThread(function ()
 			if(GetDistanceBetweenCoords(texteSecondaire.coords, GetEntityCoords(GetPlayerPed(-1)), true) < 2) then 
 				--DrawMarker(20,texte.coords,0,0,0,0,0,0,2.001,2.0001,0.5001,255,255,255,200,0,0,0,0)
 				ESX.Game.Utils.DrawText3D(texteSecondaire.coords, "~b~[F3] ~g~Pour ouvrir l'ordinateur de service.", 1.0)
+				if IsControlJustPressed(1, Keys["F3"]) then
+					if not redbookShow then
+						openGui()
+					else 
+						closeGui()
+					end
+				end
+			end
+		end
+
+		-- POLICE OFFICE !
+
+		if PlayerData.job ~= nil and PlayerData.job.name == 'police' then
+
+			-- POSTE PRINCIPAL
+			if(GetDistanceBetweenCoords(police.coords, GetEntityCoords(GetPlayerPed(-1)), true) < 10) then 
+				DrawMarker(20,police.coords,0,0,0,0,0,43.0,0.5,0.5,0.5,3,252,53,200,1,0,0,0)
+			end
+			if(GetDistanceBetweenCoords(police.coords, GetEntityCoords(GetPlayerPed(-1)), true) < 2) then 
+				--DrawMarker(20,texte.coords,0,0,0,0,0,0,2.001,2.0001,0.5001,255,255,255,200,0,0,0,0)
+				ESX.Game.Utils.DrawText3D(police.coords, "~b~[F3] ~g~Pour ouvrir l'ordinateur de service.", 1.0)
+				if IsControlJustPressed(1, Keys["F3"]) then
+					if not redbookShow then
+						openGui()
+					else 
+						closeGui()
+					end
+				end
+			end
+
+			if(GetDistanceBetweenCoords(police2.coords, GetEntityCoords(GetPlayerPed(-1)), true) < 10) then 
+				DrawMarker(20,police2.coords,0,0,0,0,0,299.0,0.5,0.5,0.5,3,252,53,200,1,0,0,0)
+			end
+			if(GetDistanceBetweenCoords(police2.coords, GetEntityCoords(GetPlayerPed(-1)), true) < 1) then 
+				--DrawMarker(20,texte.coords,0,0,0,0,0,0,2.001,2.0001,0.5001,255,255,255,200,0,0,0,0)
+				ESX.Game.Utils.DrawText3D(police2.coords, "~b~[F3] ~g~Pour ouvrir l'ordinateur de service.", 1.0)
+				if IsControlJustPressed(1, Keys["F3"]) then
+					if not redbookShow then
+						openGui()
+					else 
+						closeGui()
+					end
+				end
+			end
+
+			if(GetDistanceBetweenCoords(police3.coords, GetEntityCoords(GetPlayerPed(-1)), true) < 10) then 
+				DrawMarker(20,police3.coords,0,0,0,0,0,299.0,0.5,0.5,0.5,3,252,53,200,1,0,0,0)
+			end
+			if(GetDistanceBetweenCoords(police3.coords, GetEntityCoords(GetPlayerPed(-1)), true) < 1) then 
+				--DrawMarker(20,texte.coords,0,0,0,0,0,0,2.001,2.0001,0.5001,255,255,255,200,0,0,0,0)
+				ESX.Game.Utils.DrawText3D(police3.coords, "~b~[F3] ~g~Pour ouvrir l'ordinateur de service.", 1.0)
+				if IsControlJustPressed(1, Keys["F3"]) then
+					if not redbookShow then
+						openGui()
+					else 
+						closeGui()
+					end
+				end
+			end
+
+			if(GetDistanceBetweenCoords(police4.coords, GetEntityCoords(GetPlayerPed(-1)), true) < 10) then 
+				DrawMarker(20,police4.coords,0,0,0,0,0,299.0,0.5,0.5,0.5,3,252,53,200,1,0,0,0)
+			end
+			if(GetDistanceBetweenCoords(police4.coords, GetEntityCoords(GetPlayerPed(-1)), true) < 1) then 
+				--DrawMarker(20,texte.coords,0,0,0,0,0,0,2.001,2.0001,0.5001,255,255,255,200,0,0,0,0)
+				ESX.Game.Utils.DrawText3D(police4.coords, "~b~[F3] ~g~Pour ouvrir l'ordinateur de service.", 1.0)
+				if IsControlJustPressed(1, Keys["F3"]) then
+					if not redbookShow then
+						openGui()
+					else 
+						closeGui()
+					end
+				end
+			end
+
+			if(GetDistanceBetweenCoords(police5.coords, GetEntityCoords(GetPlayerPed(-1)), true) < 10) then 
+				DrawMarker(20,police5.coords,0,0,0,0,0,299.0,0.5,0.5,0.5,3,252,53,200,1,0,0,0)
+			end
+			if(GetDistanceBetweenCoords(police5.coords, GetEntityCoords(GetPlayerPed(-1)), true) < 1) then 
+				--DrawMarker(20,texte.coords,0,0,0,0,0,0,2.001,2.0001,0.5001,255,255,255,200,0,0,0,0)
+				ESX.Game.Utils.DrawText3D(police5.coords, "~b~[F3] ~g~Pour ouvrir l'ordinateur de service.", 1.0)
+				if IsControlJustPressed(1, Keys["F3"]) then
+					if not redbookShow then
+						openGui()
+					else 
+						closeGui()
+					end
+				end
+			end
+
+			if(GetDistanceBetweenCoords(police6.coords, GetEntityCoords(GetPlayerPed(-1)), true) < 10) then 
+				DrawMarker(20,police6.coords,0,0,0,0,0,299.0,0.5,0.5,0.5,3,252,53,200,1,0,0,0)
+			end
+			if(GetDistanceBetweenCoords(police6.coords, GetEntityCoords(GetPlayerPed(-1)), true) < 1) then 
+				--DrawMarker(20,texte.coords,0,0,0,0,0,0,2.001,2.0001,0.5001,255,255,255,200,0,0,0,0)
+				ESX.Game.Utils.DrawText3D(police6.coords, "~b~[F3] ~g~Pour ouvrir l'ordinateur de service.", 1.0)
+				if IsControlJustPressed(1, Keys["F3"]) then
+					if not redbookShow then
+						openGui()
+					else 
+						closeGui()
+					end
+				end
+			end
+
+			if(GetDistanceBetweenCoords(police7.coords, GetEntityCoords(GetPlayerPed(-1)), true) < 10) then 
+				DrawMarker(20,police7.coords,0,0,0,0,0,299.0,0.5,0.5,0.5,3,252,53,200,1,0,0,0)
+			end
+			if(GetDistanceBetweenCoords(police7.coords, GetEntityCoords(GetPlayerPed(-1)), true) < 1) then 
+				--DrawMarker(20,texte.coords,0,0,0,0,0,0,2.001,2.0001,0.5001,255,255,255,200,0,0,0,0)
+				ESX.Game.Utils.DrawText3D(police7.coords, "~b~[F3] ~g~Pour ouvrir l'ordinateur de service.", 1.0)
+				if IsControlJustPressed(1, Keys["F3"]) then
+					if not redbookShow then
+						openGui()
+					else 
+						closeGui()
+					end
+				end
+			end
+
+			if(GetDistanceBetweenCoords(police8.coords, GetEntityCoords(GetPlayerPed(-1)), true) < 10) then 
+				DrawMarker(20,police8.coords,0,0,0,0,0,299.0,0.5,0.5,0.5,3,252,53,200,1,0,0,0)
+			end
+			if(GetDistanceBetweenCoords(police8.coords, GetEntityCoords(GetPlayerPed(-1)), true) < 1) then 
+				--DrawMarker(20,texte.coords,0,0,0,0,0,0,2.001,2.0001,0.5001,255,255,255,200,0,0,0,0)
+				ESX.Game.Utils.DrawText3D(police8.coords, "~b~[F3] ~g~Pour ouvrir l'ordinateur de service.", 1.0)
 				if IsControlJustPressed(1, Keys["F3"]) then
 					if not redbookShow then
 						openGui()

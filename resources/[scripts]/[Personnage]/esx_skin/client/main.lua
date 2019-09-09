@@ -89,7 +89,7 @@ function OpenMenu(submitCb, cancelCb, restrict)
 			table.insert(elements, data)
 		end
 
-		CreateSkinCam()
+		--CreateSkinCam()
 		zoomOffset = _components[1].zoomOffset
 		camOffset = _components[1].camOffset
 
@@ -161,18 +161,18 @@ function OpenMenu(submitCb, cancelCb, restrict)
 	end)
 end
 
-function CreateSkinCam()
-	if not DoesCamExist(cam) then
-		cam = CreateCam('DEFAULT_SCRIPTED_CAMERA', true)
-	end
-
-	SetCamActive(cam, true)
-	RenderScriptCams(true, true, 500, true, true)
-
-	isCameraActive = true
-	SetCamRot(cam, 0.0, 0.0, 270.0, true)
-	SetEntityHeading(playerPed, 90.0)
-end
+--function CreateSkinCam()
+--	if not DoesCamExist(cam) then
+--		cam = CreateCam('DEFAULT_SCRIPTED_CAMERA', true)
+--	end
+--
+--	SetCamActive(cam, true)
+--	RenderScriptCams(true, true, 500, true, true)
+--
+--	isCameraActive = true
+--	SetCamRot(cam, 0.0, 0.0, 270.0, true)
+--	SetEntityHeading(playerPed, 90.0)
+--end
 
 function DeleteSkinCam()
 	isCameraActive = false

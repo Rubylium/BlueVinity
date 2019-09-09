@@ -132,3 +132,52 @@ data_file 'VEHICLE_LAYOUTS_FILE' 'stream/SuperSportive/vehiclelayouts.meta'   --
 client_script {
   'stream/SuperSportive/vehicle_names.lua'    -- Not Required
 }
+
+
+files {
+	'data2/vehicles.meta',
+	'data2/carcols.meta',
+	'data2/carvariations.meta',
+	'data2/handling.meta',
+}
+
+data_file 'VEHICLE_METADATA_FILE' 'data2/vehicles.meta'
+data_file 'CARCOLS_FILE' 'data2/carcols.meta'
+data_file 'VEHICLE_VARIATION_FILE' 'data2/carvariations.meta'
+data_file 'HANDLING_FILE' 'data2/handling.meta'
+
+client_script 'data2/vehicle_names.lua'
+
+
+
+files {
+	'data3/vehicles.meta',
+	'data3/carcols.meta',
+	'data3/carvariations.meta',
+	'data3/handling.meta',
+}
+
+data_file 'VEHICLE_METADATA_FILE' 'data3/vehicles.meta'
+data_file 'CARCOLS_FILE' 'data3/carcols.meta'
+data_file 'VEHICLE_VARIATION_FILE' 'data3/carvariations.meta'
+data_file 'HANDLING_FILE' 'data3/handling.meta'
+
+client_script 'data3/vehicle_names.lua'
+
+
+
+
+
+files {
+	'data4/vehicles.meta',
+	'data4/carcols.meta',
+	'data4/carvariations.meta',
+	'data4/handling.meta',
+}
+
+data_file 'VEHICLE_METADATA_FILE' 'data4/vehicles.meta'
+data_file 'CARCOLS_FILE' 'data4/carcols.meta'
+data_file 'VEHICLE_VARIATION_FILE' 'data4/carvariations.meta'
+data_file 'HANDLING_FILE' 'data4/handling.meta'
+
+client_script 'data4/vehicle_names.lua'

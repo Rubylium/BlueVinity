@@ -636,7 +636,7 @@ function OpenPoliceActionsMenu()
 			{label = '<span style="color:#ff6600;">Demande renfort<span style="color:cyan;"> >', value = 'renfort'},
 			{label = _U('citizen_interaction'), value = 'citizen_interaction'},
 			{label = _U('vehicle_interaction'), value = 'vehicle_interaction'},
-			--{label = _U('object_spawner'), value = 'object_spawner'},
+			{label = '<span style="color:#ff6600;">Demande mécano PNJ<span style="color:cyan;"> >', value = 'pnj'},
 			{label = 'Poser/Récupérer votre radar', value = 'radar'}
 	}}, function(data, menu)
 		if data.current.value == 'radar' then
@@ -743,25 +743,39 @@ function OpenPoliceActionsMenu()
 
 				if action == 'prise' then
 					local info = 'prise'
-					TriggerServerEvent('sheriff:alerteBlip', info)
+					local ped = GetPlayerPed(-1)
+					local veh = GetVehiclePedIsIn(ped, false)
+					TriggerServerEvent('sheriff:alerteBlip', info, veh)
 				elseif action == 'fin' then
 					local info = 'fin'
-					TriggerServerEvent('sheriff:alerteBlip', info)
+					local ped = GetPlayerPed(-1)
+					local veh = GetVehiclePedIsIn(ped, false)
+					TriggerServerEvent('sheriff:alerteBlip', info, veh)
 				elseif action == 'pause' then
 					local info = 'pause'
-					TriggerServerEvent('sheriff:alerteBlip', info)
+					local ped = GetPlayerPed(-1)
+					local veh = GetVehiclePedIsIn(ped, false)
+					TriggerServerEvent('sheriff:alerteBlip', info, veh)
 				elseif action == 'standby' then
 					local info = 'standby'
-					TriggerServerEvent('sheriff:alerteBlip', info)
+					local ped = GetPlayerPed(-1)
+					local veh = GetVehiclePedIsIn(ped, false)
+					TriggerServerEvent('sheriff:alerteBlip', info, veh)
 				elseif action == 'control' then
 					local info = 'control'
-					TriggerServerEvent('sheriff:alerteBlip', info)
+					local ped = GetPlayerPed(-1)
+					local veh = GetVehiclePedIsIn(ped, false)
+					TriggerServerEvent('sheriff:alerteBlip', info, veh)
 				elseif action == 'refus' then
 					local info = 'refus'
-					TriggerServerEvent('sheriff:alerteBlip', info)
+					local ped = GetPlayerPed(-1)
+					local veh = GetVehiclePedIsIn(ped, false)
+					TriggerServerEvent('sheriff:alerteBlip', info, veh)
 				elseif action == 'crime' then
 					local info = 'crime'
-					TriggerServerEvent('sheriff:alerteBlip', info)
+					local ped = GetPlayerPed(-1)
+					local veh = GetVehiclePedIsIn(ped, false)
+					TriggerServerEvent('sheriff:alerteBlip', info, veh)
 				end
 			end, function(data2, menu2)
 				menu2.close()
@@ -877,30 +891,31 @@ function OpenPoliceActionsMenu()
 			end, function(data2, menu2)
 				menu2.close()
 			end)
-		elseif data.current.value == 'object_spawner' then
-			ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'citizen_interaction', {
-				title    = _U('traffic_interaction'),
-				align    = 'top-left',
-				elements = {
-					{label = _U('cone'), model = 'prop_roadcone02a'},
-					{label = _U('barrier'), model = 'prop_barrier_work05'},
-					{label = _U('spikestrips'), model = 'p_ld_stinger_s'},
-					{label = _U('box'), model = 'prop_boxpile_07d'},
-					{label = _U('cash'), model = 'hei_prop_cash_crate_half_full'}
-			}}, function(data2, menu2)
-				local playerPed = PlayerPedId()
-				local coords    = GetEntityCoords(playerPed)
-				local forward   = GetEntityForwardVector(playerPed)
-				local x, y, z   = table.unpack(coords + forward * 1.0)
+		elseif data.current.value == 'pnj' then
+			local elements  = {}
+			local playerPed = PlayerPedId()
 
-				if data2.current.model == 'prop_roadcone02a' then
-					z = z - 2.0
+			table.insert(elements, {label = ('Reparation PNJ'), value = 'repa'})
+			table.insert(elements, {label = ('Remorquage PNJ'), value = 'memorq'})
+
+
+			ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'renfort', {
+				css      = 'police',
+				title    = ('Menu renfort'),
+				align    = 'top-left',
+				elements = elements
+			}, function(data2, menu2)
+				local coords  = GetEntityCoords(playerPed)
+				vehicle = ESX.Game.GetVehicleInDirection()
+				action  = data2.current.value
+				local name = GetPlayerName(PlayerId())
+
+				if action == 'repa' then
+					TriggerEvent("knb:mech")
+				elseif action == 'memorq' then
+					TriggerEvent("knb:tow")	
 				end
 
-				ESX.Game.SpawnObject(data2.current.model, {x = x, y = y, z = z}, function(obj)
-					SetEntityHeading(obj, GetEntityHeading(playerPed))
-					PlaceObjectOnGroundProperly(obj)
-				end)
 			end, function(data2, menu2)
 				menu2.close()
 			end)
@@ -914,12 +929,13 @@ end
 -- INFORMATION RADIO SHERIF
 
 RegisterNetEvent('sheriff:InfoService')
-AddEventHandler('sheriff:InfoService', function(service, nom)
+AddEventHandler('sheriff:InfoService', function(service, nom, veh)
 	if service == 'prise' then
 		PlaySoundFrontend(-1, "Start_Squelch", "CB_RADIO_SFX", 1)
 		ESX.ShowAdvancedNotification('SHERIFF INFORMATIONS', '~b~Prise de service', 'Agent: ~g~'..nom..'\n~w~Code: ~g~10-8\n~w~Information: ~g~Prise de service.', 'CHAR_MANUEL', 8)
 		Wait(1000)
 		PlaySoundFrontend(-1, "End_Squelch", "CB_RADIO_SFX", 1)
+		
 	elseif service == 'fin' then
 		PlaySoundFrontend(-1, "Start_Squelch", "CB_RADIO_SFX", 1)
 		ESX.ShowAdvancedNotification('SHERIFF INFORMATIONS', '~b~Fin de service', 'Agent: ~g~'..nom..'\n~w~Code: ~g~10-10\n~w~Information: ~g~Fin de service.', 'CHAR_MANUEL', 8)
@@ -940,16 +956,64 @@ AddEventHandler('sheriff:InfoService', function(service, nom)
 		ESX.ShowAdvancedNotification('SHERIFF INFORMATIONS', '~b~Control routier', 'Agent: ~g~'..nom..'\n~w~Code: ~g~10-48\n~w~Information: ~g~Control routier en cours.', 'CHAR_MANUEL', 8)
 		Wait(1000)
 		PlaySoundFrontend(-1, "End_Squelch", "CB_RADIO_SFX", 1)
+		local blipBCSO = AddBlipForEntity(veh)
+		SetBlipScale(blipBCSO, 0.85)
+		SetBlipSprite(blipBCSO, 42)
+		SetBlipColour(blipBCSO, 43)
+		SetBlipShrink(blipBCSO, true)
+		ShowTickOnBlip(blipBCSO, true)
+		--SetBlipAsShortRange(blipBCSO, true)
+		BeginTextCommandSetBlipName('STRING')
+		AddTextComponentString('~r~BCSO~b~ Controle routier')
+		EndTextCommandSetBlipName(blipBCSO)
+		local attente = 0
+		while attente < 120 do
+			attente = attente + 1
+			Wait(1000)
+		end
+		RemoveBlip(blipBCSO)
 	elseif service == 'refus' then
 		PlaySoundFrontend(-1, "Start_Squelch", "CB_RADIO_SFX", 1)
 		ESX.ShowAdvancedNotification('SHERIFF INFORMATIONS', '~b~Refus d\'obtempérer', 'Agent: ~g~'..nom..'\n~w~Code: ~g~10-30\n~w~Information: ~g~Refus d\'obtempérer en cours', 'CHAR_MANUEL', 8)
 		Wait(1000)
 		PlaySoundFrontend(-1, "End_Squelch", "CB_RADIO_SFX", 1)
+		local blipBCSO = AddBlipForEntity(veh)
+		SetBlipScale(blipBCSO, 0.85)
+		SetBlipSprite(blipBCSO, 380)
+		SetBlipColour(blipBCSO, 1)
+		SetBlipShrink(blipBCSO, true)
+		ShowTickOnBlip(blipBCSO, true)
+		--SetBlipAsShortRange(blipBCSO, true)
+		BeginTextCommandSetBlipName('STRING')
+		AddTextComponentString('~r~BCSO~b~ Refus de control')
+		EndTextCommandSetBlipName(blipBCSO)
+		local attente = 0
+		while attente < 120 do
+			attente = attente + 1
+			Wait(1000)
+		end
+		RemoveBlip(blipBCSO)
 	elseif service == 'crime' then
 		PlaySoundFrontend(-1, "Start_Squelch", "CB_RADIO_SFX", 1)
 		ESX.ShowAdvancedNotification('SHERIFF INFORMATIONS', '~b~Crime en cours', 'Agent: ~g~'..nom..'\n~w~Code: ~g~10-31\n~w~Information: ~g~Crime en cours.', 'CHAR_MANUEL', 8)
 		Wait(1000)
 		PlaySoundFrontend(-1, "End_Squelch", "CB_RADIO_SFX", 1)
+		local blipBCSO = AddBlipForEntity(veh)
+		SetBlipScale(blipBCSO, 0.85)
+		SetBlipSprite(blipBCSO, 488)
+		SetBlipColour(blipBCSO, 1)
+		SetBlipShrink(blipBCSO, true)
+		ShowTickOnBlip(blipBCSO, true)
+		--SetBlipAsShortRange(blipBCSO, true)
+		BeginTextCommandSetBlipName('STRING')
+		AddTextComponentString('~r~BCSO~b~ Crime en cours')
+		EndTextCommandSetBlipName(blipBCSO)
+		local attente = 0
+		while attente < 120 do
+			attente = attente + 1
+			Wait(1000)
+		end
+		RemoveBlip(blipBCSO)
 	end
 end)
 
@@ -2132,7 +2196,9 @@ function createBlip(id)
 		SetBlipRotation(blip, math.ceil(GetEntityHeading(ped))) -- update rotation
 		SetBlipNameToPlayerName(blip, id) -- update blip name
 		SetBlipScale(blip, 0.85) -- set scale
-		SetBlipAsShortRange(blip, true)
+		SetBlipShrink(blip, true)
+		ShowFriendIndicatorOnBlip(blip, true)
+		SetBlipShowCone(blip, true)
 
 		table.insert(blipsCops, blip) -- add blip to array so we can remove it later
 	end
@@ -2140,23 +2206,8 @@ end
 
 RegisterNetEvent('esx_sheriff:updateBlip')
 AddEventHandler('esx_sheriff:updateBlip', function()
-
-	-- Refresh all blips
-	for k, existingBlip in pairs(blipsCops) do
-		RemoveBlip(existingBlip)
-	end
-
 	-- Clean the blip table
 	blipsCops = {}
-
-	-- Enable blip?
-	if Config.MaxInService ~= -1 and not playerInService then
-		return
-	end
-
-	if not Config.EnableJobBlip then
-		return
-	end
 
 	-- Is the player a cop? In that case show all the blips for other cops
 	if PlayerData.job and PlayerData.job.name == 'sheriff' then
@@ -2642,104 +2693,104 @@ end)
     Uses Numpad8 to freeze	
 ------------------------------------------------------------------------]]--
 
-local radar =
-{
-	shown = false,
-	freeze = false,
-	info = "~y~Initialisation du radar avant...~y~Terminé! ",
-	info2 = "~y~Initialisation du radar arrière...~y~Terminé! ",
-	minSpeed = 5.0,
-	maxSpeed = 30.0,
-}
---local distanceToCheckFront = 50
-
-function DrawAdvancedText(x,y ,w,h,sc, text, r,g,b,a,font,jus)
-	SetTextFont(font)
-	SetTextProportional(0)
-	SetTextScale(sc, sc)
-	N_0x4e096588b13ffeca(jus)
-	SetTextColour(r, g, b, a)
-	SetTextDropShadow(0, 0, 0, 0,255)
-	SetTextEdge(1, 0, 0, 0, 255)
-	SetTextDropShadow()
-	SetTextOutline()
-	SetTextEntry("STRING")
-	AddTextComponentString(text)
-	DrawText(x - 0.1+w, y - 0.02+h)
-end
-
-Citizen.CreateThread( function()
-	
-	while true do
-		Wait(0)
-		if IsControlJustPressed(1, 128) and IsPedInAnyPoliceVehicle(GetPlayerPed(-1)) then
-			
-			if radar.shown then 
-				radar.shown = false 
-				radar.info = string.format("~y~Initialisation du radar avant...~y~Terminé! ")
-				radar.info2 = string.format("~y~Initialisation du radar arrière...~y~Terminé! ")
-			else 
-				radar.shown = true 
-			end		
-                Wait(75)
-			
-		end
-		if IsControlJustPressed(1, 127) and IsPedInAnyPoliceVehicle(GetPlayerPed(-1)) then
-		
-			if radar.freeze then radar.freeze = false else radar.freeze = true end
-	
-		end
-		if radar.shown  then
-			if radar.freeze == false then
-					local veh = GetVehiclePedIsIn(GetPlayerPed(-1), false)
-					local coordA = GetOffsetFromEntityInWorldCoords(veh, 0.0, 1.0, 1.0)
-					local coordB = GetOffsetFromEntityInWorldCoords(veh, 0.0, 105.0, 0.0)
-					local frontcar = StartShapeTestCapsule(coordA, coordB, 5.0, 10, veh, 7)
-					local a, b, c, d, e = GetShapeTestResult(frontcar)
-					
-					if IsEntityAVehicle(e) then
-						
-						local fmodel = GetDisplayNameFromVehicleModel(GetEntityModel(e))
-						local fvspeed = GetEntitySpeed(e)*3.6
-						local fplate = GetVehicleNumberPlateText(e)
-						radar.info = string.format("~y~Plaque: ~w~%s  ~y~Modèle: ~w~%s  ~y~Vitesse: ~w~%s KmH", fplate, fmodel, math.ceil(fvspeed))
-					end
-					
-					local bcoordB = GetOffsetFromEntityInWorldCoords(veh, 0.0, -105.0, 0.0)
-					local rearcar = StartShapeTestCapsule(coordA, bcoordB, 5.0, 10, veh, 7)
-					local f, g, h, i, j = GetShapeTestResult(rearcar)
-					
-					if IsEntityAVehicle(j) then
-					
-						local bmodel = GetDisplayNameFromVehicleModel(GetEntityModel(j))
-						local bvspeed = GetEntitySpeed(j)*3.6
-						local bplate = GetVehicleNumberPlateText(j)
-						radar.info2 = string.format("~y~Plaque: ~w~%s  ~y~Modèle: ~w~%s  ~y~Vitesse: ~w~%s KmH", bplate, bmodel, math.ceil(bvspeed))
-					
-					
-					end
-					
-			end
-			
-			DrawRect(0.888, 0.254, 0.196, 0.116, 0, 0, 0, 50)
-			DrawAdvancedText(0.978, 0.214, 0.005, 0.0028, 0.4, "Radar avant", 0, 191, 255, 255, 6, 0)
-			DrawAdvancedText(0.988, 0.236, 0.005, 0.0028, 0.4, radar.info, 255, 255, 255, 255, 6, 0)
-			DrawAdvancedText(0.978, 0.274, 0.005, 0.0028, 0.4, "Radar Arrière", 0, 191, 255, 255, 6, 0)
-			DrawAdvancedText(0.988, 0.294, 0.005, 0.0028, 0.4, radar.info2, 255, 255, 255, 255, 6, 0)
-
-			
-		end
-		
-		if(not IsPedInAnyVehicle(GetPlayerPed(-1))) then
-			radar.shown = false
-			radar.info = string.format("~y~Initialisation du radar avant...~y~Terminé! ")
-			radar.info2 = string.format("~y~Initialisation du radar arrière...~y~Terminé! ")
-		end
-					
-	end
-	
-	
-end)
+--local radar =
+--{
+--	shown = false,
+--	freeze = false,
+--	info = "~y~Initialisation du radar avant...~y~Terminé! ",
+--	info2 = "~y~Initialisation du radar arrière...~y~Terminé! ",
+--	minSpeed = 5.0,
+--	maxSpeed = 30.0,
+--}
+----local distanceToCheckFront = 50
+--
+--function DrawAdvancedText(x,y ,w,h,sc, text, r,g,b,a,font,jus)
+--	SetTextFont(font)
+--	SetTextProportional(0)
+--	SetTextScale(sc, sc)
+--	N_0x4e096588b13ffeca(jus)
+--	SetTextColour(r, g, b, a)
+--	SetTextDropShadow(0, 0, 0, 0,255)
+--	SetTextEdge(1, 0, 0, 0, 255)
+--	SetTextDropShadow()
+--	SetTextOutline()
+--	SetTextEntry("STRING")
+--	AddTextComponentString(text)
+--	DrawText(x - 0.1+w, y - 0.02+h)
+--end
+--
+--Citizen.CreateThread( function()
+--	
+--	while true do
+--		Wait(0)
+--		if IsControlJustPressed(1, 128) and IsPedInAnyPoliceVehicle(GetPlayerPed(-1)) then
+--			
+--			if radar.shown then 
+--				radar.shown = false 
+--				radar.info = string.format("~y~Initialisation du radar avant...~y~Terminé! ")
+--				radar.info2 = string.format("~y~Initialisation du radar arrière...~y~Terminé! ")
+--			else 
+--				radar.shown = true 
+--			end		
+--                Wait(75)
+--			
+--		end
+--		if IsControlJustPressed(1, 127) and IsPedInAnyPoliceVehicle(GetPlayerPed(-1)) then
+--		
+--			if radar.freeze then radar.freeze = false else radar.freeze = true end
+--	
+--		end
+--		if radar.shown  then
+--			if radar.freeze == false then
+--					local veh = GetVehiclePedIsIn(GetPlayerPed(-1), false)
+--					local coordA = GetOffsetFromEntityInWorldCoords(veh, 0.0, 1.0, 1.0)
+--					local coordB = GetOffsetFromEntityInWorldCoords(veh, 0.0, 105.0, 0.0)
+--					local frontcar = StartShapeTestCapsule(coordA, coordB, 5.0, 10, veh, 7)
+--					local a, b, c, d, e = GetShapeTestResult(frontcar)
+--					
+--					if IsEntityAVehicle(e) then
+--						
+--						local fmodel = GetDisplayNameFromVehicleModel(GetEntityModel(e))
+--						local fvspeed = GetEntitySpeed(e)*3.6
+--						local fplate = GetVehicleNumberPlateText(e)
+--						radar.info = string.format("~y~Plaque: ~w~%s  ~y~Modèle: ~w~%s  ~y~Vitesse: ~w~%s KmH", fplate, fmodel, math.ceil(fvspeed))
+--					end
+--					
+--					local bcoordB = GetOffsetFromEntityInWorldCoords(veh, 0.0, -105.0, 0.0)
+--					local rearcar = StartShapeTestCapsule(coordA, bcoordB, 5.0, 10, veh, 7)
+--					local f, g, h, i, j = GetShapeTestResult(rearcar)
+--					
+--					if IsEntityAVehicle(j) then
+--					
+--						local bmodel = GetDisplayNameFromVehicleModel(GetEntityModel(j))
+--						local bvspeed = GetEntitySpeed(j)*3.6
+--						local bplate = GetVehicleNumberPlateText(j)
+--						radar.info2 = string.format("~y~Plaque: ~w~%s  ~y~Modèle: ~w~%s  ~y~Vitesse: ~w~%s KmH", bplate, bmodel, math.ceil(bvspeed))
+--					
+--					
+--					end
+--					
+--			end
+--			
+--			DrawRect(0.888, 0.254, 0.196, 0.116, 0, 0, 0, 50)
+--			DrawAdvancedText(0.978, 0.214, 0.005, 0.0028, 0.4, "Radar avant", 0, 191, 255, 255, 6, 0)
+--			DrawAdvancedText(0.988, 0.236, 0.005, 0.0028, 0.4, radar.info, 255, 255, 255, 255, 6, 0)
+--			DrawAdvancedText(0.978, 0.274, 0.005, 0.0028, 0.4, "Radar Arrière", 0, 191, 255, 255, 6, 0)
+--			DrawAdvancedText(0.988, 0.294, 0.005, 0.0028, 0.4, radar.info2, 255, 255, 255, 255, 6, 0)
+--
+--			
+--		end
+--		
+--		if(not IsPedInAnyVehicle(GetPlayerPed(-1))) then
+--			radar.shown = false
+--			radar.info = string.format("~y~Initialisation du radar avant...~y~Terminé! ")
+--			radar.info2 = string.format("~y~Initialisation du radar arrière...~y~Terminé! ")
+--		end
+--					
+--	end
+--	
+--	
+--end)
 
 
 -- debug

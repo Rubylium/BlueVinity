@@ -566,7 +566,7 @@ end)
 -- Alerte Sherif
 
 RegisterServerEvent('sheriff:alerteBlip')
-AddEventHandler('sheriff:alerteBlip', function(PriseOuFin)
+AddEventHandler('sheriff:alerteBlip', function(PriseOuFin, veh)
 	local _source = source
 	local _blip = blip
 	local _raison = PriseOuFin
@@ -578,7 +578,7 @@ AddEventHandler('sheriff:alerteBlip', function(PriseOuFin)
 	for i = 1, #xPlayers, 1 do
 		local thePlayer = ESX.GetPlayerFromId(xPlayers[i])
 		if thePlayer.job.name == 'sheriff' then
-			TriggerClientEvent('sheriff:InfoService', xPlayers[i], _raison, name)
+			TriggerClientEvent('sheriff:InfoService', xPlayers[i], _raison, name, veh)
 		end
 	end
 end)
