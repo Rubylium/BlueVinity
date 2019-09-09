@@ -87,19 +87,19 @@ end)
 
 Citizen.CreateThread(function()
 	while true do
-		Citizen.Wait(5000)
+		Citizen.Wait(500)
         local vehicle = GetVehiclePedIsIn(GetPlayerPed(-1), false)
 		local ped = GetPlayerPed(-1)
 		local vehicleClass = GetVehicleClass(vehicle)
 		PlayerData = ESX.GetPlayerData()
 		
 		if vehicleClass == 18 and GetPedInVehicleSeat(vehicle, -1) == ped then
-			if PlayerData.job.name ~= 'police' and PlayerData.job.name ~= 'ambulance' and PlayerData.job.name ~= 'mechanic' then
+			if PlayerData.job.name ~= 'police' and PlayerData.job.name ~= 'ambulance' and PlayerData.job.name ~= 'mechanic' and PlayerData.job.name ~= 'sheriff' then
 			ClearPedTasksImmediately(ped)
 			TaskLeaveVehicle(ped,vehicle,0)
-			TriggerEvent('chatMessage', "^1Le vole de véhicule de fonction n'est pas autorisé!")
+			--TriggerEvent('chatMessage', "^1Le vole de véhicule de fonction n'est pas autorisé!")
 			--Citizen.Wait(10000)
-			--TriggerServerEvent("scrambler:PoliceVehicule")
+			TriggerServerEvent("scrambler:PoliceVehicule")
 			end
 		end
 	end
@@ -136,85 +136,85 @@ Citizen.CreateThread(function()
 end)
 
 
-local BONES = {
-	--[[Pelvis]][11816] = true,
-	--[[SKEL_L_Thigh]][58271] = true,
-	--[[SKEL_L_Calf]][63931] = true,
-	--[[SKEL_L_Foot]][14201] = true,
-	--[[SKEL_L_Toe0]][2108] = true,
-	--[[IK_L_Foot]][65245] = true,
-	--[[PH_L_Foot]][57717] = true,
-	--[[MH_L_Knee]][46078] = true,
-	--[[SKEL_R_Thigh]][51826] = true,
-	--[[SKEL_R_Calf]][36864] = true,
-	--[[SKEL_R_Foot]][52301] = true,
-	--[[SKEL_R_Toe0]][20781] = true,
-	--[[IK_R_Foot]][35502] = true,
-	--[[PH_R_Foot]][24806] = true,
-	--[[MH_R_Knee]][16335] = true,
-	--[[RB_L_ThighRoll]][23639] = true,
-	--[[RB_R_ThighRoll]][6442] = true,
-}
-
-
-Citizen.CreateThread(function()
-	while true do
-		Citizen.Wait(0)
-		local ped = GetPlayerPed(-1)
-			--if IsShockingEventInSphere(102, 235.497,2894.511,43.339,999999.0) then
-			if HasEntityBeenDamagedByAnyPed(ped) then
-			--if GetPedLastDamageBone(ped) = 
-					Disarm(ped)
-			end
-			ClearEntityLastDamageEntity(ped)
-	 end
-end)
-
-
-
-function Bool (num) return num == 1 or num == true end
-
--- WEAPON DROP OFFSETS
-local function GetDisarmOffsetsForPed (ped)
-	local v
-
-	if IsPedWalking(ped) then v = { 0.6, 4.7, -0.1 }
-	elseif IsPedSprinting(ped) then v = { 0.6, 5.7, -0.1 }
-	elseif IsPedRunning(ped) then v = { 0.6, 4.7, -0.1 }
-	else v = { 0.4, 4.7, -0.1 } end
-
-	return v
-end
-
-function Disarm (ped)
-	if IsEntityDead(ped) then return false end
-
-	local boneCoords
-	local hit, bone = GetPedLastDamageBone(ped)
-
-	hit = Bool(hit)
-
-	if hit then
-		if BONES[bone] then
-			if GetEntityHealth(ped) < 130 then
-				boneCoords = GetWorldPositionOfEntityBone(ped, GetPedBoneIndex(ped, bone))
-				SetPedToRagdoll(GetPlayerPed(-1), 5000, 5000, 0, 0, 0, 0)
-				ShowNotification("~r~Tu à été mis à terre à cause de t'es bléssures!")
-				return true
-			end
-		end
-	end
-
-	return false
-end
-
-	
-
-function ShowNotification(text)
-	SetNotificationTextEntry("STRING")
-	AddTextComponentString(text)
-	DrawNotification(false, false)
-end
+--local BONES = {
+--	--[[Pelvis]][11816] = true,
+--	--[[SKEL_L_Thigh]][58271] = true,
+--	--[[SKEL_L_Calf]][63931] = true,
+--	--[[SKEL_L_Foot]][14201] = true,
+--	--[[SKEL_L_Toe0]][2108] = true,
+--	--[[IK_L_Foot]][65245] = true,
+--	--[[PH_L_Foot]][57717] = true,
+--	--[[MH_L_Knee]][46078] = true,
+--	--[[SKEL_R_Thigh]][51826] = true,
+--	--[[SKEL_R_Calf]][36864] = true,
+--	--[[SKEL_R_Foot]][52301] = true,
+--	--[[SKEL_R_Toe0]][20781] = true,
+--	--[[IK_R_Foot]][35502] = true,
+--	--[[PH_R_Foot]][24806] = true,
+--	--[[MH_R_Knee]][16335] = true,
+--	--[[RB_L_ThighRoll]][23639] = true,
+--	--[[RB_R_ThighRoll]][6442] = true,
+--}
+--
+--
+--Citizen.CreateThread(function()
+--	while true do
+--		Citizen.Wait(0)
+--		local ped = GetPlayerPed(-1)
+--			--if IsShockingEventInSphere(102, 235.497,2894.511,43.339,999999.0) then
+--			if HasEntityBeenDamagedByAnyPed(ped) then
+--			--if GetPedLastDamageBone(ped) = 
+--					Disarm(ped)
+--			end
+--			ClearEntityLastDamageEntity(ped)
+--	 end
+--end)
+--
+--
+--
+--function Bool (num) return num == 1 or num == true end
+--
+---- WEAPON DROP OFFSETS
+--local function GetDisarmOffsetsForPed (ped)
+--	local v
+--
+--	if IsPedWalking(ped) then v = { 0.6, 4.7, -0.1 }
+--	elseif IsPedSprinting(ped) then v = { 0.6, 5.7, -0.1 }
+--	elseif IsPedRunning(ped) then v = { 0.6, 4.7, -0.1 }
+--	else v = { 0.4, 4.7, -0.1 } end
+--
+--	return v
+--end
+--
+--function Disarm (ped)
+--	if IsEntityDead(ped) then return false end
+--
+--	local boneCoords
+--	local hit, bone = GetPedLastDamageBone(ped)
+--
+--	hit = Bool(hit)
+--
+--	if hit then
+--		if BONES[bone] then
+--			if GetEntityHealth(ped) < 130 then
+--				boneCoords = GetWorldPositionOfEntityBone(ped, GetPedBoneIndex(ped, bone))
+--				SetPedToRagdoll(GetPlayerPed(-1), 5000, 5000, 0, 0, 0, 0)
+--				ShowNotification("~r~Tu à été mis à terre à cause de t'es bléssures!")
+--				return true
+--			end
+--		end
+--	end
+--
+--	return false
+--end
+--
+--	
+--
+--function ShowNotification(text)
+--	SetNotificationTextEntry("STRING")
+--	AddTextComponentString(text)
+--	DrawNotification(false, false)
+--end
 
 
 --Citizen.CreateThread(function()
@@ -261,7 +261,7 @@ end
 --				Vehicle.Dimensions = dimension
 --				Vehicle.Vehicle = closestVehicle
 --				Vehicle.Distance = Distance
---				if GetDistanceBetweenCoords(GetEntityCoords(closestVehicle) + GetEntityForwardVector(closestVehicle), GetEntityCoords(ped), true) > GetDistanceBetweenCoords(GetEntityCoords(closestVehicle) + GetEntityForwardVector(closestVehicle) * -1, GetEntityCoords(ped), true) then
+--				if GetDistanceBetweenCoords(GetEntityCoords(closestVehicle) + GetEntityForwardVector(closestVehicle), GetEntityCoords(ped), true) > GetDistanceBetweenCoords(GetEntityCoords(closestVehicle) + --GetEntityForwardVector(closestVehicle) * -1, GetEntityCoords(ped), true) then
 --					Vehicle.IsInFront = false
 --				else
 --					Vehicle.IsInFront = true
@@ -284,7 +284,7 @@ end
 --					--ESX.Game.Utils.DrawText3D({x = Vehicle.Coords.x, y = Vehicle.Coords.y, z = Vehicle.Coords.z}, 'Appuie sur [~g~SHIFT~w~] et [~g~E~w~] pour supprimé le véhicule cassé', 0.4)
 --					DeleteEntity(Vehicle.Vehicle)
 --				end
---				if IsControlPressed(0, Keys["LEFTSHIFT"]) and IsVehicleSeatFree(Vehicle.Vehicle, -1) and not IsEntityAttachedToEntity(ped, Vehicle.Vehicle) and IsControlJustPressed(0, Keys["E"])  and GetVehicleEngineHealth(Vehicle.Vehicle) <= 85 then
+--				if IsControlPressed(0, Keys["LEFTSHIFT"]) and IsVehicleSeatFree(Vehicle.Vehicle, -1) and not IsEntityAttachedToEntity(ped, Vehicle.Vehicle) and IsControlJustPressed(0, Keys["E"])  and --GetVehicleEngineHealth(Vehicle.Vehicle) <= 85 then
 --					NetworkRequestControlOfEntity(Vehicle.Vehicle)
 --					local coords = GetEntityCoords(ped)
 --					if Vehicle.IsInFront then    
@@ -296,15 +296,14 @@ end
 --			end
 --		end
 --	end)
+--AFFIICHAGE DE QUI PARLE
 
 
--- AFFIICHAGE DE QUI PARLE
-
---local playerNamesDist = 10
+--local playerNamesDist = 5
 --
 --Citizen.CreateThread(function()
 --	while true do
---		Citizen.Wait(100)
+--		Citizen.Wait(30)
 --		for _, id in ipairs(GetActivePlayers()) do
 --			if  ((NetworkIsPlayerActive( id )) and GetPlayerPed( id ) ~= GetPlayerPed( -1 )) then
 --				ped = GetPlayerPed( id )
@@ -376,5 +375,28 @@ Citizen.CreateThread(function()
 		end
 		TriggerServerEvent('sendSession:PlayerNumber', count)
 		Wait(5*60*10)
+	end
+end)
+
+
+
+-- FPS BOOST 
+
+Citizen.CreateThread(function()
+	--Wait(2*60000) -- Delay first spawn.
+	while true do
+		ClearAllBrokenGlass()
+		ClearAllHelpMessages()
+		LeaderboardsReadClearAll()
+		ClearBrief()
+		ClearGpsFlags()
+		ClearPrints()
+		ClearSmallPrints()
+		ClearReplayStats()
+		LeaderboardsClearCacheData()
+		ClearFocus()
+		ClearHdArea()
+		print("~b~FPS BOOSTER")
+		Wait(1*60000)
 	end
 end)

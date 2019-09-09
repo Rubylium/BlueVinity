@@ -310,24 +310,20 @@ ESX.RegisterServerCallback('esx_mechanicjob:getPlayerInventory', function(source
 end)
 
 
-RegisterServerEvent('AnnounceMecanoOuvert')
-AddEventHandler('AnnounceMecanoOuvert', function()
-	local _source = source
-	local xPlayer = ESX.GetPlayerFromId(_source)
-	local xPlayers	= ESX.GetPlayers()
-	--for i=1, #xPlayers, 1 do
-	--	local xPlayer = ESX.GetPlayerFromId(xPlayers[i])
-		TriggerClientEvent('esx:showAdvancedNotification', -1, 'Mécano', '~b~Annonce Mécano', 'Le Mécano vient d\'ouvrir! Venez réparer et faire vos custom!', 'CHAR_LS_CUSTOMS', 8)
-	--end
-end)
 
-RegisterServerEvent('AnnounceMecanoFerme')
-AddEventHandler('AnnounceMecanoFerme', function()
+-- Fourrière 
+
+
+RegisterServerEvent('mecano:fourriere')
+AddEventHandler('mecano:fourriere', function()
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)
-	local xPlayers	= ESX.GetPlayers()
-	--for i=1, #xPlayers, 1 do
-	--	local xPlayer = ESX.GetPlayerFromId(xPlayers[i])
-		TriggerClientEvent('esx:showAdvancedNotification', -1, 'Mécano', '~b~Annonce Mécano', 'Le Mécano vient de fermer, passer plus tard.', 'CHAR_LS_CUSTOMS', 8)
-	--end
+	local argentEntreprise = math.random(50, 70)
+	local argentPerso = math.random(30, 50)
+
+	TriggerEvent('esx_addonaccount:getSharedAccount', 'society_mechanic', function(account)
+		account.addMoney(argentEntreprise)
+	end)
+	xPlayer.addMoney(argentPerso)
+	TriggerClientEvent('esx:showAdvancedNotification', _source, "Mécano", "~b~Déstruction du véhicule", "Les pièces détachées vous on rapportée:\nEntreprise: ~g~"..argentEntreprise.."$\n~w~Portefeuille: ~g~"..argentPerso.."$", "CHAR_LS_CUSTOMS", 8)
 end)

@@ -27,6 +27,55 @@ Config.DoorList = {
 			}
 		}
 	},
+	-- sherif cellule 
+
+	{
+		objName = 'prop_ld_jail_door',
+		objYaw = 37.0,
+		objCoords  = vector3(1845.86, 3705.238, 1.21),
+		textCoords = vector3(1845.86, 3705.238, 1.21),
+		authorizedJobs = { 'sheriff' },
+		locked = true
+	},
+
+	{
+		objName = 'prop_ld_jail_door',
+		objYaw = 37.0,
+		objCoords  = vector3(1849.713, 3708.264, 1.21),
+		textCoords = vector3(1849.713, 3708.264, 1.21),
+		authorizedJobs = { 'sheriff' },
+		locked = true
+	},
+
+	{
+		objName = 'prop_ld_jail_door',
+		objYaw = 37.0,
+		objCoords  = vector3(1847.71, 3710.89, 1.21),
+		textCoords = vector3(1847.71, 3710.89, 1.21),
+		authorizedJobs = { 'sheriff' },
+		locked = true
+	},
+
+	{
+		objName = 'prop_ld_jail_door',
+		objYaw = 37.0,
+		objCoords  = vector3(1843.79, 3707.81, 1.22776),
+		textCoords = vector3(1843.79, 3707.81, 1.22776),
+		authorizedJobs = { 'sheriff' },
+		locked = true
+	},
+
+	-- Porte entré sheriff
+
+	{
+		objName = 'v_ilev_shrf2door',
+		objYaw = 135.0,
+		objCoords  = vector3(1843.79, 3707.81, 1.22776),
+		textCoords = vector3(1843.79, 3707.81, 1.22776),
+		authorizedJobs = { 'sheriff' },
+		locked = true
+	},
+
 
 	-- To locker room & roof
 	{
@@ -109,7 +158,7 @@ Config.DoorList = {
 		objYaw = 0.0,
 		objCoords  = vector3(463.8, -992.6, 24.9),
 		textCoords = vector3(463.3, -992.6, 25.1),
-		authorizedJobs = { 'police' },
+		authorizedJobs = { 'police','admin' },
 		locked = true
 	},
 
@@ -119,7 +168,7 @@ Config.DoorList = {
 		objYaw = -90.0,
 		objCoords  = vector3(462.3, -993.6, 24.9),
 		textCoords = vector3(461.8, -993.3, 25.0),
-		authorizedJobs = { 'police' },
+		authorizedJobs = { 'police','admin' },
 		locked = true
 	},
 
@@ -129,19 +178,10 @@ Config.DoorList = {
 		objYaw = 90.0,
 		objCoords  = vector3(462.3, -998.1, 24.9),
 		textCoords = vector3(461.8, -998.8, 25.0),
-		authorizedJobs = { 'police' },
+		authorizedJobs = { 'police','admin' },
 		locked = true
 	},
 
-	-- Cell 3
-	{
-		objName = 'v_ilev_ph_cellgate',
-		objYaw = 90.0,
-		objCoords  = vector3(462.7, -1001.9, 24.9),
-		textCoords = vector3(461.8, -1002.4, 25.0),
-		authorizedJobs = { 'police' },
-		locked = true
-	},
 
 	-- To Back
 	{
@@ -152,6 +192,189 @@ Config.DoorList = {
 		authorizedJobs = { 'police' },
 		locked = true
 	},
+
+
+	-- COMICO GROSSE UPDATE TOUTES LES PORTES
+
+	-- double porte escalier étage 
+	{
+		textCoords = vector3(443.02980, -991.941, 30.83931),
+		authorizedJobs = { 'police' },
+		locked = true,
+		distance = 2.5,
+		doors = {
+			{
+				objName = 'v_ilev_ph_gendoor006',
+				objYaw = 90.0,
+				objCoords  = vector3(443.02980, -991.941, 30.83931),
+			},
+
+			{
+				objName = 'v_ilev_ph_gendoor006',
+				objYaw = 270.511,
+				objCoords  = vector3(443.02980, -994.54120, 30.83931)
+			}
+		}
+	},
+
+	-- double porte en bas
+	{
+		textCoords = vector3(446.13040, -987.79460, 26.82346),
+		authorizedJobs = { 'police' },
+		locked = true,
+		distance = 2.5,
+		doors = {
+			{
+				objName = 'v_ilev_ph_gendoor003',
+				objYaw = 270.511,
+				objCoords  = vector3(446.13040, -987.79460, 26.82346),
+			},
+
+			{
+				objName = 'v_ilev_ph_gendoor003',
+				objYaw = 89.779,
+				objCoords  = vector3(446.12080, -985.19560, 26.81977)
+			}
+		}
+	},
+
+	-- double porte en bas 2
+	{
+		textCoords = vector3(453.38870, -983.88710, 26.84486),
+		authorizedJobs = { 'police' },
+		locked = true,
+		distance = 2.5,
+		doors = {
+			{
+				objName = 'v_ilev_ph_gendoor003',
+				objYaw = 359.832,
+				objCoords  = vector3(453.38870, -983.88710, 26.84486),
+			},
+
+			{
+				objName = 'v_ilev_ph_gendoor003',
+				objYaw = 179.852,
+				objCoords  = vector3(450.78930, -983.88710, 26.84486)
+			}
+		}
+	},
+
+	-- double porte en bas 3
+	{
+		textCoords = vector3(465.56880, -988.70340, 25.06827),
+		authorizedJobs = { 'police' },
+		locked = true,
+		distance = 2.5,
+		doors = {
+			{
+				objName = 'v_ilev_ph_gendoor003',
+				objYaw = 90.442,
+				objCoords  = vector3(465.56880, -988.70340, 25.06827),
+			},
+
+			{
+				objName = 'v_ilev_ph_gendoor003',
+				objYaw = 270.027,
+				objCoords  = vector3(465.56880, -991.30420, 25.06827)
+			}
+		}
+	},
+
+	-- Cellule Mapping
+	{
+		objName = 'v_ilev_gtdoor',
+		objYaw = 0.0,
+		objCoords  = vector3(467.19220, -996.45940, 25.00599),
+		textCoords = vector3(467.19220, -996.45940, 25.00599),
+		authorizedJobs = { 'police' },
+		locked = true
+	},
+
+	{
+		objName = 'v_ilev_gtdoor',
+		objYaw = 0.0,
+		objCoords  = vector3(471.47550, -996.45940, 25.00599),
+		textCoords = vector3(471.47550, -996.45940, 25.00599),
+		authorizedJobs = { 'police' },
+		locked = true
+	},
+
+	{
+		objName = 'v_ilev_gtdoor',
+		objYaw = 0.0,
+		objCoords  = vector3(475.75430, -996.45940, 25.00599),
+		textCoords = vector3(475.75430, -996.45940, 25.00599),
+		authorizedJobs = { 'police' },
+		locked = true
+	},
+
+	{
+		objName = 'v_ilev_gtdoor',
+		objYaw = 0.0,
+		objCoords  = vector3(480.03010, -996.45940, 25.00599),
+		textCoords = vector3(480.03010, -996.45940, 25.00599),
+		authorizedJobs = { 'police' },
+		locked = true
+	},
+
+	-- Salle interview 
+
+	{
+		objName = 'v_ilev_gtdoor',
+		objYaw = 360.0,
+		objCoords  = vector3(480.03010, -1003.53800, 25.00599),
+		textCoords = vector3(480.03010, -1003.53800, 25.00599),
+		authorizedJobs = { 'police' },
+		locked = true
+	},
+
+	{
+		objName = 'v_ilev_gtdoor',
+		objYaw = 180.0,
+		objCoords  = vector3(477.04970, -1003.55300, 25.01203),
+		textCoords = vector3(477.04970, -1003.55300, 25.01203),
+		authorizedJobs = { 'police' },
+		locked = true
+	},
+
+	{
+		objName = 'v_ilev_gtdoor',
+		objYaw = 0.0,
+		objCoords  = vector3(471.47470, -1003.53800, 25.01223),
+		textCoords = vector3(471.47470, -1003.53800, 25.01223),
+		authorizedJobs = { 'police' },
+		locked = true
+	},
+
+-- double porte garage
+{
+	textCoords = vector3(447.21840, -999.00230, 30.78942),
+	authorizedJobs = { 'police' },
+	locked = true,
+	distance = 2.5,
+	doors = {
+		{
+			objName = 'v_ilev_gtdoor',
+			objYaw = 180.0,
+			objCoords  = vector3(447.21840, -999.00230, 30.78942),
+		},
+
+		{
+			objName = 'v_ilev_gtdoor',
+			objYaw = 360.0,
+			objCoords  = vector3(444.62120, -999.00100, 30.78866)
+		}
+	}
+},
+
+
+
+
+
+
+
+
+
 
 	--
 	-- Mission Row Back
@@ -200,8 +423,72 @@ Config.DoorList = {
 		objYaw = 30.0,
 		objCoords  = vector3(1855.1, 3683.5, 34.2),
 		textCoords = vector3(1855.1, 3683.5, 35.0),
-		authorizedJobs = { 'police' },
+		authorizedJobs = { 'sheriff' },
 		locked = false
+	},
+
+	{
+		objName = 'v_ilev_ph_gendoor004',
+		objYaw = 120.0,
+		objCoords  = vector3(1850.38, 3683.454, 34.41),
+		textCoords = vector3(1850.38, 3683.454, 34.41),
+		authorizedJobs = { 'sheriff' },
+		locked = true
+	},
+
+	{
+		objName = 'v_ilev_ph_gendoor004',
+		objYaw = 30.0,
+		objCoords  = vector3(1857.26, 3690.27, 34.41956),
+		textCoords = vector3(1857.26, 3690.27, 34.41956),
+		authorizedJobs = { 'sheriff' },
+		locked = true
+	},
+
+	{
+		objName = 'v_ilev_ph_gendoor004',
+		objYaw = 30.0,
+		objCoords  = vector3(1854.92, 3694.339, 34.41),
+		textCoords = vector3(1854.92, 3694.339, 34.41),
+		authorizedJobs = { 'sheriff' },
+		locked = true
+	},
+
+	{
+		objName = 'v_ilev_ph_gendoor004',
+		objYaw = 120.0,
+		objCoords  = vector3(1850.836, 3694.54, 34.41260),
+		textCoords = vector3(1850.836, 3694.54, 34.41260),
+		authorizedJobs = { 'sheriff' },
+		locked = true
+	},
+
+
+	{
+		objName = 'v_ilev_ph_gendoor004',
+		objYaw = 30.0,
+		objCoords  = vector3(1849.333, 3691.132, 34.41433),
+		textCoords = vector3(1849.333, 3691.132, 34.41433),
+		authorizedJobs = { 'sheriff' },
+		locked = true
+	},
+
+	{
+		objName = 'v_ilev_ph_gendoor004',
+		objYaw = 30.0,
+		objCoords  = vector3(1846.116, 3689.267, 34.41642),
+		textCoords = vector3(1846.116, 3689.267, 34.41642),
+		authorizedJobs = { 'sheriff' },
+		locked = true
+	},
+
+	{
+		objName = 'v_ilev_ph_gendoor004',
+		objYaw = 300.0,
+		objCoords  = vector3(1843.258, 3690.314, 34.4262),
+		textCoords = vector3(1843.258, 3690.314, 34.4262),
+		authorizedJobs = { 'sheriff' },
+		locked = true
 	},
 
 	--
@@ -211,7 +498,7 @@ Config.DoorList = {
 	-- Entrance (double doors)
 	{
 		textCoords = vector3(-443.5, 6016.3, 32.0),
-		authorizedJobs = { 'police' },
+		authorizedJobs = { 'sheriff' },
 		locked = false,
 		distance = 2.5,
 		doors = {

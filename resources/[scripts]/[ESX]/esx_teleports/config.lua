@@ -16,21 +16,6 @@ Config.Teleporters = {
 			['Information'] = '[E] Sortir du bureau' 
 		}
 	},
-	['Bureau LSPD'] = {
-		['Job'] = 'none',
-		['Enter'] = { 
-			['x'] = 437.21, 
-			['y'] = -978.21, 
-			['z'] = 30.68,
-			['Information'] = '[E] Entrer dans les bureaux',
-		},
-		['Exit'] = {
-			['x'] = 131.14, 
-			['y'] = -762.08, 
-			['z'] = 242.15, 
-			['Information'] = '[E] Sortir  des bureaux' 
-		}
-	},
 
 	['Vendeur arme'] = {
 		['Job'] = 'none',
@@ -49,28 +34,28 @@ Config.Teleporters = {
 		}
 	},
 
---	['Labo Weed'] = {
---		['Job'] = 'none',
---		['Enter'] = { 
---			['x'] = -287.638, 
---			['y'] = 2535.75, 
---			['z'] = 75.69,
---			['Information'] = '[E] Entrer (Une odeur de weed ici ...)',
---		},
---		['Exit'] = {
---			['x'] = 1066.300, 
---			['y'] = -3183.11, 
---			['z'] = -39.16, 
---			['Information'] = '[E] Sortir' 
---		}
---	},
+	['Labo Weed'] = {
+		['Job'] = 'none',
+		['Enter'] = { 
+			['x'] = -287.638, 
+			['y'] = 2535.75, 
+			['z'] = 75.69,
+			['Information'] = '[E] Entrer (Une odeur de weed ici ...)',
+		},
+		['Exit'] = {
+			['x'] = 1066.300, 
+			['y'] = -3183.11, 
+			['z'] = -39.16, 
+			['Information'] = '[E] Sortir' 
+		}
+	},
 
 	['Labo Coke'] = {
 		['Job'] = 'none',
 		['Enter'] = { 
-			['x'] = 1300.1199, 
-			['y'] = -1752.12, 
-			['z'] = 54.27,
+			['x'] = -356.102, 
+			['y'] = -1486.439, 
+			['z'] = 30.10,
 			['Information'] = '[E] Entrer (Une forte odeur de coke ici ...)' 
 		},
 

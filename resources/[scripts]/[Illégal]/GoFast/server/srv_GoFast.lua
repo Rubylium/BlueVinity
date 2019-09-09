@@ -1,5 +1,24 @@
 ESX = nil
-local GoFastDejaFait = 0
+
+
+-- Gestion GoFast
+GoFastDejaFait = 1
+Citizen.CreateThread(function()
+	while true do
+		Citizen.Wait(10*60000)
+          GoFastDejaFait = GoFastDejaFait + 1
+          print(GoFastDejaFait)
+          TriggerClientEvent("Sync:GoFast", -1, GoFastDejaFait)
+	end
+end)
+
+RegisterServerEvent("Sync:MoinUnGoFast")
+AddEventHandler("Sync:MoinUnGoFast", function()
+     GoFastDejaFait = GoFastDejaFait - 1
+     TriggerClientEvent("Sync:GoFast", -1, GoFastDejaFait)
+     print(GoFastDejaFait)
+     print("-1 gofast")
+end)
 
 
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)

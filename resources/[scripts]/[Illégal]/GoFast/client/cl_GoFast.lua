@@ -1,3 +1,4 @@
+local GoFastDejaFait = nil
 
 ESX = nil
 
@@ -6,9 +7,9 @@ PlayerData = {}
 
 -- Coordonée pour le point de début de mission
 
-local DebutMission = {coords = vector3(-60.254, -2518.02, 7.40)}
-local SpawnVehicule = {coords = vector3(-233.27, -2405.201, 6.001)}
-local SpawnVehiculeJoueur = {coords = vector3(-231.54, -2401.35, 6.001)}
+local DebutMission = {coords = vector3(1570.1783, -2130.38, 78.33)}
+local SpawnVehicule = {coords = vector3(1563.67, -2168.06, 77.51)}
+local SpawnVehiculeJoueur = {coords = vector3(1566.83, -2168.48, 77.53)}
 local GoFastVente = {coords = vector3(114.87, 6611.87, 31.86)}
 
 local GoFastEnCours = false
@@ -20,10 +21,20 @@ local BlipsGoFast = nil
 
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
+RegisterNetEvent("Sync:GoFast")
+AddEventHandler("Sync:GoFast", function(_GoFastDejaFait)
+	GoFastDejaFait = _GoFastDejaFait
+end)
+
 -- Affichage du points sur la map
 
 Citizen.CreateThread(function()
 	while true do
+		while GoFastDejaFait == nil do
+			Wait(1000)
+			print("Pas bon: ")
+			GoFastDejaFait = 1
+		end
 		local sleepThread = 500
 		local ped = PlayerPedId()
 		local pedCoords = GetEntityCoords(ped)
@@ -31,9 +42,13 @@ Citizen.CreateThread(function()
 		if dstCheck <= 4.2 then
 			sleepThread = 5
 			if dstCheck <= 4.2 then
-				ESX.Game.Utils.DrawText3D(DebutMission.coords, "[E] Ouvrir le menu de ~g~GoFast\n~r~Activitée illégal", 1.0)
+				ESX.Game.Utils.DrawText3D(DebutMission.coords, "[E] Ouvrir le menu de ~g~GoFast\n~r~Activitée illégal\n~w~GoFast disponible: ~g~"..GoFastDejaFait, 1.0)
 				if IsControlJustPressed(0, 38) then
-					DebutMissionMenu()
+					if GoFastDejaFait > 0 then
+						DebutMissionMenu()
+					else
+						ESX.ShowAdvancedNotification("GoFast", "~b~Livraison GoFast", "Aucun GoFast disponbile, revient plus tard.", "CHAR_LESTER_DEATHWISH", 8)
+					end
 				end
 			end
 		end
@@ -70,7 +85,7 @@ function DebutMissionMenu()
 	local camera = CreateCam("DEFAULT_SCRIPTED_CAMERA", 1)
 	--CreateCam(camera, true)
 	local ped = PlayerPedId()
-	SetCamCoord(camera, -55.31, -2519.99, 8.19)
+	SetCamCoord(camera, 1571.88, -2135.56, 80.43)
 	--AttachCamToEntity(camera, ped, -10.31, -2519.99, 8.19, 1)
 	PointCamAtEntity(camera, ped, 0, 0, 0, 1)
 	RenderScriptCams(1, 1, 1000, 1, 1)
@@ -91,6 +106,7 @@ function DebutMissionMenu()
 
 		if action == "start" then
 			ESX.UI.Menu.CloseAll()
+			TriggerServerEvent("Sync:MoinUnGoFast")
 			RenderScriptCams(0, 1, 1000, 1, 1)
 			DestroyCam(camera, true)
 			AnimDebutMission()
@@ -144,7 +160,7 @@ end
 function SpawnDuVehicule()
 	local ped = PlayerPedId()
 	print('Début animation')
-	local veh = CreateVehicle(917809321, SpawnVehicule.coords, 335.26, true, true)
+	local veh = CreateVehicle(917809321, SpawnVehicule.coords, 353.13, true, true)
 	print('Spawn du véhicule')
 	--ESX.Game.Teleport(ped, SpawnVehiculeJoueur.coords, cb)
 	print('Téléportation du joueur')
@@ -206,13 +222,14 @@ function AnimDebutMission()
 				Citizen.Wait(0)
 			end
 
-			local veh = CreateVehicle(917809321, SpawnVehicule.coords, 199.47, true, true)
+			local veh = CreateVehicle(917809321, SpawnVehicule.coords, 353.13, true, true)
 			SetVehicleNumberPlateText(veh, 'GOFAST')
 			SetVehicleEnginePowerMultiplier(veh, 2.0 * 20.0)
 			TaskEnterVehicle(ped, veh, 1000, -1, 1.0, 1, 0)
-			TaskVehiclePark(ped, veh, -174.61, -2438.12, 5.49, 231.01, 0, 20.0, true)
+			TaskVehiclePark(ped, veh, 1565.92, -2154.84, 77.55, 352.04, 0, 20.0, true)
 			SetModelAsNoLongerNeeded(917809321)
 			SetModelAsNoLongerNeeded(veh)
+			SetVehicleAsNoLongerNeeded(veh)
 			-- Création du blips pour livrer le véhicule
 			GoFastEnCours = true
 			-- Wait for the player switch to be completed (state 12).

@@ -1,5 +1,5 @@
 Config                            = {}
-Config.DrawDistance               = 100.0
+Config.DrawDistance               = 20.0
 
 Config.EnablePlayerManagement     = true
 Config.EnableSocietyOwnedVehicles = false
@@ -31,24 +31,24 @@ Config.Blips = {
 Config.Zones = {
 
     Cloakrooms = {
-        Pos   = { x = 105.111, y = -1303.221, z = 27.788 },
+        Pos   = { x = 105.111, y = -1303.221, z = 28.788 },
         Size  = { x = 1.5, y = 1.5, z = 1.0 },
         Color = { r = 255, g = 187, b = 255 },
-        Type  = 27,
+        Type  = 20,
     },
 
     Vaults = {
-        Pos   = { x = 93.406, y = -1291.753, z = 28.288 },
+        Pos   = { x = 93.406, y = -1291.753, z = 29.288 },
         Size  = { x = 1.3, y = 1.3, z = 1.0 },
         Color = { r = 30, g = 144, b = 255 },
-        Type  = 23,
+        Type  = 20,
     },
 
     Fridge = {
-        Pos   = { x = 135.478, y = -1288.615, z = 28.289 },
+        Pos   = { x = 135.478, y = -1288.615, z = 29.289 },
         Size  = { x = 1.6, y = 1.6, z = 1.0 },
         Color = { r = 248, g = 248, b = 255 },
-        Type  = 23,
+        Type  = 20,
     },
 
     Vehicles = {
@@ -56,7 +56,7 @@ Config.Zones = {
         SpawnPoint   = { x = 138.436, y = -1263.095, z = 28.626 },
         Size         = { x = 1.8, y = 1.8, z = 1.0 },
         Color        = { r = 255, g = 255, b = 0 },
-        Type         = 23,
+        Type         = 20,
         Heading      = 207.43,
     },
 
@@ -64,7 +64,7 @@ Config.Zones = {
         Pos   = { x = 133.203, y = -1265.573, z = 28.396 },
         Size  = { x = 3.0, y = 3.0, z = 0.2 },
         Color = { r = 255, g = 255, b = 0 },
-        Type  = 1,
+        Type  = 20,
     },
 
 --[[
@@ -86,17 +86,17 @@ Config.Zones = {
 ]]--
 
     BossActions = {
-        Pos   = { x = 94.951, y = -1294.021, z = 28.268 },
+        Pos   = { x = 94.951, y = -1294.021, z = 29.268 },
         Size  = { x = 1.5, y = 1.5, z = 1.0 },
         Color = { r = 0, g = 100, b = 0 },
-        Type  = 1,
+        Type  = 20,
     },
 
     SellFarm = {
 		Pos   = {x =967.158, y = 1.843, z = 79.70},
 		Size  = {x = 1.5, y = 1.5, z = 1.0},
 		Color = {r = 136, g = 243, b = 216},
-		Type  = 1
+		Type  = 20
     },
     
 -----------------------
@@ -104,10 +104,10 @@ Config.Zones = {
 
     Flacons = {
         Name  = "Achats Alcool",
-        Pos   = { x = -2955.242, y = 385.897, z = 14.041 },
-        Size  = { x = 1.6, y = 1.6, z = 1.0 },
+        Pos   = { x = 128.90, y = -1280.24, z = 29.26 },
+        Size  = { x = 1.0, y = 1.0, z = 1.0 },
         Color = { r = 238, g = 0, b = 0 },
-        Type  = 23,
+        Type  = 20,
         Items = {
             { name = 'jager',      label = _U('jager'),   price = 5 },
             { name = 'vodka',      label = _U('vodka'),   price = 5 },
@@ -120,10 +120,10 @@ Config.Zones = {
 
     NoAlcool = {
         Name  = "Achats Soft",
-        Pos   = { x = 178.028, y = 307.467, z = 104.392 },
-        Size  = { x = 1.6, y = 1.6, z = 1.0 },
+        Pos   = { x = 129.70, y = -1281.662, z = 29.26 },
+        Size  = { x = 1.0, y = 1.0, z = 1.0 },
         Color = { r = 238, g = 110, b = 0 },
-        Type  = 23,
+        Type  = 20,
         Items = {
             { name = 'cocacola',    label = _U('coca'),     price = 2 },
             { name = 'caprisun',    label = _U('caprisun'), price = 2 },
@@ -138,10 +138,10 @@ Config.Zones = {
 
     Apero = {
         Name  = "Achats Apéros",
-        Pos   = { x = 98.675, y = -1809.498, z = 26.095 },
-        Size  = { x = 1.6, y = 1.6, z = 1.0 },
+        Pos   = { x = 130.34, y = -1285.55, z = 29.27 },
+        Size  = { x = 1.0, y = 1.0, z = 1.0 },
         Color = { r = 142, g = 125, b = 76 },
-        Type  = 23,
+        Type  = 20,
         Items = {
             { name = 'bolcacahuetes',   label = _U('bolcacahuetes'),    price = 4 },
             { name = 'bolnoixcajou',    label = _U('bolnoixcajou'),     price = 4 },
@@ -175,19 +175,19 @@ Config.Zones = {
 
 Config.TeleportZones = {
   EnterBuilding = {
-    Pos       = { x = 132.608, y = -1293.978, z = 28.269 },
+    Pos       = { x = 132.608, y = -1293.978, z = 29.269 },
     Size      = { x = 1.2, y = 1.2, z = 0.1 },
     Color     = { r = 128, g = 128, b = 128 },
-    Marker    = 1,
+    Marker    = 20,
     Hint      = _U('e_to_enter_1'),
     Teleport  = { x = 126.742, y = -1278.386, z = 28.569 }
   },
 
   ExitBuilding = {
-    Pos       = { x = 132.517, y = -1290.901, z = 28.269 },
+    Pos       = { x = 132.517, y = -1290.901, z = 29.269 },
     Size      = { x = 1.2, y = 1.2, z = 0.1 },
     Color     = { r = 128, g = 128, b = 128 },
-    Marker    = 1,
+    Marker    = 20,
     Hint      = _U('e_to_exit_1'),
     Teleport  = { x = 131.175, y = -1295.598, z = 28.569 },
   },

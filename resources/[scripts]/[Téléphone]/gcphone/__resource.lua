@@ -28,6 +28,11 @@ files {
 	'html/static/img/icons_app/bank.png',
 	'html/static/img/icons_app/9gag.png',
 	'html/static/img/icons_app/twitter.png',
+	'html/static/img/icons_app/mecano.png',
+	'html/static/img/icons_app/avocat.png',
+	'html/static/img/icons_app/journaliste.png',
+	'html/static/img/icons_app/sheriff.png',
+	'html/static/img/icons_app/taxi.png',
 	
 	'html/static/img/app_bank/logo_mazebank.jpg',
 

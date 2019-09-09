@@ -1016,22 +1016,21 @@ end)
 -- Create blips
 Citizen.CreateThread(function()
 
-    local blipMarker = Config.Blips.Blip
-    local blipCoord = AddBlipForCoord(blipMarker.Pos.x, blipMarker.Pos.y, blipMarker.Pos.z)
+  --local blipMarker = Config.Blips.Blip
+  local blipCoord = AddBlipForCoord(-549.34, 273.02, 82.501)
 
-    SetBlipSprite (blipCoord, blipMarker.Sprite)
-    SetBlipDisplay(blipCoord, blipMarker.Display)
-    SetBlipScale  (blipCoord, blipMarker.Scale)
-    SetBlipColour (blipCoord, blipMarker.Colour)
-    SetBlipAsShortRange(blipCoord, true)
+  SetBlipSprite (blipCoord, 93)
+  SetBlipDisplay(blipCoord, 4)
+  SetBlipScale  (blipCoord, 1.0)
+  SetBlipColour (blipCoord, 46)
+  SetBlipAsShortRange(blipCoord, true)
 
-    BeginTextCommandSetBlipName("STRING")
-    AddTextComponentString(_U('map_blip'))
-    EndTextCommandSetBlipName(blipCoord)
+  BeginTextCommandSetBlipName("STRING")
+  AddTextComponentString("~b~Le téquilala ~")
+  EndTextCommandSetBlipName(blipCoord)
 
 
 end)
-
 -- Display markers
 Citizen.CreateThread(function()
     while true do
@@ -1043,7 +1042,7 @@ Citizen.CreateThread(function()
 
             for k,v in pairs(Config.Zones) do
                 if(v.Type ~= -1 and GetDistanceBetweenCoords(coords, v.Pos.x, v.Pos.y, v.Pos.z, true) < Config.DrawDistance) then
-                    DrawMarker(v.Type, v.Pos.x, v.Pos.y, v.Pos.z, 0.0, 0.0, 0.0, 0, 0.0, 0.0, v.Size.x, v.Size.y, v.Size.z, v.Color.r, v.Color.g, v.Color.b, 100, false, false, 2, false, false, false, false)
+                    DrawMarker(20, v.Pos.x, v.Pos.y, v.Pos.z, 0.0, 0.0, 0.0, 0, 0.0, 0.0, 0.5, 0.5, 0.5, 255, 191, 0, 100, true, true, 2, false, false, false, false)
                 end
             end
 
@@ -1206,7 +1205,7 @@ Citizen.CreateThread(function()
         local coords = GetEntityCoords(GetPlayerPed(-1))
         for k,v in pairs(Config.TeleportZones) do
           if(v.Marker ~= -1 and GetDistanceBetweenCoords(coords, v.Pos.x, v.Pos.y, v.Pos.z, true) < Config.DrawDistance) then
-            DrawMarker(v.Marker, v.Pos.x, v.Pos.y, v.Pos.z, 0.0, 0.0, 0.0, 0, 0.0, 0.0, v.Size.x, v.Size.y, v.Size.z, v.Color.r, v.Color.g, v.Color.b, 100, false, true, 2, false, false, false, false)
+            DrawMarker(20, v.Pos.x, v.Pos.y, v.Pos.z, 0.0, 0.0, 0.0, 0, 0.0, 0.0, 1.0, 1.0, 1.0, 255, 191, 0, 100, false, true, 2, false, false, false, false)
           end
         end
 

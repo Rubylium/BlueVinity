@@ -40,7 +40,7 @@ Config.PoliceStations = {
 		},
 
 		Armories = {
-			vector3(451.7, -980.1, 30.6)
+			vector3(479.23, -985.45, 24.91)
 		},
 
 		Vehicles = {
@@ -76,7 +76,7 @@ Config.PoliceStations = {
 		},
 
 		BossActions = {
-			vector3(448.4, -973.2, 30.6)
+			vector3(465.03, -1009.38, 35.93)
 		}
 
 	}

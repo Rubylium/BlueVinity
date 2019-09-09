@@ -825,7 +825,11 @@ function OpenPoliceActionsMenu()
 			local elements = {
 				{label = '<span style="color:green;">Prise<span style="color:white;"> de service', value = 'prise'},
 				{label = '<span style="color:red;">Fin<span style="color:white;"> de service', value = 'fin'},
-				{label = '<span style="color:orange;">Pause<span style="color:white;"> de service', value = 'pause'}
+				{label = '<span style="color:orange;">Pause<span style="color:white;"> de service', value = 'pause'},
+				{label = '<span style="color:orange;">Standby<span style="color:gray;">, en attente de dispatch', value = 'standby'},
+				{label = '<span style="color:orange;">Control<span style="color:gray;"> routier en cours', value = 'control'},
+				{label = '<span style="color:orange;">Refus<span style="color:gray;"> d\'obtempérer / Délit de fuite', value = 'refus'},
+				{label = '<span style="color:orange;">Crime<span style="color:gray;"> en cours / poursuite en cours', value = 'crime'}
 			}
 
 			ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'status_service', {
@@ -845,8 +849,19 @@ function OpenPoliceActionsMenu()
 				elseif action == 'pause' then
 					local info = 'pause'
 					TriggerServerEvent('police:PriseEtFinservice', info)
+				elseif action == 'standby' then
+					local info = 'standby'
+					TriggerServerEvent('police:PriseEtFinservice', info)
+				elseif action == 'control' then
+					local info = 'control'
+					TriggerServerEvent('police:PriseEtFinservice', info)
+				elseif action == 'refus' then
+					local info = 'refus'
+					TriggerServerEvent('police:PriseEtFinservice', info)
+				elseif action == 'crime' then
+					local info = 'crime'
+					TriggerServerEvent('police:PriseEtFinservice', info)
 				end
-
 			end, function(data2, menu2)
 				menu2.close()
 			end)
@@ -2379,6 +2394,26 @@ AddEventHandler('police:InfoService', function(service, nom)
 	elseif service == 'pause' then
 		PlaySoundFrontend(-1, "Start_Squelch", "CB_RADIO_SFX", 1)
 		ESX.ShowAdvancedNotification('LSPD INFORMATIONS', '~b~Pause de service', 'Agent: ~g~'..nom..'\n~w~Code: ~g~10-6\n~w~Information: ~g~Pause de service.', 'CHAR_CALL911', 8)
+		Wait(1000)
+		PlaySoundFrontend(-1, "End_Squelch", "CB_RADIO_SFX", 1)
+	elseif service == 'standby' then
+		PlaySoundFrontend(-1, "Start_Squelch", "CB_RADIO_SFX", 1)
+		ESX.ShowAdvancedNotification('LSPD INFORMATIONS', '~b~Mise en standby', 'Agent: ~g~'..nom..'\n~w~Code: ~g~10-12\n~w~Information: ~g~Standby, en attente de dispatch.', 'CHAR_CALL911', 8)
+		Wait(1000)
+		PlaySoundFrontend(-1, "End_Squelch", "CB_RADIO_SFX", 1)
+	elseif service == 'control' then
+		PlaySoundFrontend(-1, "Start_Squelch", "CB_RADIO_SFX", 1)
+		ESX.ShowAdvancedNotification('LSPD INFORMATIONS', '~b~Control routier', 'Agent: ~g~'..nom..'\n~w~Code: ~g~10-48\n~w~Information: ~g~Control routier en cours.', 'CHAR_CALL911', 8)
+		Wait(1000)
+		PlaySoundFrontend(-1, "End_Squelch", "CB_RADIO_SFX", 1)
+	elseif service == 'refus' then
+		PlaySoundFrontend(-1, "Start_Squelch", "CB_RADIO_SFX", 1)
+		ESX.ShowAdvancedNotification('LSPD INFORMATIONS', '~b~Refus d\'obtempérer', 'Agent: ~g~'..nom..'\n~w~Code: ~g~10-30\n~w~Information: ~g~Refus d\'obtempérer / Délit de fuite en cours.', 'CHAR_CALL911', 8)
+		Wait(1000)
+		PlaySoundFrontend(-1, "End_Squelch", "CB_RADIO_SFX", 1)
+	elseif service == 'crime' then
+		PlaySoundFrontend(-1, "Start_Squelch", "CB_RADIO_SFX", 1)
+		ESX.ShowAdvancedNotification('LSPD INFORMATIONS', '~b~Crime en cours', 'Agent: ~g~'..nom..'\n~w~Code: ~g~10-31\n~w~Information: ~g~Crime en cours / poursuite en cours.', 'CHAR_CALL911', 8)
 		Wait(1000)
 		PlaySoundFrontend(-1, "End_Squelch", "CB_RADIO_SFX", 1)
 	end

@@ -24,7 +24,7 @@
 
   "useFormatNumberFrance": true,
 
-  "useWebRTCVocal": true,
+  "useWebRTCVocal": false,
   "RTCConfig": {
     "iceServers": [{
       "urls": ["turn:barrax.needrp.net"],
@@ -90,6 +90,71 @@
         "eventName": "esx_addons_gcphone:call",
         "type": {
           "number": "ambulance"
+        }
+      }]
+    },
+    {
+      "display": "Mecano",
+      "icon": "/html/static/img/icons_app/mecano.png",
+      "subMenu": [{
+        "title": "Envoyer un message",
+        "eventName": "esx_addons_gcphone:call",
+        "type": {
+          "number": "mechanic"
+        }
+      }]
+    },
+    {
+      "display": "Journaliste",
+      "icon": "/html/static/img/icons_app/journaliste.png",
+      "subMenu": [{
+        "title": "Envoyer un message",
+        "eventName": "esx_addons_gcphone:call",
+        "type": {
+          "number": "journaliste"
+        }
+      }]
+    },
+    {
+      "display": "Sheriff - BCSO",
+      "icon": "/html/static/img/icons_app/sheriff.png",
+      "subMenu": [{
+        "title": "Envoyer un message",
+        "eventName": "esx_addons_gcphone:call",
+        "type": {
+          "number": "sheriff"
+        }
+      }]
+    },
+    {
+      "display": "Taxi",
+      "icon": "/html/static/img/icons_app/taxi.png",
+      "subMenu": [
+        {
+        "title": "Envoyer un message",
+        "eventName": "esx_addons_gcphone:call",
+        "type": {
+          "number": "taxi"
+        }
+      },
+      {
+        "title": "Demander un taxi",
+        "eventName": "AppelTaxiGetCoords",
+        "type": {
+          "number": "taxi",
+          "message": "Test"
+        }
+      }
+    ]
+    },
+    {
+      "display": "Avocat",
+      "icon": "/html/static/img/icons_app/avocat.png",
+      "subMenu": [{
+        "title": "Envoyer un message",
+        "eventName": "esx_addons_gcphone:call",
+        "type": {
+          "number": "avocat"
         }
       }]
     }

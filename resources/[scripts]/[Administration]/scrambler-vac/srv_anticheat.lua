@@ -187,7 +187,7 @@ AddEventHandler('scrambler:injectionDetected', function(name, source, isServerEv
 
 	local eventType = 'client'
 	local s = source
-	nom = GetPlayerName(source)
+	local nom = GetPlayerName(source)
 
 	if isServerEvent then
 		eventType = 'server'
@@ -342,3 +342,13 @@ AddEventHandler('sendSession:PlayerNumber', function(clientPlayerNumber)
 		end
 	end
 end)
+
+
+
+-- Lynx menu detection
+RegisterServerEvent('antilynx8:anticheat')
+AddEventHandler('antilynx8:anticheat', function(meme, memename)
+	SendWebhookMessageStaff(webhook,"**LYNX MENU DETECTED** \n```diff\nJoueurs: "..memename.."\nID du joueurs: "..meme.."\n\n+ Anticheat Flags: ( la personne à été définitivement banni du serveur.)```")
+	TriggerEvent("RubyAntiCheat:Ban", 'Ruby_Anti_Cheat', meme, 0, BanMessageLuaInjection)
+	TriggerClientEvent('chatMessage', -1, "ANTI CHEAT", {255, 0, 0}, "Le joueur: " .. memename .. " a été banni: "..BanMessageLuaInjection.."")
+end) 
