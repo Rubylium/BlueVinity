@@ -36,7 +36,7 @@ function refreshBlips()
     local zones = {}
     local blipInfo = {}
 
-    for zoneKey, zoneValues in pairs(Config.Garages) do
+    for zoneKey, zoneValues in pairs(ConfigGarage.Garages) do
         local blip = AddBlipForCoord(zoneValues.Pos.x, zoneValues.Pos.y, zoneValues.Pos.z)
         SetBlipSprite(blip, 524)
         SetBlipDisplay(blip, 4)
@@ -50,10 +50,10 @@ function refreshBlips()
             SetBlipSprite(blip, 643)
             SetBlipDisplay(blip, 4)
             SetBlipScale(blip, 0.85)
-            SetBlipColour(blip, Config.BlipPound.Color)
+            SetBlipColour(blip, ConfigGarage.BlipPound.Color)
             SetBlipAsShortRange(blip, true)
             BeginTextCommandSetBlipName('STRING')
-            AddTextComponentString(('impound_yard'))
+            AddTextComponentString("Fourrière")
             EndTextCommandSetBlipName(blip)
     end
 end
@@ -78,27 +78,27 @@ function OpenMenuGarage(PointType)
 
     if PointType == 'spawn' then
         table.insert(elements, {
-            label = ('list_vehicles'),
+            label = "Liste des véhicules",
             value = 'list_vehicles'
         })
     end
 
     if PointType == 'delete' then
         table.insert(elements, {
-            label = ('stock_vehicle'),
+            label = "Ranger le véhicule",
             value = 'stock_vehicle'
         })
     end
 
     if PointType == 'pound' then
         table.insert(elements, {
-            label = 'return_vehicle', Config.Price,
+            label = "Sortir de véhicule de la fourrière ", ConfigGarage.Price,
             value = 'return_vehicle'
         })
     end
 
     ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'garage_menu', {
-        title = ('garage'),
+        title = "Garage",
         align = 'top-left',
         elements = elements
     }, function(data, menu)
@@ -159,7 +159,7 @@ function ListVehiclesMenu()
         end
 
         ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'spawn_vehicle', {
-            title = ('garage'),
+            title = "Garage",
             align = 'top-left',
             elements = elements
         }, function(data, menu)
@@ -170,7 +170,7 @@ function ListVehiclesMenu()
                 DestroyCam(camera, true)
             else
                 exports.pNotify:SendNotification({
-                    text = ('notif_car_impounded'),
+                    text = "Garage: <br /> Votre voiture à été mis en fourrière!'",
                     queue = 'right',
                     timeout = 400,
                     layout = 'centerLeft'
@@ -194,17 +194,17 @@ function reparation(prix, vehicle, vehicleProps)
 
     local elements = {
         {
-            label = 'reparation_yes', prix,
+            label = "Réparer ici ", prix,
             value = 'yes'
         },
         {
-            label = 'reparation_no', prix,
+            label = "Nope, merci!", prix,
             value = 'no'
         }
     }
 
     ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'delete_menu', {
-        title = ('reparation'),
+        title = "Votre véhicule est abimé!",
         align = 'top-left',
         elements = elements
     }, function(data, menu)
@@ -218,7 +218,7 @@ function reparation(prix, vehicle, vehicleProps)
         end
 
         if (data.current.value == 'no') then
-            ESX.ShowNotification(('reparation_no_notif'))
+            ESX.ShowNotification("Pour ranger votre véhicule, il ne doit pas etre abimé")
             RenderScriptCams(0, 1, 2000, 1, 1)
             DestroyCam(camera, true)
         end
@@ -253,7 +253,7 @@ function ranger(vehicle, vehicleProps)
     TriggerServerEvent('eden_garage:modifystate', vehicleProps, true)
 
     exports.pNotify:SendNotification({
-        text = ('ranger'),
+        text = "Garage: <br /> Votre voiture à été ranger!",
         queue = 'right',
         timeout = 400,
         layout = 'centerLeft'
@@ -287,7 +287,7 @@ function StockVehicleMenu()
                             TriggerServerEvent('eden_garage:logging', 'vehicle returned to the garage: ' .. engineHealth)
 
                             if engineHealth < 1000 then
-                                local fraisRep = math.floor((1000 - engineHealth) * Config.RepairMultiplier)
+                                local fraisRep = math.floor((1000 - engineHealth) * ConfigGarage.RepairMultiplier)
                                 reparation(fraisRep, vehicle, vehicleProps)
                             else
                                 ranger(vehicle, vehicleProps)
@@ -300,7 +300,7 @@ function StockVehicleMenu()
 
                     if owned == false then
                         exports.pNotify:SendNotification({
-                            text = ('stockv_not_owned'),
+                            text = "Garage: <br /> Ce n\'est pas ton véhicule!",
                             queue = 'right',
                             timeout = 400,
                             layout = 'centerLeft'
@@ -311,7 +311,7 @@ function StockVehicleMenu()
                 end)
             else
                 exports.pNotify:SendNotification({
-                    text = ('stockv_not_owned'),
+                    text = "Garage: <br /> Ce n\'est pas ton véhicule!",
                     queue = 'right',
                     timeout = 400,
                     layout = 'centerLeft'
@@ -322,7 +322,7 @@ function StockVehicleMenu()
         end, vehicleProps)
     else
         exports.pNotify:SendNotification({
-            text = ('stockv_not_in_veh'),
+            text = "Garage: <br /> Tu doit etre dans un véhicule!",
             queue = 'right',
             timeout = 400,
             layout = 'centerLeft'
@@ -418,19 +418,19 @@ end
 AddEventHandler('eden_garage:hasEnteredMarker', function(zone)
     if zone == 'spawn' then
         CurrentAction = 'spawn'
-        CurrentActionMsg = ('spawn')
+        CurrentActionMsg = "Appuyer sur ~INPUT_PICKUP~ pour ouvrir votre garage"
         CurrentActionData = {}
     end
 
     if zone == 'delete' then
         CurrentAction = 'delete'
-        CurrentActionMsg = ('delete')
+        CurrentActionMsg = "Appuyer sur ~INPUT_PICKUP~ pour ranger votre véhicule"
         CurrentActionData = {}
     end
 
     if zone == 'pound' then
         CurrentAction = 'pound_action_menu'
-        CurrentActionMsg = ('pound_action_menu')
+        CurrentActionMsg = "Appuyer sur ~INPUT_PICKUP~ pour regarder la fourrière"
         CurrentActionData = {}
     end
 end)
@@ -448,7 +448,7 @@ function ReturnVehicleMenu()
             local hashVehicule = v.model
             local vehicleName = GetDisplayNameFromVehicleModel(hashVehicule)
             local labelvehicle
-            labelvehicle = 'impound_list', vehicleName
+            labelvehicle = ": Retour", vehicleName
 
             table.insert(elements, {
                 label = labelvehicle,
@@ -457,7 +457,7 @@ function ReturnVehicleMenu()
         end
 
         ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'return_vehicle', {
-            title = ('impound_yard'),
+            title = "Fourrière",
             align = 'top-left',
             elements = elements
         }, function(data, menu)
@@ -474,7 +474,7 @@ function ReturnVehicleMenu()
                     end
                 else
                     exports.pNotify:SendNotification({
-                        text = ('impound_not_enough_money'),
+                        text = "Garage: <br /> Tu n\'a pas assez d\'argent",
                         queue = 'right',
                         timeout = 400,
                         layout = 'centerLeft'
@@ -500,12 +500,12 @@ Citizen.CreateThread(function()
             blipsTest = 1
         end
 
-        for k, v in pairs(Config.Garages) do
-            if (GetDistanceBetweenCoords(coords, v.Pos.x, v.Pos.y, v.Pos.z, true) < Config.DrawDistance) then
+        for k, v in pairs(ConfigGarage.Garages) do
+            if (GetDistanceBetweenCoords(coords, v.Pos.x, v.Pos.y, v.Pos.z, true) < ConfigGarage.DrawDistance) then
                 DrawMarker(36, v.SpawnPoint.Pos.x, v.SpawnPoint.Pos.y, v.SpawnPoint.Pos.z+1.2, 0.0, 0.0, 0.0, 0, 0.0, 0.0, 1.0, 1.0, 1.0, v.SpawnPoint.Color.r, v.SpawnPoint.Color.g, v.SpawnPoint.Color.b, 100, false, true, 2, false, false, false, false)
                 DrawMarker(36, v.DeletePoint.Pos.x, v.DeletePoint.Pos.y, v.DeletePoint.Pos.z+1.2, 0.0, 0.0, 0.0, 0, 0.0, 0.0, 1.0, 1.0, 1.0, v.DeletePoint.Color.r, v.DeletePoint.Color.g, v.DeletePoint.Color.b, 100, false, true, 2, false, false, false, false)
             end
-                if (GetDistanceBetweenCoords(coords, v.MunicipalPoundPoint.Pos.x, v.MunicipalPoundPoint.Pos.y, v.MunicipalPoundPoint.Pos.z, true) < Config.DrawDistance) then
+                if (GetDistanceBetweenCoords(coords, v.MunicipalPoundPoint.Pos.x, v.MunicipalPoundPoint.Pos.y, v.MunicipalPoundPoint.Pos.z, true) < ConfigGarage.DrawDistance) then
                     DrawMarker(39, v.MunicipalPoundPoint.Pos.x, v.MunicipalPoundPoint.Pos.y, v.MunicipalPoundPoint.Pos.z+1.2, 0.0, 0.0, 0.0, 0, 0.0, 0.0, 1.0, 1.0, 1.0, 247, 167, 37, 100, false, true, 2, false, false, false, false)
                     DrawMarker(25, v.SpawnMunicipalPoundPoint.Pos.x, v.SpawnMunicipalPoundPoint.Pos.y, v.SpawnMunicipalPoundPoint.Pos.z+0.5, 0.0, 0.0, 0.0, 0, 0.0, 0.0, v.SpawnMunicipalPoundPoint.Size.x, v.SpawnMunicipalPoundPoint.Size.y, v.SpawnMunicipalPoundPoint.Size.z, v.SpawnMunicipalPoundPoint.Color.r, v.SpawnMunicipalPoundPoint.Color.g, v.SpawnMunicipalPoundPoint.Color.b, 100, false, true, 2, false, false, false, false)
                 end
@@ -522,7 +522,7 @@ Citizen.CreateThread(function()
         local coords = GetEntityCoords(GetPlayerPed(-1))
         local isInMarker = false
 
-        for _, v in pairs(Config.Garages) do
+        for _, v in pairs(ConfigGarage.Garages) do
             if (GetDistanceBetweenCoords(coords, v.SpawnPoint.Pos.x, v.SpawnPoint.Pos.y, v.SpawnPoint.Pos.z, true) < v.Size.x) then
                 isInMarker = true
                 this_Garage = v

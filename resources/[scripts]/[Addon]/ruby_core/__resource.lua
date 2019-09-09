@@ -1,6 +1,9 @@
 resource_manifest_version '44febabe-d386-4d18-afbe-5e627f4af937'
 
-client_script "radialmenu.lua"
+-- ruby core start
+server_script "ruby_core.lua"
+
+client_script "animation/radialmenu.lua"
 
 ui_page 'html/menu.html'
 
@@ -25,6 +28,7 @@ server_script '3dme/server.lua'
 -- affichage de qui parle
 
 client_script 'voip/client.lua'
+client_script 'voip/main.lua' -- Système vocal
 
 
 -- Vente d'occasion
@@ -47,11 +51,22 @@ server_scripts {
 
 server_scripts {
 	'garage/@es_extended/locale.lua',
+	'garage/@locales/en.lua',
 	'garage/config.lua',
 	'garage/server/server.lua'
 }
 client_scripts {
 	'garage/@es_extended/locale.lua',
+	'garage/@locales/en.lua',
 	'garage/config.lua',
 	'garage/client/client.lua'
+}
+
+
+-- HUD voiture
+
+client_scripts {
+	'hud/config.lua',
+	'hud/carhud.lua',
+	'hud/client.lua'
 }

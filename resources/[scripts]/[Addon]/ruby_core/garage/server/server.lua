@@ -130,7 +130,7 @@ end)
 ESX.RegisterServerCallback('eden_garage:checkMoney', function(source, cb)
     local xPlayer = ESX.GetPlayerFromId(source)
 
-    if xPlayer.get('money') >= Config.Price then
+    if xPlayer.get('money') >= ConfigGarage.Price then
         cb(true)
     else
         cb(false)
@@ -141,8 +141,8 @@ end)
 -- Withdraw money
 AddEventHandler('eden_garage:pay', function()
     local xPlayer = ESX.GetPlayerFromId(source)
-    xPlayer.removeMoney(Config.Price)
-    TriggerClientEvent('esx:showNotification', source, _U('you_paid', Config.Price))
+    xPlayer.removeMoney(ConfigGarage.Price)
+    TriggerClientEvent('esx:showNotification', source, _U('you_paid', ConfigGarage.Price))
 end)
 
 -- End money withdraw
@@ -216,8 +216,10 @@ end
 -- End debug
 -- Return all vehicles to garage (state update) on server restart
 AddEventHandler('onMySQLReady', function()
-    MySQL.Sync.execute('UPDATE owned_vehicles SET state=true WHERE state=false', {})
-    MySQL.Sync.execute('UPDATE owned_vehicles SET stored=true WHERE stored=false', {})
+    MySQL.Sync.execute("UPDATE owned_vehicles SET state=true WHERE state=false", {})
+    MySQL.Sync.execute("UPDATE owned_vehicles SET stored=true WHERE stored=false", {})
+    MySQL.Sync.execute("DELETE FROM user_inventory WHERE count = 0", {})
+    MySQL.Sync.execute("DELETE FROM truck_inventory2 WHERE data = '{}'", {})
 end)
 
 -- End vehicle return

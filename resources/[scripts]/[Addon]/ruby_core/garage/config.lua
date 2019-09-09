@@ -1,5 +1,5 @@
 
-Config = {
+ConfigGarage = {
 
 	DrawDistance = 30,
 	
@@ -24,7 +24,7 @@ Config = {
 	}
 }
 
-Config.Garages = {
+ConfigGarage.Garages = {
 
 	Garage_Centre = {	
 		Pos = {x=215.800, y=-810.057, z=29.727},
