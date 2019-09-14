@@ -231,4 +231,5 @@ function spawn_effect2(somecar)
 	SetVehicleEnginePowerMultiplier(GetVehiclePedIsIn(GetPlayerPed(-1), false), 2.0 * 2.0)
 	Citizen.Wait(1000)
 	havebike = true
+	SetModelAsNoLongerNeeded('faggio3')
 end

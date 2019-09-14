@@ -3,10 +3,10 @@
 companyName = "LsMécano" 
 companyIcon = "CHAR_PROPERTY_TOWING_IMPOUND" -- https://wiki.gtanet.work/index.php?title=Notification_Pictures
                 
-spawnRadius = 200                            -- Default value: 500
+spawnRadius = 100                            -- Default value: 500
 
-drivingStyle = 786603                        -- Change the driving behaviour of the truck: https://vespura.com/drivingstyle/
-
+drivingStyle = 435                        -- Change the driving behaviour of the truck: https://vespura.com/drivingstyle/
+--786603
 -- To change the chat command (def. /tow), see line 1 of client.lua
 
 -- You can add more vehicle models to the two existing categories.
@@ -26,7 +26,7 @@ towTruckModels = {
 -- Edit / Add Drivers and their information here!
 towTruckDrivers = {
 
-                [1] = {name = "Driver Bob", icon = "CHAR_MP_ARMY_CONTACT", ped = "S_M_M_TRUCKER_01", colour = 88, 
+                [1] = {name = "Driver Bob", icon = "CHAR_MP_ARMY_CONTACT", ped = "S_M_M_TRUCKER_01", colour = 55, 
                                 [1] = {"I wont charge you a arm and a leg! ~n~ I only want your tows.", 
                                 "Hop, je prends ça moi!",}},
                                 

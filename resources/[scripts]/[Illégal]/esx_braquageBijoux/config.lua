@@ -1,8 +1,8 @@
 Config = {}
 Config.Locale = 'fr'
 
-Config.RequiredCopsRob = 3
-Config.RequiredCopsSell = 3
+Config.RequiredCopsRob = 6
+Config.RequiredCopsSell = 6
 
 Stores = {
 	["jewelry"] = {

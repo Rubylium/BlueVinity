@@ -64,18 +64,18 @@ function DeleteTowTruck(towTruck, towTruckDriver)
 end
 
 function GoToTarget(x, y, z, truck, driver, truckhash, car)
-	TaskVehicleDriveToCoord(driver, truck, x, y, z, 17.0, 0, truckhash, drivingStyle, 1, true)
+	TaskVehicleDriveToCoord(driver, truck, x, y, z, 13.0, 0, truckhash, drivingStyle, 30, true)
 	ShowAdvancedNotification(companyIcon, companyName, "~b~Remorquage envoyé", "Un camion de remoquage à été envoyé. Merci d'utilisé ~y~" .. companyName)
 	enroute = true
 	while enroute == true do
 		Citizen.Wait(500)
 		distanceToTarget = GetDistanceBetweenCoords(GetEntityCoords(car), GetEntityCoords(truck).x, GetEntityCoords(truck).y, GetEntityCoords(truck).z, false)
-		if distanceToTarget < 15 then
-			TaskVehicleTempAction(driver, truck, 27, -1)
+		if distanceToTarget < 50 then
+			--TaskVehicleTempAction(driver, truck, 27, -1)
 			SetVehicleDoorOpen(truck, 2, false, false)
 			SetVehicleDoorOpen(truck, 3, false, false)
-		elseif distanceToTarget < 20 then
-			Citizen.Wait(5000)
+		elseif distanceToTarget < 35 then
+			--Citizen.Wait(5000)
 			PickupTarget(truck, driver, car)
 		end
 	end
@@ -96,6 +96,10 @@ function PickupTarget(truck, driver, car)
 	towTruck = nil
 	towTruckDriver = nil
 	targetVeh = nil
+	Wait(10*1000)
+	DeleteEntity(car)
+	DeleteEntity(truck)
+	DeleteEntity(driver)
 end
 
 function GetTargetVehicle(player, dir)
@@ -108,7 +112,7 @@ function GetTargetVehicle(player, dir)
 	if DoesEntityExist(towedVehicle) then
 		return towedVehicle
 	else
-		ShowNotification("Failed to find a vehicle.")
+		ShowNotification("Merci de te mettre en face d'un véhicule ou dedans.")
 	end
 end
 
@@ -117,7 +121,8 @@ function GetTowTruck(vehicle)
 	if targetVehClass == 13 or targetVehClass == 8 then
 		towTruckModelsPick = towTruckModels.boxtrucks
 	else
-		towTruckModelsPick = towTruckModels.flatbeds
+		--towTruckModelsPick = towTruckModels.flatbeds
+		towTruckModelsPick = towTruckModels.boxtrucks
 	end
 end
 

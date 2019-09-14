@@ -485,7 +485,7 @@ Citizen.CreateThread(function()
 						local actv_manu = false
 						local actv_horn = false
 						
-						--DisableControlAction(0, 86, true) -- INPUT_VEH_HORN	
+						DisableControlAction(0, 86, true) -- INPUT_VEH_HORN	
 						--DisableControlAction(0, 172, true) -- INPUT_CELLPHONE_UP 
 						--DisableControlAction(0, 173, true) -- INPUT_CELLPHONE_DOWN
 						--DisableControlAction(0, 174, true) -- INPUT_CELLPHONE_LEFT 

@@ -61,8 +61,9 @@ Config.localWeight = {
     jus_raisin = 2,
     grand_cru = 2,
     vine = 2,
-    fishandchips = 2,
+    fishandchips = 1,
     fish = 1,
+    wool = 1,
 }
 
 

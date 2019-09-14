@@ -16,6 +16,9 @@ Citizen.CreateThread(function()
 			SetVehicleEnginePowerMultiplier(GetVehiclePedIsIn(GetPlayerPed(-1), false), 2.0 * 7.0)
 		elseif vehClass == 8 then
 			SetVehicleEnginePowerMultiplier(GetVehiclePedIsIn(GetPlayerPed(-1), false), 2.0 * 4.0)
+			-- LSPD / EMS
+		elseif vehClass == 18 then
+			SetVehicleEnginePowerMultiplier(GetVehiclePedIsIn(GetPlayerPed(-1), false), 2.0 * 15.0)
 		end
 	end
 end)

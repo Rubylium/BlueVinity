@@ -137,7 +137,10 @@ function LeaveTarget(vehicle, driver)
 	RemoveBlip(mechBlip)
 	mechVeh = nil
 	mechPed = nil
-	targetVeh = nil
+    targetVeh = nil
+    Wait(10*1000)
+    DeleteEntity(vehicle)
+    DeleteEntity(driver)
 end
 
 function GetTargetVehicle(player, dir)

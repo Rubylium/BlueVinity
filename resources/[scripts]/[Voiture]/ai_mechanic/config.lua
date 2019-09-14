@@ -21,7 +21,7 @@ mechPeds = {
                 --  * Find the vehicles here    https://wiki.gtanet.work/index.php?title=Vehicle_Models
                 --  * Find the colours here:    https://wiki.gtanet.work/index.php?title=Vehicle_Colors
 
-                [1] = {name = "Mécano Dave", icon = "CHAR_MP_MECHANIC", model = "S_M_Y_DockWork_01", vehicle = 'UtilliTruck3', colour = 111, 
+                [1] = {name = "Mécano Dave", icon = "CHAR_MP_MECHANIC", model = "s_m_m_autoshop_02", vehicle = 'UtilliTruck3', colour = 49, 
                                 ['lines'] = {
                                         "Elle est comme neuve.",
                                         "Terminé.",
