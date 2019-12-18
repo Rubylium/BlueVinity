@@ -2338,7 +2338,6 @@ end
 --		end
 --	end
 --end)
-local blips = {}
 RegisterNetEvent('renfort:setBlip')
 AddEventHandler('renfort:setBlip', function(coords, raison)
 	if raison == 'petit' then
@@ -2372,11 +2371,8 @@ AddEventHandler('renfort:setBlip', function(coords, raison)
 	BeginTextCommandSetBlipName("STRING")
 	AddTextComponentString('Demande renfort')
 	EndTextCommandSetBlipName(blipId)
-	table.insert(blips, blipId)
 	Wait(80 * 1000)
-	for i, blipId in pairs(blips) do 
-		RemoveBlip(blipId)
-	end
+	RemoveBlip(blipId)
 end)
 
 RegisterNetEvent('police:InfoService')
