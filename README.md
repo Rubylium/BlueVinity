@@ -18,3 +18,8 @@ J'ai honte de savoir que des personnes se font de l'argent sur mon dos, alors je
 ```diff
 - Je n'apporterais aucun support pour cette base.
 ```
+
+
+# Chose importante à savoir
+
+> Si vous comptez utilisé la partie administration ( ressource/scripts/Administration ) et en particulier L'admin Menu, je vous conseil vivement de l'optimisé + changer tout les trigger. La ressource est loin d'etre optimisé et est très exploitable.
