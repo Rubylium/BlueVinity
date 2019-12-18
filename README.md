@@ -1,5 +1,5 @@
 # BlueVinity Save
-
+[![HitCount](http://hits.dwyl.io/Rubylium/https://githubcom/Rubylium/BlueVinity.svg)](http://hits.dwyl.io/Rubylium/https://githubcom/Rubylium/BlueVinity)
 Sauvgarde du serveur BlueVinity à partir du moment ou j'ai quitté le serveur.
 
 **Pourquoi je partage la base ?**
