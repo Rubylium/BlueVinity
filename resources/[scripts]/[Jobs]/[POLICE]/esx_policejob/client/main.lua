@@ -4,7 +4,7 @@ local LastStation, LastPart, LastPartNum, LastEntity, CurrentAction, CurrentActi
 dragStatus.isDragged = false
 ESX = nil
 blip = nil
-blips = {}
+
 local attente = 0
 
 Citizen.CreateThread(function()
@@ -2338,7 +2338,7 @@ end
 --		end
 --	end
 --end)
-
+local blips = {}
 RegisterNetEvent('renfort:setBlip')
 AddEventHandler('renfort:setBlip', function(coords, raison)
 	if raison == 'petit' then
@@ -2365,7 +2365,7 @@ AddEventHandler('renfort:setBlip', function(coords, raison)
 		PlaySoundFrontend(-1, "FocusOut", "HintCamSounds", 1)
 		color = 1
 	end
-	blipId = AddBlipForCoord(coords)
+	local blipId = AddBlipForCoord(coords)
 	SetBlipSprite(blipId, 161)
 	SetBlipScale(blipId, 1.2)
 	SetBlipColour(blipId, color)
