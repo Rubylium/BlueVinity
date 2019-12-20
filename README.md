@@ -13,6 +13,8 @@ J'ai honte de savoir que des personnes se font de l'argent sur mon dos, alors je
 
 > Attention ! Cette save **n'est pas** une base type "Plug N Play" mais plutot un receuil de script ou vous pouvez piochez, regardezn modifier et globallement vous amusez avec.
 
+**EDIT**: Comme par le plus grand des hasards, je partage cette save et la base complète de BlueVinity qui était vendue fait apparition sur github :D 
+Donc pour ceux qui veulent la base complète qui était vendue, c'est ici amusez-vous bien : https://github.com/NobodyFX/VinityLife (Merci Korioz)
 
 
 ```diff
