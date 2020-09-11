@@ -28,4 +28,4 @@ Donc pour ceux qui veulent la base complète qui était vendue, c'est ici amusez
 
 
 Envie de parler développement avec moi ou me commander quelques chose ? 
-Tout se passe ici: https://discord.gg/s9gN6gH
+Tout se passe ici: https://discord.gg/BKVkQsS
